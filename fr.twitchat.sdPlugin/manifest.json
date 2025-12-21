@@ -1,6 +1,6 @@
 {
 	"Name": "Twitchat",
-	"Version": "0.1.0.0",
+	"Version": "3.0.0.0",
 	"Author": "Durss",
 	"Actions": [
 		{
@@ -601,9 +601,9 @@
 	"CodePath": "bin/plugin.js",
 	"Description": "Get the best out of Twitchat",
 	"Icon": "imgs/plugin/marketplace",
-	"SDKVersion": 2,
+	"SDKVersion": 3,
 	"Software": {
-		"MinimumVersion": "6.4"
+		"MinimumVersion": "6.9"
 	},
 	"OS": [
 		{

@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
-	<head lang="en">
-		<title>Greet feed read Settings</title>
-		<meta charset="utf-8" />
-		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	</head>
 
-	<body>
-		<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
-	</body>
+<head lang="en">
+	<title>Greet feed read Settings</title>
+	<meta charset="utf-8" />
+	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+	<script src="./locale.js"></script>
+</head>
+
+<body>
+	<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
+	<sdpi-item title="Number of messages to remove" label="Read Count">
+		<sdpi-range setting="readCount" min="0" max="100" step="1" default="1">
+		</sdpi-range>
+	</sdpi-item>
+</body>
+
 </html>

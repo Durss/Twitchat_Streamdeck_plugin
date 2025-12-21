@@ -1,0 +1,150 @@
+{
+	"fr.twitchat.action.automod-accept": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.automod-reject": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.bingo-toggle": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.censor-deleted-messages-toggle": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-pause": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-read": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-read-all": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-read-encoder": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-scroll": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-scroll-down": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-scroll-up": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-select": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-unpause": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.clear-chat-highlight": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.countdown-add": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.counter-add": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.disable-stt": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.enable-stt": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.execute-trigger": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.greet-feed-read": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.greet-feed-read-all": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.hide-alert": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.merge-toggle": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.mod-tools-toggle": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.poll-toggle": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.prediction-toggle": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.qna-highlight": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.qna-skip": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.raffle-pick-winner": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.raffle-toggle": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.send-message": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.set-emergency-mode": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.shoutout": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.stop-tts": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.timer-add": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.toggle-trigger": {
+		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.viewers-count-toggle": {
+		"Name": "",
+		"Tooltip": ""
+	}
+}

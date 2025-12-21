@@ -41,7 +41,7 @@ import { ToggleTrigger } from "./actions/toggle-trigger";
 import { ViewersCountToggle } from "./actions/viewers-count-toggle";
 
 // We can enable "trace" logging so that all messages between the Stream Deck, and the plugin are recorded. When storing sensitive information
-streamDeck.logger.setLevel("trace");
+streamDeck.logger.setLevel("debug");
 
 // Register actions
 streamDeck.actions.registerAction(new AutomodAccept());
