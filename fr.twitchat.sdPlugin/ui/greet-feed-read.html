@@ -6,13 +6,15 @@
 	<meta charset="utf-8" />
 	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
 	<script src="./locale.js"></script>
+	<script src="./dynamicRange.js"></script>
 </head>
 
 <body>
 	<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
-	<sdpi-item title="Number of messages to remove" label="Read Count">
+	<sdpi-item class="rangeWithValue" title="Number of messages to remove" label="Read Count">
 		<sdpi-range setting="readCount" min="0" max="100" step="1" default="1">
 		</sdpi-range>
+		<span class="rangeValue">0</span>
 	</sdpi-item>
 </body>
 
