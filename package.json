@@ -1,0 +1,25 @@
+{
+    "scripts": {
+        "validate": "sd validate fr.twitchat.sdPlugin",
+        "build": "npm run validate && rollup -c",
+        "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart fr.twitchat\"",
+        "logs": "node -e \"const { spawn } = require('child_process'); const isWin = process.platform === 'win32'; const cmd = isWin ? 'powershell' : 'tail'; const args = isWin ? ['-Command', 'Get-Content \\\"fr.twitchat.sdPlugin\\\\logs\\\\fr.twitchat.0.log\\\" -Wait'] : ['-F', 'fr.twitchat.sdPlugin/logs/fr.twitchat.0.log']; spawn(cmd, args, { stdio: 'inherit' });\""
+    },
+    "type": "module",
+    "devDependencies": {
+        "@elgato/cli": "^1.6.0",
+        "@rollup/plugin-commonjs": "^28.0.9",
+        "@rollup/plugin-node-resolve": "^15.3.1",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-typescript": "^12.3.0",
+        "@tsconfig/node20": "^20.1.8",
+        "@types/node": "~20.15.0",
+        "@types/ws": "^8.18.1",
+        "rollup": "^4.54.0",
+        "tslib": "^2.8.1",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "@elgato/streamdeck": "^2.0.0"
+    }
+}

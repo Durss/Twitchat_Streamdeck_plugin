@@ -1,0 +1,18 @@
+import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
+import TwitchatSocket from "../TwitchatSocket";
+
+/**
+ * Action for Raffle toggle.
+ */
+@action({ UUID: "fr.twitchat.action.raffle-toggle" })
+export class RaffleToggle extends SingletonAction<Settings> {
+	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
+		// Your code here
+		TwitchatSocket.instance.broadcast("RAFFLE_TOGGLE");
+	}
+}
+
+/**
+ * Settings for {@link RaffleToggle}.
+ */
+type Settings = {};

@@ -1,0 +1,623 @@
+{
+	"Name": "Twitchat",
+	"Version": "0.1.0.0",
+	"Author": "Durss",
+	"Actions": [
+		{
+			"Name": "Send a chat message",
+			"UUID": "fr.twitchat.action.send-message",
+			"Icon": "imgs/actions/send-message/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/send-message.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/send-message/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Execute a trigger",
+			"UUID": "fr.twitchat.action.execute-trigger",
+			"Icon": "imgs/actions/execute-trigger/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/execute-trigger.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/execute-trigger/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Enable or disable a trigger",
+			"UUID": "fr.twitchat.action.toggle-trigger",
+			"Icon": "imgs/actions/toggle-trigger/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/toggle-trigger.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/toggle-trigger/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Stop any text to speech currently playing",
+			"UUID": "fr.twitchat.action.stop-tts",
+			"Icon": "imgs/actions/stop-tts/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/stop-tts.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/stop-tts/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle emergency mode",
+			"UUID": "fr.twitchat.action.set-emergency-mode",
+			"Icon": "imgs/actions/set-emergency-mode/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/set-emergency-mode.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/set-emergency-mode/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Send a shoutout to the latest raider",
+			"UUID": "fr.twitchat.action.shoutout",
+			"Icon": "imgs/actions/shoutout/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/shoutout.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/shoutout/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Accept last automoded message",
+			"UUID": "fr.twitchat.action.automod-accept",
+			"Icon": "imgs/actions/automod-accept/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/automod-accept.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/automod-accept/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Reject last automoded message",
+			"UUID": "fr.twitchat.action.automod-reject",
+			"Icon": "imgs/actions/automod-reject/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/automod-reject.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/automod-reject/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle the censorship of deleted messages",
+			"UUID": "fr.twitchat.action.censor-deleted-messages-toggle",
+			"Icon": "imgs/actions/censor-deleted-messages-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/censor-deleted-messages-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/censor-deleted-messages-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Mark some messages as read",
+			"UUID": "fr.twitchat.action.chat-feed-read",
+			"Icon": "imgs/actions/chat-feed-read/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-read.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-read/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Mark all messages as read",
+			"UUID": "fr.twitchat.action.chat-feed-read-all",
+			"Icon": "imgs/actions/chat-feed-read-all/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-read-all.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-read-all/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Move read marker",
+			"UUID": "fr.twitchat.action.chat-feed-read-encoder",
+			"Icon": "imgs/actions/chat-feed-read-encoder/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-read-encoder.html",
+			"Controllers": [
+				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-read-encoder/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Scroll a chat column",
+			"UUID": "fr.twitchat.action.chat-feed-scroll",
+			"Icon": "imgs/actions/chat-feed-scroll/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-scroll.html",
+			"Controllers": [
+				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-scroll/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Scroll a chat column down",
+			"UUID": "fr.twitchat.action.chat-feed-scroll-down",
+			"Icon": "imgs/actions/chat-feed-scroll-down/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-scroll-down.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-scroll-down/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Scroll a chat column up",
+			"UUID": "fr.twitchat.action.chat-feed-scroll-up",
+			"Icon": "imgs/actions/chat-feed-scroll-up/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-scroll-up.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-scroll-up/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Perform action on a message",
+			"UUID": "fr.twitchat.action.chat-feed-select",
+			"Icon": "imgs/actions/chat-feed-select/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-select.html",
+			"Controllers": [
+				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-select/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Pause a chat column",
+			"UUID": "fr.twitchat.action.chat-feed-pause",
+			"Icon": "imgs/actions/chat-feed-pause/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-pause.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-pause/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Unpause a chat column",
+			"UUID": "fr.twitchat.action.chat-feed-unpause",
+			"Icon": "imgs/actions/chat-feed-unpause/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-unpause.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-unpause/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Close currently highlighted message",
+			"UUID": "fr.twitchat.action.clear-chat-highlight",
+			"Icon": "imgs/actions/clear-chat-highlight/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/clear-chat-highlight.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/clear-chat-highlight/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Add or remove time on a countdown",
+			"UUID": "fr.twitchat.action.countdown-add",
+			"Icon": "imgs/actions/countdown-add/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/countdown-add.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/countdown-add/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Add or remove time on a timer",
+			"UUID": "fr.twitchat.action.timer-add",
+			"Icon": "imgs/actions/timer-add/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/timer-add.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/timer-add/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Add or remove points on a counter",
+			"UUID": "fr.twitchat.action.counter-add",
+			"Icon": "imgs/actions/counter-add/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/counter-add.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter-add/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Disable speech recognition",
+			"UUID": "fr.twitchat.action.disable-stt",
+			"Icon": "imgs/actions/disable-stt/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/disable-stt.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/disable-stt/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Enable speech recognition",
+			"UUID": "fr.twitchat.action.enable-stt",
+			"Icon": "imgs/actions/enable-stt/icon",
+			"Tooltip": "Enable the speech recognition to control twitchat with your voice",
+			"PropertyInspectorPath": "ui/enable-stt.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/enable-stt/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Remove some messages from \"Greet Them\" section",
+			"UUID": "fr.twitchat.action.greet-feed-read",
+			"Icon": "imgs/actions/greet-feed-read/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/greet-feed-read.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/greet-feed-read/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Clear 'Greet them' section",
+			"UUID": "fr.twitchat.action.greet-feed-read-all",
+			"Icon": "imgs/actions/greet-feed-read-all/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/greet-feed-read-all.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/greet-feed-read-all/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Hide current !alert message",
+			"UUID": "fr.twitchat.action.hide-alert",
+			"Icon": "imgs/actions/hide-alert/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/hide-alert.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/hide-alert/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle merging of consecutive messages",
+			"UUID": "fr.twitchat.action.merge-toggle",
+			"Icon": "imgs/actions/merge-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/merge-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/merge-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle moderation tools display",
+			"UUID": "fr.twitchat.action.mod-tools-toggle",
+			"Icon": "imgs/actions/mod-tools-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/mod-tools-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/mod-tools-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle current poll state",
+			"UUID": "fr.twitchat.action.poll-toggle",
+			"Icon": "imgs/actions/poll-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/poll-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/poll-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle current prediction state",
+			"UUID": "fr.twitchat.action.prediction-toggle",
+			"Icon": "imgs/actions/prediction-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/prediction-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/prediction-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle current bingo state",
+			"UUID": "fr.twitchat.action.bingo-toggle",
+			"Icon": "imgs/actions/bingo-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/bingo-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/bingo-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Highlight top-most Q&A entry",
+			"UUID": "fr.twitchat.action.qna-highlight",
+			"Icon": "imgs/actions/qna-highlight/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/qna-highlight.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/qna-highlight/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Skip top-most Q&A entry",
+			"UUID": "fr.twitchat.action.qna-skip",
+			"Icon": "imgs/actions/qna-skip/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/qna-skip.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/qna-skip/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Pick a raffle winner",
+			"UUID": "fr.twitchat.action.raffle-pick-winner",
+			"Icon": "imgs/actions/raffle-pick-winner/icon",
+			"Tooltip": "Acts on the first raffle started currently running",
+			"PropertyInspectorPath": "ui/raffle-pick-winner.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/raffle-pick-winner/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle current raffle state",
+			"UUID": "fr.twitchat.action.raffle-toggle",
+			"Icon": "imgs/actions/raffle-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/raffle-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/raffle-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle viewers count display",
+			"UUID": "fr.twitchat.action.viewers-count-toggle",
+			"Icon": "imgs/actions/viewers-count-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/viewers-count-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/viewers-count-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		}
+	],
+	"Category": "Twitchat",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"CodePath": "bin/plugin.js",
+	"Description": "Get the best out of Twitchat",
+	"Icon": "imgs/plugin/marketplace",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion": "6.4"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "12"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "20",
+		"Debug": "enabled"
+	},
+	"UUID": "fr.twitchat"
+}
