@@ -45,7 +45,13 @@
 	},
 	"fr.twitchat.action.chat-feed-select": {
 		"Name": "",
-		"Tooltip": ""
+		"Tooltip": "",
+		"Encoder": {
+			"TriggerDescription": {
+				"Rotate": "Sélectionner un message",
+				"Push": "Passer aux actions"
+			}
+		}
 	},
 	"fr.twitchat.action.chat-feed-unpause": {
 		"Name": "",

@@ -193,7 +193,12 @@
 					"Image": "imgs/actions/chat-feed-read-encoder/icon",
 					"TitleAlignment": "middle"
 				}
-			]
+			],
+			"Encoder": {
+				"TriggerDescription": {
+					"Rotate": "Move read marker"
+				}
+			}
 		},
 		{
 			"Name": "Scroll a chat column",
@@ -209,7 +214,12 @@
 					"Image": "imgs/actions/chat-feed-scroll/icon",
 					"TitleAlignment": "middle"
 				}
-			]
+			],
+			"Encoder": {
+				"TriggerDescription": {
+					"Rotate": "Scroll chat"
+				}
+			}
 		},
 		{
 			"Name": "Scroll a chat column down",
@@ -257,7 +267,13 @@
 					"Image": "imgs/actions/chat-feed-select/icon",
 					"TitleAlignment": "middle"
 				}
-			]
+			],
+			"Encoder": {
+				"TriggerDescription": {
+					"Rotate": "Select chat message",
+					"Push": "Switch to actions"
+				}
+			}
 		},
 		{
 			"Name": "Pause a chat column",
