@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<title>Twitchat property inspector</title>
+	<meta charset="utf-8" />
+	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+	<script type="module" src="./common.js"></script>
+	<script src="./locale.js"></script>
+	<link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+	<sdpi-item id="offline" style="display: none;">
+		<sdpi-i18n key="main.offline">
+			<slot name="twitchat"><a href="https://twitchat.fr" target="_blank">Twitchat.fr</a></slot>
+			<slot name="discord"><a href="https://discord.gg/fmqD2xUYvP" target="_blank">Discord</a></slot>
+		</sdpi-i18n>
+		<br>
+	</sdpi-item>
+	<sdpi-item id="multiple-instances" style="display: none;">
+		<sdpi-i18n key="main.multiple-instances"></sdpi-i18n>
+	</sdpi-item>
+</body>
+</html>

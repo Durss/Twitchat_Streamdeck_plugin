@@ -8,10 +8,9 @@ import TwitchatSocket from "../TwitchatSocket";
 export class GreetFeedRead extends SingletonAction<Settings> {
 
 	/**
-	 * Sets the initial action image, stores the action for auto-updating, and establishes a timer for auto-updating.
+	 * Init action
 	 */
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
-		// Verify that the action is a key so we can call setRandomCat.
 		if (!ev.action.isKey()) return;
 		if(!ev.payload.settings.readCount) {
 			ev.action.setSettings({
@@ -21,8 +20,7 @@ export class GreetFeedRead extends SingletonAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		// Your code here
-		TwitchatSocket.instance.broadcast("GREET_FEED_READ", { readCount: ev.payload.settings.readCount || 0 });
+		TwitchatSocket.instance.broadcast("GREET_FEED_READ", { count: ev.payload.settings.readCount || 0 });
 	}
 }
 

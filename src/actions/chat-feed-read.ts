@@ -1,18 +1,34 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
+import { action, KeyDownEvent, WillAppearEvent } from "@elgato/streamdeck";
 import TwitchatSocket from "../TwitchatSocket";
+import { AbstractAction } from "./AbstractActions";
 
 /**
  * Action for Chat feed read.
  */
 @action({ UUID: "fr.twitchat.action.chat-feed-read" })
-export class ChatFeedRead extends SingletonAction<Settings> {
+export class ChatFeedRead extends AbstractAction<Settings> {
+
+	/**
+	 * Init action
+	 */
+	override onWillAppear(ev: WillAppearEvent<Settings>): void {
+		if (!ev.action.isKey()) return;
+		if (!ev.payload.settings.readCount) {
+			ev.action.setSettings({
+				readCount: 1
+			});
+		}
+	}
+
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		// Your code here
-		TwitchatSocket.instance.broadcast("CHAT_FEED_READ");
+		TwitchatSocket.instance.broadcast("CHAT_FEED_READ", { count: ev.payload.settings.readCount || 1, col: ev.payload.settings.colIndex || 0 });
 	}
 }
 
 /**
  * Settings for {@link ChatFeedRead}.
  */
-type Settings = {};
+type Settings = {
+	readCount: number,
+	colIndex: number,
+};

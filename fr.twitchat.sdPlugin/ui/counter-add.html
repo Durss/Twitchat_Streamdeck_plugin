@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<head lang="en">
-		<title>Counter add Settings</title>
-		<meta charset="utf-8" />
-		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-        <script src="./locale.js"></script>
-	</head>
 
-	<body>
-		<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
-	</body>
+<head lang="en">
+	<title>Counter add Settings</title>
+	<meta charset="utf-8" />
+	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+	<script type="module" src="./common.js"></script>
+	<script src="./locale.js"></script>
+	<script src="./dynamicRange.js"></script>
+</head>
+
+<body>
+	<sdpi-item label="__MSG_counter-add.fields.counterId__">
+		<sdpi-select setting="counterId" datasource="getCounters" loading="__MSG_counter-add.loading-counters__" hot-reload>
+		</sdpi-select>
+	</sdpi-item>
+
+	<sdpi-item label="__MSG_counter-add.fields.counterAction__">
+		<sdpi-select setting="counterAction">
+        	<option value="ADD">__MSG_counter-add.action.ADD__</option>
+        	<option value="DEL">__MSG_counter-add.action.DEL__</option>
+        	<option value="SET">__MSG_counter-add.action.SET__</option>
+		</sdpi-select>
+	</sdpi-item>
+
+	<sdpi-item class="rangeWithValue" label="__MSG_counter-add.fields.countAdd__">
+		<sdpi-range setting="countAdd" min="0" max="1000" step="50" default="1">
+		</sdpi-range>
+		<span class="rangeValue">0</span>
+	</sdpi-item>
+</body>
+
 </html>

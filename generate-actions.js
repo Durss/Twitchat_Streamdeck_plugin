@@ -290,16 +290,19 @@ function createHtmlFile(iconFile, id) {
     
     const content = `<!DOCTYPE html>
 <html>
-	<head lang="en">
-		<title>${displayName} Settings</title>
-		<meta charset="utf-8" />
-		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-        <script src="./locale.js"></script>
-	</head>
 
-	<body>
-		<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
-	</body>
+<head lang="en">
+	<title>${displayName} Settings</title>
+	<meta charset="utf-8" />
+	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+	<script type="module" src="./common.js"></script>
+	<script src="./locale.js"></script>
+</head>
+
+<body>
+	<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
+</body>
+
 </html>
 `;
     

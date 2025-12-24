@@ -7,7 +7,6 @@ import TwitchatSocket from "../TwitchatSocket";
 @action({ UUID: "fr.twitchat.action.shoutout" })
 export class Shoutout extends SingletonAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		// Your code here
 		TwitchatSocket.instance.broadcast("SHOUTOUT");
 	}
 }

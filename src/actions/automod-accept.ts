@@ -7,7 +7,6 @@ import TwitchatSocket from "../TwitchatSocket";
 @action({ UUID: "fr.twitchat.action.automod-accept" })
 export class AutomodAccept extends SingletonAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		// Your code here
 		TwitchatSocket.instance.broadcast("AUTOMOD_ACCEPT");
 	}
 }

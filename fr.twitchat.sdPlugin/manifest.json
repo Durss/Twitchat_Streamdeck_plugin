@@ -360,7 +360,7 @@
 			"UUID": "fr.twitchat.action.counter-add",
 			"Icon": "imgs/actions/counter-add/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/counter-add.html",
+			"PropertyInspectorPath": "ui/main.html",
 			"Controllers": [
 				"Keypad"
 			],

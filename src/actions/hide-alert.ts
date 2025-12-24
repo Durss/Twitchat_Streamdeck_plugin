@@ -7,7 +7,6 @@ import TwitchatSocket from "../TwitchatSocket";
 @action({ UUID: "fr.twitchat.action.hide-alert" })
 export class HideAlert extends SingletonAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		// Your code here
 		TwitchatSocket.instance.broadcast("HIDE_ALERT");
 	}
 }

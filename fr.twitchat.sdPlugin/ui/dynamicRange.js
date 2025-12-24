@@ -15,7 +15,7 @@
  *		<span class="rangeValue">0</span>
  *	</sdpi-item>
  */
-document.addEventListener('DOMContentLoaded', () => {
+function parseDom() {
 	const rangeWithValue = document.querySelectorAll('.rangeWithValue');
 
 	[...rangeWithValue].forEach(container => {
@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		// Function to get the input from shadow root and display value
 		function updateValue() {
 			if (input) {
-				valueDisplay.textContent = input.value;
+				const suffix = valueDisplay.dataset.suffix || "";
+				valueDisplay.textContent = input.value+suffix;
 			}
 		}
 
@@ -48,4 +49,5 @@ document.addEventListener('DOMContentLoaded', () => {
 			input.addEventListener('input', updateValue);
 		}
 	});
-});
+}
+document.addEventListener('DOMContentLoaded', () => parseDom());

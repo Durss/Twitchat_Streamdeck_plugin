@@ -1,18 +1,20 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
+import { action, DialRotateEvent } from "@elgato/streamdeck";
 import TwitchatSocket from "../TwitchatSocket";
+import { AbstractAction } from "./AbstractActions";
 
 /**
  * Action for Chat feed read encoder.
  */
 @action({ UUID: "fr.twitchat.action.chat-feed-read-encoder" })
-export class ChatFeedReadEncoder extends SingletonAction<Settings> {
-	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		// Your code here
-		TwitchatSocket.instance.broadcast("CHAT_FEED_READ_ENCODER");
+export class ChatFeedReadEncoder extends AbstractAction<Settings> {
+	override async onDialRotate(ev: DialRotateEvent<Settings>): Promise<void> {
+		TwitchatSocket.instance.broadcast("CHAT_FEED_READ", { col: ev.payload.settings.colIndex || 0, count:ev.payload.ticks });
 	}
 }
 
 /**
  * Settings for {@link ChatFeedReadEncoder}.
  */
-type Settings = {};
+type Settings = {
+	colIndex:number,
+};

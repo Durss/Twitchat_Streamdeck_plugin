@@ -7,12 +7,13 @@ import TwitchatSocket from "../TwitchatSocket";
 @action({ UUID: "fr.twitchat.action.chat-feed-select" })
 export class ChatFeedSelect extends SingletonAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		// Your code here
-		TwitchatSocket.instance.broadcast("CHAT_FEED_SELECT");
+		TwitchatSocket.instance.broadcast("CHAT_FEED_SELECT", { col: ev.payload.settings.colIndex || 0 } );
 	}
 }
 
 /**
  * Settings for {@link ChatFeedSelect}.
  */
-type Settings = {};
+type Settings = {
+	colIndex: number,
+};

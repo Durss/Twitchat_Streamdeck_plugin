@@ -7,12 +7,13 @@ import TwitchatSocket from "../TwitchatSocket";
 @action({ UUID: "fr.twitchat.action.chat-feed-pause" })
 export class ChatFeedPause extends SingletonAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		// Your code here
-		TwitchatSocket.instance.broadcast("CHAT_FEED_PAUSE");
+		TwitchatSocket.instance.broadcast("CHAT_FEED_PAUSE", { col: ev.payload.settings.colIndex || 0 });
 	}
 }
 
 /**
  * Settings for {@link ChatFeedPause}.
  */
-type Settings = {};
+type Settings = {
+	colIndex: number,
+};

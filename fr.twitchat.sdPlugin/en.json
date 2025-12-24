@@ -1,0 +1,8 @@
+{
+	"Localization":{
+		"loading-counters":"Loading counter list...",
+		"no-counter":"No counters available.",
+		"error-loading-data":"Error loading data.",
+		"select-placeholder":"select..."
+	}
+}

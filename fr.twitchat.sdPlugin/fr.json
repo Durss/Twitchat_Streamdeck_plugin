@@ -1,4 +1,10 @@
 {
+	"Localization":{
+		"loading-counters":"Chargement des compteurs...",
+		"no-counter":"Aucun compteur disponible.",
+		"error-loading-data":"Erreur lors du chargement des données.",
+		"select-placeholder":"sélectionner..."
+	},
 	"fr.twitchat.action.automod-accept": {
 		"Name": "",
 		"Tooltip": ""
