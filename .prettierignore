@@ -1,0 +1,5 @@
+node_modules
+fr.twitchat.sdPlugin/bin
+dist
+*.json
+*.md
