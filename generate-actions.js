@@ -336,7 +336,6 @@ import TwitchatSocket from "../TwitchatSocket";
 @action({ UUID: "fr.twitchat.action.${id}" })
 export class ${idCamel} extends SingletonAction<Settings> {
 \toverride async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-\t\t// Your code here
 \t\tTwitchatSocket.instance.broadcast("${idAction}");
 \t}
 }

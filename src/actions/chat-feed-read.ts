@@ -18,6 +18,7 @@ export class ChatFeedRead extends AbstractAction<Settings> {
 				readCount: 1
 			});
 		}
+		this.subscribeTo("COLUMNS");
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {

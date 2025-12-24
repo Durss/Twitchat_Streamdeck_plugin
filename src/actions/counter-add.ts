@@ -20,10 +20,16 @@ export class CounterAdd extends AbstractAction<Settings> {
 				counterAction: "ADD"
 			});
 		}
+		this.subscribeTo("COUNTERS");
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("COUNTER_ADD", ev.payload.settings);
+		const settings = ev.payload.settings
+		TwitchatSocket.instance.broadcast("COUNTER_ADD", {
+			counterId: settings.counterId,
+			countAdd: settings.countAdd,
+			counterAction: settings.counterAction
+		});
 	}
 }
 

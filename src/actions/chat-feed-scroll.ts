@@ -1,4 +1,4 @@
-import { action, DialRotateEvent } from "@elgato/streamdeck";
+import { action, DialRotateEvent, WillAppearEvent } from "@elgato/streamdeck";
 import TwitchatSocket from "../TwitchatSocket";
 import { AbstractAction } from "./AbstractActions";
 
@@ -7,6 +7,11 @@ import { AbstractAction } from "./AbstractActions";
  */
 @action({ UUID: "fr.twitchat.action.chat-feed-scroll" })
 export class ChatFeedScroll extends AbstractAction<Settings> {
+
+	override onWillAppear?(ev: WillAppearEvent<Settings>): Promise<void> | void {
+		this.subscribeTo("COLUMNS")
+	}
+
 	override async onDialRotate(ev: DialRotateEvent<Settings>): Promise<void> {
 		TwitchatSocket.instance.broadcast("CHAT_FEED_SCROLL", { col: ev.payload.settings.colIndex || 0, scrollBy:ev.payload.ticks });
 	}

@@ -1,26 +1,27 @@
-import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
-import TwitchatSocket from "../TwitchatSocket";
+import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from '@elgato/streamdeck';
+import TwitchatSocket from '../TwitchatSocket';
 
 /**
  * Action for Greet feed read.
  */
-@action({ UUID: "fr.twitchat.action.greet-feed-read" })
+@action({ UUID: 'fr.twitchat.action.greet-feed-read' })
 export class GreetFeedRead extends SingletonAction<Settings> {
-
 	/**
 	 * Init action
 	 */
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
 		if (!ev.action.isKey()) return;
-		if(!ev.payload.settings.readCount) {
+		if (!ev.payload.settings.readCount) {
 			ev.action.setSettings({
-				readCount: 1
+				readCount: 1,
 			});
 		}
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("GREET_FEED_READ", { count: ev.payload.settings.readCount || 0 });
+		TwitchatSocket.instance.broadcast('GREET_FEED_READ', {
+			count: ev.payload.settings.readCount || 0,
+		});
 	}
 }
 
@@ -28,5 +29,5 @@ export class GreetFeedRead extends SingletonAction<Settings> {
  * Settings for {@link GreetFeedRead}.
  */
 type Settings = {
-	readCount:number
+	readCount: number;
 };

@@ -1,4 +1,4 @@
-import { action, KeyDownEvent } from "@elgato/streamdeck";
+import { action, KeyDownEvent, WillAppearEvent } from "@elgato/streamdeck";
 import TwitchatSocket from "../TwitchatSocket";
 import { AbstractAction } from "./AbstractActions";
 
@@ -7,6 +7,11 @@ import { AbstractAction } from "./AbstractActions";
  */
 @action({ UUID: "fr.twitchat.action.chat-feed-read-all" })
 export class ChatFeedReadAll extends AbstractAction<Settings> {
+
+	override onWillAppear?(ev: WillAppearEvent<Settings>): Promise<void> | void {
+		this.subscribeTo("COLUMNS")
+	}
+
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		TwitchatSocket.instance.broadcast("CHAT_FEED_READ_ALL", { col: ev.payload.settings.colIndex || 0 });
 	}

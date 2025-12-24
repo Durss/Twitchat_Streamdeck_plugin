@@ -56,7 +56,12 @@ SDPIComponents.i18n.locales = {
 		},
 		"disable-stt": {},
 		"enable-stt": {},
-		"execute-trigger": {},
+		"execute-trigger": {
+			"loading-triggers": "Loading trigger list...",
+			fields: {
+				"triggerId": "Trigger"
+			}
+		},
 		"greet-feed-read": {
 			fields: {
 				"readCount": "Messages to clear"
@@ -135,7 +140,12 @@ SDPIComponents.i18n.locales = {
 		},
 		"disable-stt": {},
 		"enable-stt": {},
-		"execute-trigger": {},
+		"execute-trigger": {
+			"loading-triggers": "Chargement des triggers...",
+			fields: {
+				"triggerId": "Trigger"
+			}
+		},
 		"greet-feed-read": {
 			fields: {
 				"readCount": "Messages à supprimer"

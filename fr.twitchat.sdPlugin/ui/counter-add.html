@@ -24,11 +24,15 @@
 		</sdpi-select>
 	</sdpi-item>
 
-	<sdpi-item class="rangeWithValue" label="__MSG_counter-add.fields.countAdd__">
-		<sdpi-range setting="countAdd" min="0" max="1000" step="50" default="1">
-		</sdpi-range>
-		<span class="rangeValue">0</span>
+	<sdpi-item label="__MSG_counter-add.fields.countAdd__">
+		<sdpi-textfield
+			setting="countAdd"
+			pattern="[0-9]+"
+			placeholder="0"
+			required>
+		</sdpi-textfield>
 	</sdpi-item>
+	
 </body>
 
 </html>

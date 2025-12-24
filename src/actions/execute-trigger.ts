@@ -1,17 +1,27 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
+import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
 import TwitchatSocket from "../TwitchatSocket";
+import { AbstractAction } from "./AbstractActions";
 
 /**
  * Action for Execute trigger.
  */
 @action({ UUID: "fr.twitchat.action.execute-trigger" })
-export class ExecuteTrigger extends SingletonAction<Settings> {
+export class ExecuteTrigger extends AbstractAction<Settings> {
+	/**
+	 * Init action
+	 */
+	override onWillAppear(ev: WillAppearEvent<Settings>): void {
+		this.subscribeTo("TRIGGERS");
+	}
+
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("EXECUTE_TRIGGER");
+		TwitchatSocket.instance.broadcast("EXECUTE_TRIGGER", { triggerId: ev.payload.settings.triggerId });
 	}
 }
 
 /**
  * Settings for {@link ExecuteTrigger}.
  */
-type Settings = {};
+type Settings = {
+	triggerId:string,
+};
