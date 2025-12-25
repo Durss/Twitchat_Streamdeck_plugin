@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+	<head lang="en">
+		<title>Qna highlight Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+	</head>
 
-<head lang="en">
-	<title>Qna highlight Settings</title>
-	<meta charset="utf-8" />
-	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	<script type="module" src="./common.js"></script>
-	<script src="./locale.js"></script>
-</head>
-
-<body>
-	<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
-</body>
-
+	<body>
+		<sdpi-item label="__MSG_qna-highlight.fields.qnaId__">
+			<sdpi-select setting="qnaId" datasource="getQnas" loading="__MSG_qna-highlight.loading-qnas__" hot-reload> </sdpi-select>
+		</sdpi-item>
+	</body>
 </html>

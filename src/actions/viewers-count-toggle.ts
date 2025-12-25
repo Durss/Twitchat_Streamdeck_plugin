@@ -1,13 +1,14 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
-import TwitchatSocket from "../TwitchatSocket";
+import { action, KeyDownEvent } from '@elgato/streamdeck';
+import TwitchatSocket from '../TwitchatSocket';
+import { AbstractAction } from './AbstractActions';
 
 /**
  * Action for Viewers count toggle.
  */
-@action({ UUID: "fr.twitchat.action.viewers-count-toggle" })
-export class ViewersCountToggle extends SingletonAction<Settings> {
-	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("VIEWERS_COUNT_TOGGLE");
+@action({ UUID: 'fr.twitchat.action.viewers-count-toggle' })
+export class ViewersCountToggle extends AbstractAction<Settings> {
+	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
+		TwitchatSocket.instance.broadcast('VIEWERS_COUNT_TOGGLE');
 	}
 }
 

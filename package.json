@@ -1,7 +1,7 @@
 {
     "scripts": {
         "validate": "sd validate fr.twitchat.sdPlugin",
-        "build": "npm run validate && rollup -c",
+        "build": "npm run validate && rollup -c && sd package fr.twitchat.sdPlugin",
         "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart fr.twitchat\"",
         "logs": "node -e \"const { spawn } = require('child_process'); const isWin = process.platform === 'win32'; const cmd = isWin ? 'powershell' : 'tail'; const args = isWin ? ['-Command', 'Get-Content \\\"fr.twitchat.sdPlugin\\\\logs\\\\fr.twitchat.0.log\\\" -Wait'] : ['-F', 'fr.twitchat.sdPlugin/logs/fr.twitchat.0.log']; spawn(cmd, args, { stdio: 'inherit' });\"",
         "lint": "eslint src",

@@ -1,13 +1,12 @@
-import { action, KeyDownEvent, WillAppearEvent } from "@elgato/streamdeck";
-import TwitchatSocket from "../TwitchatSocket";
-import { AbstractAction } from "./AbstractActions";
+import { action, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import TwitchatSocket from '../TwitchatSocket';
+import { AbstractAction } from './AbstractActions';
 
 /**
  * Action for Chat feed read.
  */
-@action({ UUID: "fr.twitchat.action.chat-feed-read" })
+@action({ UUID: 'fr.twitchat.action.chat-feed-read' })
 export class ChatFeedRead extends AbstractAction<Settings> {
-
 	/**
 	 * Init action
 	 */
@@ -15,14 +14,14 @@ export class ChatFeedRead extends AbstractAction<Settings> {
 		if (!ev.action.isKey()) return;
 		if (!ev.payload.settings.readCount) {
 			ev.action.setSettings({
-				readCount: 1
+				readCount: 1,
 			});
 		}
-		this.subscribeTo("COLUMNS");
+		this.subscribeTo('COLUMNS');
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("CHAT_FEED_READ", { count: ev.payload.settings.readCount || 1, col: ev.payload.settings.colIndex || 0 });
+		TwitchatSocket.instance.broadcast('CHAT_FEED_READ', { count: ev.payload.settings.readCount || 1, col: ev.payload.settings.colIndex || 0 });
 	}
 }
 
@@ -30,6 +29,6 @@ export class ChatFeedRead extends AbstractAction<Settings> {
  * Settings for {@link ChatFeedRead}.
  */
 type Settings = {
-	readCount: number,
-	colIndex: number,
+	readCount: number;
+	colIndex: number;
 };

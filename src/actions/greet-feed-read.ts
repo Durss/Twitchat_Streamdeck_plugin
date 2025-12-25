@@ -1,11 +1,12 @@
-import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from '@elgato/streamdeck';
+import { action, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
 import TwitchatSocket from '../TwitchatSocket';
+import { AbstractAction } from './AbstractActions';
 
 /**
  * Action for Greet feed read.
  */
 @action({ UUID: 'fr.twitchat.action.greet-feed-read' })
-export class GreetFeedRead extends SingletonAction<Settings> {
+export class GreetFeedRead extends AbstractAction<Settings> {
 	/**
 	 * Init action
 	 */

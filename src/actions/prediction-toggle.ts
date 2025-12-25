@@ -1,13 +1,14 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
-import TwitchatSocket from "../TwitchatSocket";
+import { action, KeyDownEvent } from '@elgato/streamdeck';
+import TwitchatSocket from '../TwitchatSocket';
+import { AbstractAction } from './AbstractActions';
 
 /**
  * Action for Prediction toggle.
  */
-@action({ UUID: "fr.twitchat.action.prediction-toggle" })
-export class PredictionToggle extends SingletonAction<Settings> {
-	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("PREDICTION_TOGGLE");
+@action({ UUID: 'fr.twitchat.action.prediction-toggle' })
+export class PredictionToggle extends AbstractAction<Settings> {
+	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
+		TwitchatSocket.instance.broadcast('PREDICTION_TOGGLE');
 	}
 }
 

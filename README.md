@@ -3,7 +3,9 @@
 This is a complete revamp of the Stream Deck plugin for [Twitchat.fr](https://twitchat.fr/).  
 It uses latest Elgato SDK with much cleaner code structure.  
   
-It also creates a Websocket server that Twitchat will automatically connect with to avoid relying on OBS-websocket. This makes it much easier for the end user and opens the possibility to use it even if not using OBS.
+It also creates a Websocket server that Twitchat will automatically connect with to avoid relying on OBS-websocket. This makes it much easier for the end user and opens the possibility to use it even if not using OBS.  
+
+### [🔗 Get Stream Deck plugin](https://marketplace.elgato.com/product/twitchat-820f1bb5-465d-408b-aabf-2d46a05a10d9)
 
 ## Pre resquisite
 Install elgato CLI:
@@ -33,7 +35,8 @@ Build plugin for production:
 ```
 npm run build
 ```
-This will also first validate the plugin.
+This will first validate the pluginn then build it.  
+Final package will be `./fr.twitchat.streamDeckPlugin`
 
 
 ## Add a new plugin action

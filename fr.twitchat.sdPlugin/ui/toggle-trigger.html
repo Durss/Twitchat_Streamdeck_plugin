@@ -1,16 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+	<head lang="en">
+		<title>Toggle trigger Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+	</head>
 
-<head lang="en">
-	<title>Toggle trigger Settings</title>
-	<meta charset="utf-8" />
-	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	<script type="module" src="./common.js"></script>
-	<script src="./locale.js"></script>
-</head>
-
-<body>
-	<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
-</body>
-
+	<body>
+		<sdpi-item label="__MSG_toggle-trigger.fields.triggerId__">
+			<sdpi-select setting="triggerId" datasource="getTriggers" loading="__MSG_toggle-trigger.loading-triggers__" hot-reload> </sdpi-select>
+		</sdpi-item>
+		<sdpi-item label="__MSG_toggle-trigger.fields.triggerAction__">
+			<sdpi-select setting="triggerAction">
+				<option value="ENABLE">__MSG_toggle-trigger.action.ENABLE__</option>
+				<option value="DISABLE">__MSG_toggle-trigger.action.DISABLE__</option>
+				<option value="TOGGLE">__MSG_toggle-trigger.action.TOGGLE__</option>
+			</sdpi-select>
+		</sdpi-item>
+	</body>
 </html>

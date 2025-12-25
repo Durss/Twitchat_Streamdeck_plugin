@@ -2,6 +2,9 @@
 	"Localization":{
 		"loading-counters":"Chargement des compteurs...",
 		"no-counter":"Aucun compteur disponible.",
+		"no-trigger":"Aucun trigger disponible.",
+		"no-timer":"Aucun minuteur disponible.",
+		"no-qna-session":"Aucune session Q&A disponible.",
 		"error-loading-data":"Erreur lors du chargement des données.",
 		"select-placeholder":"sélectionner..."
 	},

@@ -1,13 +1,14 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
-import TwitchatSocket from "../TwitchatSocket";
+import { action, KeyDownEvent } from '@elgato/streamdeck';
+import TwitchatSocket from '../TwitchatSocket';
+import { AbstractAction } from './AbstractActions';
 
 /**
  * Action for Stop tts.
  */
-@action({ UUID: "fr.twitchat.action.stop-tts" })
-export class StopTts extends SingletonAction<Settings> {
-	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("STOP_TTS");
+@action({ UUID: 'fr.twitchat.action.stop-tts' })
+export class StopTts extends AbstractAction<Settings> {
+	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
+		TwitchatSocket.instance.broadcast('STOP_TTS');
 	}
 }
 

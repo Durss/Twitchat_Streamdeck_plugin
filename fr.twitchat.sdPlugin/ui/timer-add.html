@@ -1,16 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+	<head lang="en">
+		<title>Timer add Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+	</head>
 
-<head lang="en">
-	<title>Timer add Settings</title>
-	<meta charset="utf-8" />
-	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	<script type="module" src="./common.js"></script>
-	<script src="./locale.js"></script>
-</head>
+	<body>
+		<sdpi-item label="__MSG_timer-add.fields.timerId__">
+			<sdpi-select setting="timerId" datasource="getTimers" loading="__MSG_timer-add.loading-timers__" hot-reload> </sdpi-select>
+		</sdpi-item>
 
-<body>
-	<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
-</body>
-
+		<sdpi-item label="__MSG_timer-add.fields.duration__">
+			<sdpi-textfield setting="timeAdd" pattern="[0-9\-]+" placeholder="0" required> </sdpi-textfield>
+		</sdpi-item>
+	</body>
 </html>

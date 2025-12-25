@@ -1,13 +1,14 @@
-import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
-import TwitchatSocket from "../TwitchatSocket";
+import { action, KeyDownEvent } from '@elgato/streamdeck';
+import TwitchatSocket from '../TwitchatSocket';
+import { AbstractAction } from './AbstractActions';
 
 /**
  * Action for Hide alert.
  */
-@action({ UUID: "fr.twitchat.action.hide-alert" })
-export class HideAlert extends SingletonAction<Settings> {
-	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("HIDE_ALERT");
+@action({ UUID: 'fr.twitchat.action.hide-alert' })
+export class HideAlert extends AbstractAction<Settings> {
+	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
+		TwitchatSocket.instance.broadcast('HIDE_ALERT');
 	}
 }
 

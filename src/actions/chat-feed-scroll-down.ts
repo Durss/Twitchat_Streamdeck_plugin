@@ -1,25 +1,30 @@
-import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
-import TwitchatSocket from "../TwitchatSocket";
+import { action, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import TwitchatSocket from '../TwitchatSocket';
+import { AbstractAction } from './AbstractActions';
 
 /**
  * Action for Chat feed scroll down.
  */
-@action({ UUID: "fr.twitchat.action.chat-feed-scroll-down" })
-export class ChatFeedScrollDown extends SingletonAction<Settings> {
+@action({ UUID: 'fr.twitchat.action.chat-feed-scroll-down' })
+export class ChatFeedScrollDown extends AbstractAction<Settings> {
 	/**
 	 * Init action
 	 */
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
 		if (!ev.action.isKey()) return;
-		if(!ev.payload.settings.scrollAmount) {
+		if (!ev.payload.settings.scrollAmount) {
 			ev.action.setSettings({
-				scrollAmount: 50
+				scrollAmount: 50,
 			});
 		}
+		this.subscribeTo('COLUMNS');
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast("CHAT_FEED_SCROLL_DOWN", { scrollBy: ev.payload.settings.scrollAmount || 50, col: ev.payload.settings.colIndex || 0 } );
+		TwitchatSocket.instance.broadcast('CHAT_FEED_SCROLL_DOWN', {
+			scrollBy: ev.payload.settings.scrollAmount || 50,
+			col: ev.payload.settings.colIndex || 0,
+		});
 	}
 }
 
@@ -27,6 +32,6 @@ export class ChatFeedScrollDown extends SingletonAction<Settings> {
  * Settings for {@link ChatFeedScrollDown}.
  */
 type Settings = {
-	scrollAmount:number,
-	colIndex:number,
+	scrollAmount: number;
+	colIndex: number;
 };

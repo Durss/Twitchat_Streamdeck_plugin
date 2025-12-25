@@ -1,47 +1,47 @@
-import streamDeck from "@elgato/streamdeck";
+import streamDeck from '@elgato/streamdeck';
 
-import TwitchatSocket from "./TwitchatSocket";
+import TwitchatSocket from './TwitchatSocket';
 
-import { AutomodAccept } from "./actions/automod-accept";
-import { AutomodReject } from "./actions/automod-reject";
-import { BingoToggle } from "./actions/bingo-toggle";
-import { CensorDeletedMessagesToggle } from "./actions/censor-deleted-messages-toggle";
-import { ChatFeedPause } from "./actions/chat-feed-pause";
-import { ChatFeedRead } from "./actions/chat-feed-read";
-import { ChatFeedReadAll } from "./actions/chat-feed-read-all";
-import { ChatFeedReadEncoder } from "./actions/chat-feed-read-encoder";
-import { ChatFeedScroll } from "./actions/chat-feed-scroll";
-import { ChatFeedScrollDown } from "./actions/chat-feed-scroll-down";
-import { ChatFeedScrollUp } from "./actions/chat-feed-scroll-up";
-import { ChatFeedSelect } from "./actions/chat-feed-select";
-import { ChatFeedUnpause } from "./actions/chat-feed-unpause";
-import { ClearChatHighlight } from "./actions/clear-chat-highlight";
-import { CountdownAdd } from "./actions/countdown-add";
-import { CounterAdd } from "./actions/counter-add";
-import { DisableStt } from "./actions/disable-stt";
-import { EnableStt } from "./actions/enable-stt";
-import { ExecuteTrigger } from "./actions/execute-trigger";
-import { GreetFeedRead } from "./actions/greet-feed-read";
-import { GreetFeedReadAll } from "./actions/greet-feed-read-all";
-import { HideAlert } from "./actions/hide-alert";
-import { MergeToggle } from "./actions/merge-toggle";
-import { ModToolsToggle } from "./actions/mod-tools-toggle";
-import { PollToggle } from "./actions/poll-toggle";
-import { PredictionToggle } from "./actions/prediction-toggle";
-import { QnaHighlight } from "./actions/qna-highlight";
-import { QnaSkip } from "./actions/qna-skip";
-import { RafflePickWinner } from "./actions/raffle-pick-winner";
-import { RaffleToggle } from "./actions/raffle-toggle";
-import { SendMessage } from "./actions/send-message";
-import { SetEmergencyMode } from "./actions/set-emergency-mode";
-import { Shoutout } from "./actions/shoutout";
-import { StopTts } from "./actions/stop-tts";
-import { TimerAdd } from "./actions/timer-add";
-import { ToggleTrigger } from "./actions/toggle-trigger";
-import { ViewersCountToggle } from "./actions/viewers-count-toggle";
+import { AutomodAccept } from './actions/automod-accept';
+import { AutomodReject } from './actions/automod-reject';
+import { BingoToggle } from './actions/bingo-toggle';
+import { CensorDeletedMessagesToggle } from './actions/censor-deleted-messages-toggle';
+import { ChatFeedPause } from './actions/chat-feed-pause';
+import { ChatFeedRead } from './actions/chat-feed-read';
+import { ChatFeedReadAll } from './actions/chat-feed-read-all';
+import { ChatFeedReadEncoder } from './actions/chat-feed-read-encoder';
+import { ChatFeedScroll } from './actions/chat-feed-scroll';
+import { ChatFeedScrollDown } from './actions/chat-feed-scroll-down';
+import { ChatFeedScrollUp } from './actions/chat-feed-scroll-up';
+import { ChatFeedSelect } from './actions/chat-feed-select';
+import { ChatFeedUnpause } from './actions/chat-feed-unpause';
+import { ClearChatHighlight } from './actions/clear-chat-highlight';
+import { CountdownAdd } from './actions/countdown-add';
+import { CounterAdd } from './actions/counter-add';
+import { DisableStt } from './actions/disable-stt';
+import { EnableStt } from './actions/enable-stt';
+import { ExecuteTrigger } from './actions/execute-trigger';
+import { GreetFeedRead } from './actions/greet-feed-read';
+import { GreetFeedReadAll } from './actions/greet-feed-read-all';
+import { HideAlert } from './actions/hide-alert';
+import { MergeToggle } from './actions/merge-toggle';
+import { ModToolsToggle } from './actions/mod-tools-toggle';
+import { PollToggle } from './actions/poll-toggle';
+import { PredictionToggle } from './actions/prediction-toggle';
+import { QnaHighlight } from './actions/qna-highlight';
+import { QnaSkip } from './actions/qna-skip';
+import { RafflePickWinner } from './actions/raffle-pick-winner';
+import { RaffleToggle } from './actions/raffle-toggle';
+import { SendMessage } from './actions/send-message';
+import { SetEmergencyMode } from './actions/set-emergency-mode';
+import { Shoutout } from './actions/shoutout';
+import { StopTts } from './actions/stop-tts';
+import { TimerAdd } from './actions/timer-add';
+import { ToggleTrigger } from './actions/toggle-trigger';
+import { ViewersCountToggle } from './actions/viewers-count-toggle';
 
 // We can enable "trace" logging so that all messages between the Stream Deck, and the plugin are recorded. When storing sensitive information
-streamDeck.logger.setLevel("debug");
+streamDeck.logger.setLevel('debug');
 
 // Register actions
 streamDeck.actions.registerAction(new AutomodAccept());
@@ -86,4 +86,3 @@ streamDeck.actions.registerAction(new ViewersCountToggle());
 streamDeck.connect();
 
 TwitchatSocket.instance.initialize();
-
