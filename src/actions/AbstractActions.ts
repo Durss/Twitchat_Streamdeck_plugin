@@ -1,4 +1,4 @@
-import streamDeck, { PropertyInspectorDidAppearEvent, SingletonAction } from '@elgato/streamdeck';
+import streamDeck, { PropertyInspectorDidAppearEvent, PropertyInspectorDidDisappearEvent, SingletonAction } from '@elgato/streamdeck';
 import type { JsonObject } from '@elgato/utils';
 import TwitchatSocket from '../TwitchatSocket';
 
@@ -14,6 +14,14 @@ export class AbstractAction<T extends JsonObject = JsonObject> extends Singleton
 	 */
 	protected subscribeTo(subscription: (typeof this.subscriptionTypes)[number]): void {
 		this.subscriptionTypes.push(subscription);
+	}
+
+	/**
+	 * Unsubscribe all subscriptions when disappearing
+	 * @param _ev
+	 */
+	override onPropertyInspectorDidDisappear(_ev: PropertyInspectorDidDisappearEvent<T>): Promise<void> | void {
+		TwitchatSocket.instance.unsubscribeAll();
 	}
 
 	/**
