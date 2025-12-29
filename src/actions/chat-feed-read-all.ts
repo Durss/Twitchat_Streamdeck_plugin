@@ -12,7 +12,7 @@ export class ChatFeedReadAll extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('CHAT_FEED_READ_ALL', { col: ev.payload.settings.colIndex || 0 });
+		TwitchatSocket.instance.broadcast('CHAT_FEED_READ_ALL', { colIndex: ev.payload.settings.colIndex || 0 });
 	}
 }
 

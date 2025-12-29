@@ -12,7 +12,7 @@ export class ChatFeedScroll extends AbstractAction<Settings> {
 	}
 
 	override async onDialRotate(ev: DialRotateEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('CHAT_FEED_SCROLL', { col: ev.payload.settings.colIndex || 0, scrollBy: ev.payload.ticks });
+		TwitchatSocket.instance.broadcast('CHAT_FEED_SCROLL', { colIndex: ev.payload.settings.colIndex || 0, scrollBy: ev.payload.ticks });
 	}
 }
 

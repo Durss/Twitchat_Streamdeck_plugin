@@ -37,6 +37,6 @@ export class CounterAdd extends AbstractAction<Settings> {
  */
 type Settings = {
 	counterId: string;
-	countAdd: number;
+	countAdd: string;
 	counterAction: 'ADD' | 'DEL' | 'SET';
 };

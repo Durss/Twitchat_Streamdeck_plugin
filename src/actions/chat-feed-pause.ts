@@ -12,7 +12,7 @@ export class ChatFeedPause extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('CHAT_FEED_PAUSE', { col: ev.payload.settings.colIndex || 0 });
+		TwitchatSocket.instance.broadcast('CHAT_FEED_PAUSE', { colIndex: ev.payload.settings.colIndex || 0 });
 	}
 }
 

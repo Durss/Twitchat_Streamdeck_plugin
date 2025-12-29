@@ -23,7 +23,7 @@ export class ChatFeedScrollDown extends AbstractAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		TwitchatSocket.instance.broadcast('CHAT_FEED_SCROLL_DOWN', {
 			scrollBy: ev.payload.settings.scrollAmount || 50,
-			col: ev.payload.settings.colIndex || 0,
+			colIndex: ev.payload.settings.colIndex || 0,
 		});
 	}
 }

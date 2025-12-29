@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.set-emergency-mode' })
 export class SetEmergencyMode extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('SET_EMERGENCY_MODE');
+		TwitchatSocket.instance.broadcast('SET_EMERGENCY_MODE', undefined);
 	}
 }
 

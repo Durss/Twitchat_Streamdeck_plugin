@@ -31,5 +31,5 @@ export class CountdownAdd extends AbstractAction<Settings> {
  */
 type Settings = {
 	timerId: string;
-	timeAdd: number;
+	timeAdd: string;
 };

@@ -12,7 +12,7 @@ export class ChatFeedReadEncoder extends AbstractAction<Settings> {
 	}
 
 	override async onDialRotate(ev: DialRotateEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('CHAT_FEED_READ', { col: ev.payload.settings.colIndex || 0, count: ev.payload.ticks });
+		TwitchatSocket.instance.broadcast('CHAT_FEED_READ', { colIndex: ev.payload.settings.colIndex || 0, count: ev.payload.ticks });
 	}
 }
 

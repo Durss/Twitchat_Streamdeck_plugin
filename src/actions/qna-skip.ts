@@ -19,7 +19,7 @@ export class QnaSkip extends AbstractAction<Settings> {
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		TwitchatSocket.instance.broadcast('QNA_SKIP', {
-			qnaId: ev.payload.settings.qnaId,
+			qnaId: ev.payload.settings.qnaId!,
 		});
 	}
 }

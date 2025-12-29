@@ -3,6 +3,7 @@ import WebSocket, { WebSocketServer } from 'ws';
 import { setTimeout } from 'timers';
 import https from 'https';
 import CertificateManager from './CertificateManager';
+import { TwitchatEventMap } from './TwitchatEventMap';
 /**
  * Created : 26/02/2025
  */
@@ -30,12 +31,22 @@ export default class TwitchatSocket {
 	/******************
 	 * PUBLIC METHODS *
 	 ******************/
+	public async broadcast<Event extends keyof TwitchatEventMap>(
+		action: Event,
+		...args: TwitchatEventMap[Event] extends undefined
+			? [ws?: WebSocket, attempts?: number]
+			: [data: TwitchatEventMap[Event], ws?: WebSocket, attempts?: number]
+	): Promise<void> {
+		const [data, ws, attempts = 0] =
+			args.length && typeof args[0] === 'object'
+				? [args[0] as TwitchatEventMap[Event], args[1] as WebSocket, args[2] ?? 0]
+				: [undefined, args[0] as WebSocket, args[1] as number];
 
-	public broadcast(action: TwitchatActionType, data: unknown = {}, ws?: WebSocket, attempts = 0): void {
 		if (this._connexions.length === 0 && !ws) {
 			if (attempts >= 30) return;
 			//Wait for a connexion and retry
 			setTimeout(() => {
+				// @ts-expect-error couldn't find a way to make ts happy here
 				this.broadcast(action, data, ws, attempts + 1);
 			}, 1000);
 			return;
@@ -56,10 +67,11 @@ export default class TwitchatSocket {
 	 * @param data
 	 * @returns
 	 */
-	public subscribe<Data = unknown>(action: TwitchatActionType, resultEvent: TwitchatEventType, callback: (data: Data) => void): void {
+	public subscribe<Data = unknown>(action: keyof TwitchatEventMap, resultEvent: keyof TwitchatEventMap, callback: (data: Data) => void): void {
 		this._callbacks.set(resultEvent, (data: Data) => {
 			callback(data);
 		});
+		// @ts-expect-error i'm too lazy to strongly type this for now
 		this.broadcast(action);
 	}
 

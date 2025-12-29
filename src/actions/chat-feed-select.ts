@@ -4,11 +4,12 @@ import { AbstractAction } from './AbstractActions';
 
 /**
  * Action for Chat feed select.
+ * TODO: implement encoder actions
  */
 @action({ UUID: 'fr.twitchat.action.chat-feed-select' })
 export class ChatFeedSelect extends AbstractAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('CHAT_FEED_SELECT', { col: ev.payload.settings.colIndex || 0 });
+		TwitchatSocket.instance.broadcast('CHAT_FEED_SELECT', { colIndex: ev.payload.settings.colIndex || 0, direction: 1 });
 	}
 }
 
