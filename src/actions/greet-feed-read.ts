@@ -21,7 +21,7 @@ export class GreetFeedRead extends AbstractAction<Settings> {
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		TwitchatSocket.instance.broadcast('GREET_FEED_READ', {
-			count: ev.payload.settings.readCount || 0,
+			messageCount: ev.payload.settings.readCount || 0,
 		});
 	}
 }

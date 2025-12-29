@@ -12,9 +12,18 @@ export class ToggleTrigger extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('TOGGLE_TRIGGER', {
-			triggerId: ev.payload.settings.triggerId,
-			triggerAction: ev.payload.settings.triggerAction,
+		let enabled = undefined;
+		switch (ev.payload.settings.triggerAction) {
+			case 'ENABLE':
+				enabled = true;
+				break;
+			case 'DISABLE':
+				enabled = false;
+				break;
+		}
+		TwitchatSocket.instance.broadcast('TOGGLE_TRIGGER_STATE', {
+			id: ev.payload.settings.triggerId,
+			forcedState: enabled,
 		});
 	}
 }

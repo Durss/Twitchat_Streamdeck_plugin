@@ -30,8 +30,8 @@ export class AbstractAction<T extends JsonObject = JsonObject> extends Singleton
 	override onPropertyInspectorDidAppear(_ev: PropertyInspectorDidAppearEvent<T>): Promise<void> | void {
 		if (this.subscriptionTypes.includes('COUNTERS')) {
 			TwitchatSocket.instance.subscribe<{ counters: { perUser: boolean; id: string; name: string }[] }>(
-				'COUNTER_GET_ALL',
-				'COUNTER_LIST',
+				'GET_ALL_COUNTERS',
+				'SET_COUNTER_LIST',
 				(data) => {
 					let items: SelectItem[] = data.counters
 						.filter((c) => c.perUser === false)
@@ -58,7 +58,7 @@ export class AbstractAction<T extends JsonObject = JsonObject> extends Singleton
 		}
 
 		if (this.subscriptionTypes.includes('COLUMNS')) {
-			TwitchatSocket.instance.subscribe<{ count: number }>('GET_COLS_COUNT', 'SET_COLS_COUNT', (data) => {
+			TwitchatSocket.instance.subscribe<{ count: number }>('GET_CHAT_COLUMNS_COUNT', 'SET_CHAT_COLUMNS_COUNT', (data) => {
 				const items: SelectItem<number>[] = [];
 				for (let i = 0; i < data.count; i++) {
 					items.push({ value: i, label: (i + 1).toString() });
@@ -72,8 +72,8 @@ export class AbstractAction<T extends JsonObject = JsonObject> extends Singleton
 
 		if (this.subscriptionTypes.includes('TRIGGERS')) {
 			TwitchatSocket.instance.subscribe<{ triggers: { id: string; name: string; disabled?: boolean }[] }>(
-				'TRIGGERS_GET_ALL',
-				'TRIGGER_LIST',
+				'GET_TRIGGER_LIST',
+				'SET_TRIGGER_LIST',
 				(data) => {
 					let items: SelectItem[] = data.triggers.map((trigger) => ({
 						value: trigger.id,
@@ -103,7 +103,7 @@ export class AbstractAction<T extends JsonObject = JsonObject> extends Singleton
 					enabled: boolean;
 					type: 'timer' | 'countdown';
 				}[];
-			}>('GET_TIMER_LIST', 'TIMER_LIST', (data) => {
+			}>('GET_TIMER_LIST', 'SET_TIMER_LIST', (data) => {
 				let items: SelectItem[] = data.timers
 					.filter((timer) => timer.type === 'timer')
 					.map((timer) => ({
@@ -132,8 +132,8 @@ export class AbstractAction<T extends JsonObject = JsonObject> extends Singleton
 
 		if (this.subscriptionTypes.includes('QNA')) {
 			TwitchatSocket.instance.subscribe<{ qnaSessions: { id: string; command: string; open: boolean }[] }>(
-				'QNA_SESSION_GET_ALL',
-				'QNA_SESSION_LIST',
+				'GET_QNA_SESSION_LIST',
+				'SET_QNA_SESSION_LIST',
 				(data) => {
 					let items: SelectItem<string>[] = data.qnaSessions.map((qna) => ({
 						value: qna.id,

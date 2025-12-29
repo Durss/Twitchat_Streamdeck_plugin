@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.stop-tts' })
 export class StopTts extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('STOP_TTS');
+		TwitchatSocket.instance.broadcast('STOP_CURRENT_TTS_AUDIO');
 	}
 }
 

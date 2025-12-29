@@ -12,7 +12,7 @@ export class ExecuteTrigger extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('EXECUTE_TRIGGER', { triggerId: ev.payload.settings.triggerId });
+		TwitchatSocket.instance.broadcast('EXECUTE_TRIGGER', { id: ev.payload.settings.triggerId });
 	}
 }
 

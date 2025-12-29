@@ -185,6 +185,7 @@ export type TwitchatEventMap = {
 		 * Direction to move selection
 		 * -1 = up
 		 * 1 = down
+		 * Can be greater than 1 or less than -1 to move multiple steps
 		 */
 		direction: number;
 		/**
@@ -239,23 +240,34 @@ export type TwitchatEventMap = {
 		 */
 		colIndex: number;
 	};
-	GREET_FEED_READ: { count: number };
+	GREET_FEED_READ: {
+		/**
+		 * Number of messages to mark as read
+		 */
+		messageCount: number;
+	};
 	GREET_FEED_READ_ALL: undefined;
-	CREDITS_OVERLAY_PRESENCE: undefined;
-	GET_CREDITS_OVERLAY_PRESENCE: undefined;
-	GET_SUMMARY_DATA: {
+
+	VOICEMOD_VOICE_CHANGE: {
+		/**
+		 * Voice ID that got selected
+		 */
+		voiceId: string;
+	};
+
+	GET_ENDING_CREDITS_PRESENCE: undefined;
+	SET_ENDING_CREDITS_PRESENCE: undefined;
+	GET_ENDING_CREDITS_DATA: {
 		/**
 		 * Date offset to get data from
 		 */
-		offset?: number;
+		dateOffset?: number;
 		/**
-		 * Include overlay parameters to data sent back
+		 * Include overlay parameters to response
 		 */
-		includeParams?: boolean;
+		includeOverlayParams?: boolean;
 	};
-	SUMMARY_DATA: StreamSummaryData;
-	VOICEMOD_VOICE_CHANGE: { voice: string };
-
+	SET_ENDING_CREDITS_DATA: StreamSummaryData;
 	ENDING_CREDITS_COMPLETE: undefined;
 	ENDING_CREDITS_CONFIGS: EndingCreditsParams;
 	ENDING_CREDITS_CONTROL: {
@@ -274,23 +286,34 @@ export type TwitchatEventMap = {
 		/**
 		 * Section ID to jump to
 		 */
-		scrollTo?: string;
+		scrollToSectionID?: string;
 	};
 
 	GET_CHAT_HIGHLIGHT_OVERLAY_PRESENCE: undefined;
 	SET_CHAT_HIGHLIGHT_OVERLAY_PRESENCE: undefined;
-	CHAT_HIGHLIGHT_OVERLAY_PRESENCE: undefined;
-	SHOW_CLIP: ChatHighlightInfo;
+	SET_CHAT_HIGHLIGHT_OVERLAY_CLIP: ChatHighlightInfo;
 	SET_CHAT_HIGHLIGHT_OVERLAY_MESSAGE: ChatHighlightInfo | undefined;
-	/**
-	 * Sent by highlight overlay after requested message is shown
-	 */
-	CHAT_HIGHLIGHT_OVERLAY_CONFIRM: undefined;
-	MESSAGE_READ: {
+
+	MESSAGE_MARKED_AS_READ: {
+		/**
+		 * Manually marked as read
+		 */
 		manual: boolean;
+		/**
+		 * Message actually selected (marked as read) or unselected (unmarked)
+		 */
 		selected: boolean;
+		/**
+		 * Channel ID of the message
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		message: string;
+		/**
+		 * User info
+		 */
 		user: {
 			id: string;
 			login: string;
@@ -304,12 +327,12 @@ export type TwitchatEventMap = {
 		 */
 		id: string;
 	};
-	ANIMATED_TEXT_CONFIGS: AnimatedTextData;
-	ANIMATED_TEXT_SET: {
+	SET_ANIMATED_TEXT_CONFIGS: AnimatedTextData;
+	SET_ANIMATED_TEXT_CONTENT: {
 		/**
 		 * Overlay ID to send the text to
 		 */
-		overlayId: string;
+		id: string;
 		/**
 		 * Query ID to identify this text set action
 		 * Returned by the ANIMATED_TEXT_SHOW_COMPLETE, ANIMATED_TEXT_HIDE_COMPLETE and ANIMATED_TEXT_CLOSE events
@@ -346,20 +369,20 @@ export type TwitchatEventMap = {
 		/**
 		 * ID of the overlay that finished closing animation
 		 */
-		overlayId: string;
+		id: string;
 		/**
 		 * Query ID sent when setting the text from ANIMATED_TEXT_SET
 		 */
 		queryId: string;
 	};
 
-	GET_BINGO_GRID_PARAMETERS: {
+	GET_BINGO_GRID_CONFIGS: {
 		/**
 		 * Bingo grid ID to get parameters for
 		 */
-		bid: string;
+		id: string;
 	};
-	BINGO_GRID_PARAMETERS: {
+	SET_BINGO_GRID_CONFIGS: {
 		/**
 		 * Bingo grid ID
 		 */
@@ -383,17 +406,17 @@ export type TwitchatEventMap = {
 		 */
 		newDiagonalBingos?: (0 | 1)[];
 	};
-	BINGO_GRID_OVERLAY_PRESENCE: {
+	SET_BINGO_GRID_OVERLAY_PRESENCE: {
 		/**
-		 * Bingo grid ID to get parameters for
+		 * Bingo grid ID to advertise presence of
 		 */
-		bid: string;
+		id: string;
 	};
 	BINGO_GRID_HEAT_CLICK: {
 		/**
 		 * Bingo grid ID to get parameters for
 		 */
-		gridId: string;
+		id: string;
 		/**
 		 * Cell entry ID that was clicked
 		 */
@@ -403,11 +426,11 @@ export type TwitchatEventMap = {
 		 */
 		click: HeatClickData;
 	};
-	BINGO_GRID_OVERLAY_VIEWER_EVENT: {
+	BINGO_GRID_VIEWER_EVENT: {
 		/**
 		 * Bingo grid ID
 		 */
-		gridId: string;
+		id: string;
 		/**
 		 * User info
 		 */
@@ -421,11 +444,11 @@ export type TwitchatEventMap = {
 		 */
 		count: number;
 	};
-	BINGO_GRID_OVERLAY_LEADER_BOARD: {
+	BINGO_GRID_LEADER_BOARD: {
 		/**
 		 * Bingo grid ID
 		 */
-		gridId: string;
+		id: string;
 		/**
 		 * Scoreboard entries
 		 * Set to undefined to hide the leaderboard
@@ -438,14 +461,14 @@ export type TwitchatEventMap = {
 		}[];
 	};
 
-	COUNTER_GET_ALL: undefined;
-	COUNTER_GET: {
+	GET_ALL_COUNTERS: undefined;
+	GET_COUNTER: {
 		/**
-		 * Counter ID to get value for
+		 * Counter ID to get value of
 		 */
-		cid: string;
+		id: string;
 	};
-	COUNTER_LIST: {
+	SET_COUNTER_LIST: {
 		counters: {
 			id: string;
 			name: string;
@@ -456,37 +479,44 @@ export type TwitchatEventMap = {
 		counter: CounterData;
 	};
 	COUNTER_ADD: {
-		counterId: string;
-		counterAction: 'ADD' | 'DEL' | 'SET';
-		countAdd: string;
+		id: string;
+		action: 'ADD' | 'DEL' | 'SET';
+		/**
+		 * Value to add to the counter.
+		 * Typed as string cause it can be an arithmetic expression or
+		 * it can contain placeholders
+		 */
+		value: string;
 	};
 
-	GET_CUSTOM_TRAIN_STATE: {
+	GET_CUSTOM_TRAIN_DATA: {
 		/**
 		 * Custom train ID to get state for
 		 * */
 		id: string;
 	};
-	CUSTOM_TRAIN_STATE: {
+	SET_CUSTOM_TRAIN_DATA: {
 		configs: CustomTrainData;
 		state: CustomTrainState;
 	};
 
-	DISTORT_OVERLAY_PARAMETERS: { params: HeatDistortionData };
-	GET_DISTORT_OVERLAY_PARAMETERS: {
+	SET_DISTORT_OVERLAY_CONFIGS: {
+		params: HeatDistortionData;
+	};
+	GET_DISTORT_OVERLAY_CONFIGS: {
 		/**
 		 * Distortion overlay ID to get parameters for
 		 */
-		distortionID: string;
+		id: string;
 	};
 
-	GET_DONATION_GOALS_OVERLAY_PARAMS: {
+	GET_DONATION_GOALS_OVERLAY_CONFIGS: {
 		/**
 		 * Overlay ID to get parameters for
 		 */
-		overlayId: string;
+		id: string;
 	};
-	DONATION_GOALS_OVERLAY_PARAMS: {
+	SET_DONATION_GOALS_OVERLAY_CONFIGS: {
 		params: DonationGoalOverlayConfig;
 		goal: number;
 		raisedTotal: number;
@@ -509,7 +539,7 @@ export type TwitchatEventMap = {
 	};
 
 	GET_CURRENT_TRACK: undefined;
-	CURRENT_TRACK: {
+	SET_CURRENT_TRACK: {
 		params: MusicPlayerParamsData;
 		trackName?: string;
 		artistName?: string;
@@ -522,22 +552,31 @@ export type TwitchatEventMap = {
 
 	MUSIC_PLAYER_HEAT_CLICK: HeatClickData;
 
-	POLLS_OVERLAY_PRESENCE: undefined;
+	SET_POLLS_OVERLAY_PRESENCE: undefined;
 	GET_POLLS_OVERLAY_PRESENCE: undefined;
-	GET_POLLS_OVERLAY_PARAMETERS: undefined;
+	GET_POLLS_OVERLAY_CONFIGS: undefined;
+	SET_POLL_OVERLAY_CONFIGS: { parameters: PollOverlayParamStoreData };
 	POLL_PROGRESS: { poll: MessagePollData } | undefined;
-	POLLS_OVERLAY_PARAMETERS: { parameters: PollOverlayParamStoreData };
 
-	PREDICTIONS_OVERLAY_PRESENCE: undefined;
+	SET_PREDICTIONS_OVERLAY_PRESENCE: undefined;
 	GET_PREDICTIONS_OVERLAY_PRESENCE: undefined;
-	GET_PREDICTIONS_OVERLAY_PARAMETERS: undefined;
+	GET_PREDICTIONS_OVERLAY_CONFIGS: undefined;
+	SET_PREDICTIONS_OVERLAY_CONFIGS: { parameters: PredictionOverlayParamStoreData };
 	PREDICTION_PROGRESS: { prediction: MessagePredictionData } | undefined;
-	PREDICTIONS_OVERLAY_PARAMETERS: { parameters: PredictionOverlayParamStoreData };
 
-	TIMER_OVERLAY_PRESENCE: undefined;
+	SET_TIMER_OVERLAY_PRESENCE: undefined;
 	GET_TIMER_OVERLAY_PRESENCE: undefined;
 	GET_TIMER_LIST: undefined;
-	GET_CURRENT_TIMERS: {
+	SET_TIMER_LIST: {
+		timers: {
+			id: string;
+			title: string;
+			enabled: boolean;
+			type: 'timer' | 'countdown';
+		}[];
+	};
+
+	GET_TIMER: {
 		/**
 		 * Timer ID to get configs for
 		 */
@@ -545,18 +584,34 @@ export type TwitchatEventMap = {
 	};
 	TIMER_START: TimerData;
 	TIMER_ADD: {
-		timeAdd: string;
-		timerId?: string;
+		/**
+		 * Timer ID to add time to
+		 */
+		id?: string;
+		/**
+		 * Value to add to the timer.
+		 * Typed as string cause it can be an arithmetic expression or
+		 * it can contain placeholders
+		 */
+		value: string;
 	};
 	TIMER_STOP: TimerData;
 	COUNTDOWN_START: TimerData;
 	COUNTDOWN_ADD: {
-		timeAdd: string;
-		timerId?: string;
+		/**
+		 * Countdown ID to add time to
+		 */
+		id?: string;
+		/**
+		 * Value to add to the countdown.
+		 * Typed as string cause it can be an arithmetic expression or
+		 * it can contain placeholders
+		 */
+		value: string;
 	};
 	COUNTDOWN_COMPLETE: TimerData;
 
-	WHEEL_OVERLAY_PRESENCE: undefined;
+	SET_WHEEL_OVERLAY_PRESENCE: undefined;
 	GET_WHEEL_OVERLAY_PRESENCE: undefined;
 	WHEEL_OVERLAY_START: WheelData;
 	WHEEL_OVERLAY_ANIMATION_COMPLETE: {
@@ -575,20 +630,20 @@ export type TwitchatEventMap = {
 	};
 
 	GET_AD_BREAK_OVERLAY_PRESENCE: undefined;
-	GET_AD_BREAK_OVERLAY_PARAMETERS: undefined;
-	AD_BREAK_OVERLAY_PRESENCE: undefined;
-	AD_BREAK_OVERLAY_PARAMETERS: AdBreakOverlayData;
-	AD_BREAK_DATA: CommercialData;
+	SET_AD_BREAK_OVERLAY_PRESENCE: undefined;
+	GET_AD_BREAK_OVERLAY_CONFIGS: undefined;
+	SET_AD_BREAK_OVERLAY_CONFIGS: AdBreakOverlayData;
+	SET_AD_BREAK_OVERLAY_DATA: CommercialData;
 
-	BITSWALL_OVERLAY_PRESENCE: undefined;
 	GET_BITSWALL_OVERLAY_PRESENCE: undefined;
-	GET_BITSWALL_OVERLAY_PARAMETERS: undefined;
-	BITSWALL_OVERLAY_PARAMETERS: BitsWallOverlayData;
+	SET_BITSWALL_OVERLAY_PRESENCE: undefined;
+	GET_BITSWALL_OVERLAY_CONFIGS: undefined;
+	SET_BITSWALL_OVERLAY_CONFIGS: BitsWallOverlayData;
 
 	GET_CHAT_POLL_OVERLAY_PRESENCE: undefined;
-	CHAT_POLL_OVERLAY_PRESENCE: undefined;
-	GET_CHAT_POLL_OVERLAY_PARAMETERS: undefined;
-	CHAT_POLL_OVERLAY_PARAMETERS: { parameters: PollOverlayParamStoreData };
+	SET_CHAT_POLL_OVERLAY_PRESENCE: undefined;
+	GET_CHAT_POLL_OVERLAY_CONFIGS: undefined;
+	SET_CHAT_POLL_OVERLAY_CONFIGS: { parameters: PollOverlayParamStoreData };
 	CHAT_POLL_PROGRESS: { poll: ChatPollData } | undefined;
 
 	/**
@@ -634,7 +689,7 @@ export type TwitchatEventMap = {
 			displayName: string;
 		};
 	};
-	MESSAGE_NON_FOLLOWER: {
+	MESSAGE_FROM_NON_FOLLOWER: {
 		channel: string;
 		message: string;
 		user: {
@@ -652,7 +707,16 @@ export type TwitchatEventMap = {
 			displayName: string;
 		};
 	};
-	MESSAGE_FIRST: {
+	MESSAGE_FIRST_TODAY: {
+		channel: string;
+		message: string;
+		user: {
+			id: string;
+			login: string;
+			displayName: string;
+		};
+	};
+	MESSAGE_FIRST_ALL_TIME: {
 		channel: string;
 		message: string;
 		user: {
@@ -705,19 +769,35 @@ export type TwitchatEventMap = {
 		};
 	};
 
-	EMERGENCY_MODE: {
+	/**
+	 * Enable/disable/toggle emergency mode
+	 * Either give an object with "enabled" boolean to force a specific
+	 * state, or don't give any parameter to toggle current state
+	 */
+	SET_EMERGENCY_MODE:
+		| {
+				enabled: boolean;
+				/**
+				 * If set to true, a confirmation modal will be shown
+				 * to confirm the action
+				 */
+				promptConfirmation?: boolean;
+		  }
+		| undefined;
+	EMERGENCY_MODE_CHANGED: {
 		/**
-		 * Enabled or disabled emergency mode
+		 * New emergency mode state
 		 */
 		enabled: boolean;
 	};
-
+	/**
+	 * Internal event for development that tells when Twitchat labels
+	 * have been updated. Labels being the localized text.
+	 */
 	LABELS_UPDATE: undefined;
+
 	GET_LABEL_OVERLAY_PLACEHOLDERS: undefined;
-	GET_LABEL_OVERLAY_PARAMS: {
-		id: string;
-	};
-	LABEL_OVERLAY_PLACEHOLDERS: {
+	SET_LABEL_OVERLAY_PLACEHOLDERS: {
 		[tag: string]: {
 			value: string | number;
 			type:
@@ -736,7 +816,13 @@ export type TwitchatEventMap = {
 				| 'image';
 		};
 	};
-	LABEL_OVERLAY_PARAMS: {
+	GET_LABEL_OVERLAY_CONFIGS: {
+		/**
+		 * Label ID
+		 */
+		id: string;
+	};
+	SET_LABEL_OVERLAY_CONFIGS: {
 		/**
 		 * Label ID
 		 */
@@ -746,93 +832,150 @@ export type TwitchatEventMap = {
 		isValid?: boolean;
 	};
 
-	SET_COLS_COUNT: {
+	GET_CHAT_COLUMNS_COUNT: undefined;
+	SET_CHAT_COLUMNS_COUNT: {
 		/**
 		 * Number of chat columns
 		 */
 		count: number;
 	};
 
-	QNA_SESSION_GET_ALL: undefined;
-	QNA_HIGHLIGHT: {
-		qnaId: string;
-	};
-	QNA_SKIP: {
-		qnaId: string;
-	};
-	QNA_SESSION_LIST: {
-		qnaSessions: {
+	GET_QNA_SESSION_LIST: undefined;
+	SET_QNA_SESSION_LIST: {
+		sessionList: {
 			id: string;
 			command: string;
 			open: boolean;
 		}[];
 	};
-
-	TIMER_LIST: {
-		timers: {
-			id: string;
-			title: string;
-			enabled: boolean;
-			type: 'timer' | 'countdown';
-		}[];
+	/**
+	 * Highlights the top most message of given Q&A session
+	 */
+	QNA_HIGHLIGHT: {
+		/**
+		 * Q&A session ID
+		 */
+		id: string;
+	};
+	/**
+	 * Skips the top most message of given Q&A session
+	 */
+	QNA_SKIP: {
+		/**
+		 * Q&A session ID
+		 */
+		id: string;
 	};
 
-	TRIGGER_LIST: {
-		triggers: {
+	EXECUTE_TRIGGER: {
+		/**
+		 * Trigger ID to execute
+		 */
+		id: string;
+	};
+	GET_TRIGGER_LIST: undefined;
+	SET_TRIGGER_LIST: {
+		triggerList: {
 			id: string;
 			name: string;
 		}[];
 	};
+	TOGGLE_TRIGGER_STATE: {
+		/**
+		 * Trigger ID to change state of
+		 */
+		id: string;
+		/**
+		 * Force trigger state
+		 * true to enable it
+		 * false to disabled
+		 *
+		 * Don't set this field to just toggle current state
+		 */
+		forcedState?: boolean;
+	};
 
 	PLAY_SFXR: {
+		/**
+		 * SFXR sound parameters as a string
+		 * Generate string at:
+		 * https://tsfxr.jdmnk.dev
+		 */
 		params: string;
+		/**
+		 * Volume from 0 to 1
+		 */
 		volume: number;
 	};
 
+	/**
+	 * Accept latest message held by automod
+	 */
 	AUTOMOD_ACCEPT: undefined;
+	/**
+	 * Rject latest message held by automod
+	 */
 	AUTOMOD_REJECT: undefined;
+	/**
+	 * Toggle merge feature
+	 * See settings => chat features => Merge consecutive messages of a user
+	 */
 	MERGE_TOGGLE: undefined;
-	HIDE_ALERT: undefined;
+	/**
+	 * Hide current chat alert
+	 * See settings => chat features => Enable chat alert
+	 */
+	HIDE_CHAT_ALERT: undefined;
+	/**
+	 * Toggle current poll display
+	 */
 	POLL_TOGGLE: undefined;
+	/**
+	 * Toggle current prediction display
+	 */
 	PREDICTION_TOGGLE: undefined;
+	/**
+	 * Toggle current bingo display (NOT bingo GRID!)
+	 */
 	BINGO_TOGGLE: undefined;
+	/**
+	 * Toggle viewers count display
+	 */
 	VIEWERS_COUNT_TOGGLE: undefined;
+	/**
+	 * Toggle moderation tools display
+	 */
 	MOD_TOOLS_TOGGLE: undefined;
+	/**
+	 * Toggle censorship of deleted messages
+	 */
 	CENSOR_DELETED_MESSAGES_TOGGLE: undefined;
-	POLL_CREATE: undefined;
-	START_EMERGENCY: undefined;
-	STOP_EMERGENCY: undefined;
-	SET_EMERGENCY_MODE:
-		| {
-				enabled: boolean;
-		  }
-		| undefined;
+	/**
+	 * Open poll creation form
+	 */
+	OPEN_POLL_CREATION_FORM: undefined;
+	/**
+	 * Open prediction creation form
+	 */
+	OPEN_PREDICTION_CREATION_FORM: undefined;
 	SHOUTOUT: undefined;
-	GET_COLS_COUNT: undefined;
 	CLEAR_CHAT_HIGHLIGHT: undefined;
-	CREATE_POLL: undefined;
-	CREATE_PREDICTION: undefined;
 	STOP_POLL: undefined;
 	STOP_PREDICTION: undefined;
 	SEND_MESSAGE: {
 		message: string;
 	};
+	/**
+	 * Toggle current raffle display
+	 */
 	RAFFLE_TOGGLE: undefined;
-	RAFFLE_START: undefined;
-	RAFFLE_END: undefined;
-	CREATE_RAFFLE: undefined;
-	STOP_RAFFLE: undefined;
+	/**
+	 * Start a new raffle
+	 */
+	OPEN_RAFFLE_CREATION_FORM: undefined;
 	RAFFLE_PICK_WINNER: undefined;
-	STOP_TTS: undefined;
-	EXECUTE_TRIGGER: {
-		triggerId: string;
-	};
-	TRIGGERS_GET_ALL: undefined;
-	TOGGLE_TRIGGER: {
-		triggerId: string;
-		triggerAction: 'ENABLE' | 'DISABLE' | 'TOGGLE';
-	};
-	CUSTOM_CHAT_MESSAGE: {
+	STOP_CURRENT_TTS_AUDIO: undefined;
+	SEND_CUSTOM_CHAT_MESSAGE: {
 		//Message to display
 		message?: string;
 		//Defines if the close button should be disaplay
