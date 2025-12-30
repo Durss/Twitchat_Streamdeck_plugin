@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.clear-chat-highlight' })
 export class ClearChatHighlight extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('CLEAR_CHAT_HIGHLIGHT');
+		TwitchatSocket.instance.broadcast('SET_CLEAR_CHAT_HIGHLIGHT');
 	}
 }
 

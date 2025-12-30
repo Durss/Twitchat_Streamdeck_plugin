@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.send-message' })
 export class SendMessage extends AbstractAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('SEND_MESSAGE', { message: ev.payload.settings.message });
+		TwitchatSocket.instance.broadcast('SET_SEND_MESSAGE', { message: ev.payload.settings.message });
 	}
 }
 

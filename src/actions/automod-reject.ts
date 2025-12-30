@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.automod-reject' })
 export class AutomodReject extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('AUTOMOD_REJECT');
+		TwitchatSocket.instance.broadcast('SET_AUTOMOD_REJECT');
 	}
 }
 

@@ -19,7 +19,7 @@ export class TimerAdd extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('TIMER_ADD', {
+		TwitchatSocket.instance.broadcast('SET_TIMER_ADD', {
 			id: ev.payload.settings.timerId,
 			value: ev.payload.settings.timeAdd,
 		});

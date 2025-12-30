@@ -21,7 +21,7 @@ export class ToggleTrigger extends AbstractAction<Settings> {
 				enabled = false;
 				break;
 		}
-		TwitchatSocket.instance.broadcast('TOGGLE_TRIGGER_STATE', {
+		TwitchatSocket.instance.broadcast('SET_TRIGGER_STATE', {
 			id: ev.payload.settings.triggerId,
 			forcedState: enabled,
 		});

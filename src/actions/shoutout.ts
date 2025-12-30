@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.shoutout' })
 export class Shoutout extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('SHOUTOUT');
+		TwitchatSocket.instance.broadcast('SET_SHOUTOUT');
 	}
 }
 

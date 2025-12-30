@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.censor-deleted-messages-toggle' })
 export class CensorDeletedMessagesToggle extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('CENSOR_DELETED_MESSAGES_TOGGLE');
+		TwitchatSocket.instance.broadcast('SET_CENSOR_DELETED_MESSAGES_TOGGLE');
 	}
 }
 

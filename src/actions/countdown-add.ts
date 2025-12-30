@@ -19,7 +19,7 @@ export class CountdownAdd extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('COUNTDOWN_ADD', {
+		TwitchatSocket.instance.broadcast('SET_COUNTDOWN_ADD', {
 			id: ev.payload.settings.timerId,
 			value: ev.payload.settings.timeAdd,
 		});

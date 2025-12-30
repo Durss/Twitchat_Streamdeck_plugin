@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.merge-toggle' })
 export class MergeToggle extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('MERGE_TOGGLE');
+		TwitchatSocket.instance.broadcast('SET_MERGE_TOGGLE');
 	}
 }
 

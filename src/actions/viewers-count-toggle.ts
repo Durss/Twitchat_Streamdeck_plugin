@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.viewers-count-toggle' })
 export class ViewersCountToggle extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('VIEWERS_COUNT_TOGGLE');
+		TwitchatSocket.instance.broadcast('SET_VIEWERS_COUNT_TOGGLE');
 	}
 }
 

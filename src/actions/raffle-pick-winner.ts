@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.raffle-pick-winner' })
 export class RafflePickWinner extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('RAFFLE_PICK_WINNER');
+		TwitchatSocket.instance.broadcast('SET_RAFFLE_PICK_WINNER');
 	}
 }
 

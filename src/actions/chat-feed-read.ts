@@ -21,7 +21,7 @@ export class ChatFeedRead extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('CHAT_FEED_READ', {
+		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_READ', {
 			count: ev.payload.settings.readCount || 1,
 			colIndex: ev.payload.settings.colIndex || 0,
 		});

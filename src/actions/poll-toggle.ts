@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.poll-toggle' })
 export class PollToggle extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('POLL_TOGGLE');
+		TwitchatSocket.instance.broadcast('SET_POLL_TOGGLE');
 	}
 }
 

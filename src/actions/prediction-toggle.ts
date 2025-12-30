@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.prediction-toggle' })
 export class PredictionToggle extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('PREDICTION_TOGGLE');
+		TwitchatSocket.instance.broadcast('SET_PREDICTION_TOGGLE');
 	}
 }
 

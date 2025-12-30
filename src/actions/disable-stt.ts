@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.disable-stt' })
 export class DisableStt extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('DISABLE_STT');
+		TwitchatSocket.instance.broadcast('SET_DISABLE_STT');
 	}
 }
 

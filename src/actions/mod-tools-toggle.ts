@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.mod-tools-toggle' })
 export class ModToolsToggle extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('MOD_TOOLS_TOGGLE');
+		TwitchatSocket.instance.broadcast('SET_MOD_TOOLS_TOGGLE');
 	}
 }
 

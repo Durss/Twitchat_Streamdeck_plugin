@@ -8,7 +8,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.hide-alert' })
 export class HideAlert extends AbstractAction<Settings> {
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('HIDE_CHAT_ALERT');
+		TwitchatSocket.instance.broadcast('SET_HIDE_CHAT_ALERT');
 	}
 }
 

@@ -67,8 +67,12 @@ export default class TwitchatSocket {
 	 * @param data
 	 * @returns
 	 */
-	public subscribe<Data = unknown>(action: keyof TwitchatEventMap, resultEvent: keyof TwitchatEventMap, callback: (data: Data) => void): void {
-		this._callbacks.set(resultEvent, (data: Data) => {
+	public subscribe<ResponseEvent extends keyof TwitchatEventMap>(
+		action: keyof TwitchatEventMap,
+		resultEvent: ResponseEvent,
+		callback: (data: TwitchatEventMap[ResponseEvent]) => void,
+	): void {
+		this._callbacks.set(resultEvent, (data: TwitchatEventMap[ResponseEvent]) => {
 			callback(data);
 		});
 		// @ts-expect-error i'm too lazy to strongly type this for now
@@ -200,12 +204,12 @@ export default class TwitchatSocket {
 		streamDeck.logger.info(`[TwitchatSocket] New connection established. Total: ${this._connexions.length}`);
 
 		ws.on('message', (event) => {
-			const json = JSON.parse(event.toString()) as { type: string; data: unknown };
+			const json = JSON.parse(event.toString()) as { type: keyof TwitchatEventMap; data: unknown };
 			const callback = this._callbacks.get(json.type);
 			if (callback) {
 				callback(json.data);
 			}
-			if (json.type === 'FLAG_MAIN_APP') {
+			if (json.type === 'ON_FLAG_MAIN_APP') {
 				const connexion = this._connexions.find((c) => c.ws === ws);
 				if (connexion) {
 					connexion.type = 'main';

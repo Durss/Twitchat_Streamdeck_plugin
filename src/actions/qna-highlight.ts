@@ -18,7 +18,7 @@ export class QnaHighlight extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('QNA_HIGHLIGHT', {
+		TwitchatSocket.instance.broadcast('SET_QNA_HIGHLIGHT', {
 			id: ev.payload.settings.qnaId!,
 		});
 	}
