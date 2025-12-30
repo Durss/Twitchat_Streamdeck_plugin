@@ -1019,6 +1019,8 @@ export type TwitchatEventMap = {
 			theme?: 'default' | 'primary' | 'secondary' | 'alert';
 		}[];
 	};
+
+	FLAG_MAIN_APP: undefined;
 };
 
 interface OBSSourceItem {
