@@ -1,7 +1,7 @@
-import streamDeck, { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
 import { AbstractAction } from './AbstractActions';
-import { TwitchatEventMap } from '../TwitchatEventMap';
 
 /**
  * Action for Qna highlight.
@@ -19,9 +19,13 @@ export class QnaHighlight extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('SET_QNA_HIGHLIGHT', {
-			id: ev.payload.settings.qnaId!,
-		});
+		if (this.getActionState(ev.action) === 'error') {
+			ev.action.showAlert();
+		} else {
+			TwitchatSocket.instance.broadcast('SET_QNA_HIGHLIGHT', {
+				id: ev.payload.settings.qnaId!,
+			});
+		}
 	}
 
 	protected override onQnaSessionListUpdate(
@@ -30,9 +34,8 @@ export class QnaHighlight extends AbstractAction<Settings> {
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
 		const qnaSession = data.sessionList.find((q) => q.id === settings.qnaId);
-		streamDeck.logger.debug('QnaHighlight.onQnaSessionListUpdate', { qnaSession });
-		if (!qnaSession) this.errorIcon(action);
-		else this.resetIcon(action);
+		if (!qnaSession) this.setErrorState(action);
+		else this.setEnabled(action);
 	}
 }
 

@@ -81,6 +81,22 @@ streamDeck.actions.registerAction(new ViewersCountToggle());
 streamDeck.actions.registerAction(new VoiceControl());
 
 // Finally, connect to the Stream Deck.
-streamDeck.connect();
+streamDeck.connect().then(() => {
+	streamDeck.settings.setGlobalSettings<GlobalSettings>({
+		clientCount: 0,
+		mainAppCount: 0,
+	});
+});
 
 TwitchatSocket.instance.initialize();
+
+export type GlobalSettings = {
+	/**
+	 * Number of connected clients
+	 */
+	clientCount: number;
+	/**
+	 * Number of connected main applications
+	 */
+	mainAppCount: number;
+};

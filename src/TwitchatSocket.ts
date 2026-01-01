@@ -1,9 +1,10 @@
 import streamDeck from '@elgato/streamdeck';
-import WebSocket, { WebSocketServer } from 'ws';
-import { setTimeout } from 'timers';
 import https from 'https';
+import { setTimeout } from 'timers';
+import WebSocket, { WebSocketServer } from 'ws';
 import CertificateManager from './CertificateManager';
 import { json2Event, TwitchatEventMap } from './TwitchatEventMap';
+import { GlobalSettings } from './plugin';
 /**
  * Created : 26/02/2025
  */
@@ -14,6 +15,7 @@ export default class TwitchatSocket {
 	private _httpServerSSL: https.Server | null = null;
 	private _connexions: { type: 'main' | 'other'; ws: WebSocket }[] = [];
 	private _callbackListeners: { [key: string]: { [actionId: string]: (data: TwitchatEventMap[keyof TwitchatEventMap]) => void } } = {};
+	private _twitchatConnectionHandlers: { [actionId: string]: (connected: boolean) => void } = {};
 
 	public timerList: TwitchatEventMap['ON_TIMER_LIST']['timerList'] = [];
 	public triggerList: TwitchatEventMap['ON_TRIGGER_LIST']['triggerList'] = [];
@@ -179,13 +181,39 @@ export default class TwitchatSocket {
 		if (!this._callbackListeners[event]) {
 			this._callbackListeners[event] = {};
 		}
-		this._callbackListeners[event][actionId] = listener as (data: TwitchatEventMap[keyof TwitchatEventMap]) => void;
-		this.populatePropertInspector();
+		const castedListener = listener as (data: TwitchatEventMap[keyof TwitchatEventMap]) => void;
+		this._callbackListeners[event][actionId] = castedListener;
+		switch (event) {
+			case 'ON_COUNTER_LIST':
+				castedListener({ counterList: this.counterList });
+				break;
+			case 'ON_CHAT_COLUMNS_COUNT':
+				castedListener({ count: this.chatColCount });
+				break;
+			case 'ON_TRIGGER_LIST':
+				castedListener({ triggerList: this.triggerList });
+				break;
+			case 'ON_TIMER_LIST':
+				castedListener({ timerList: this.timerList });
+				break;
+			case 'ON_QNA_SESSION_LIST':
+				castedListener({ sessionList: this.qnaList });
+				break;
+		}
 	}
 
 	public off(event: keyof TwitchatEventMap, actionId: string): void {
 		if (!this._callbackListeners[event]) return;
 		delete this._callbackListeners[event][actionId];
+	}
+
+	public subscribeTwitchatConnection(actionId: string, handler: (connected: boolean) => void): void {
+		this._twitchatConnectionHandlers[actionId] = handler;
+	}
+
+	public unsubscribeTwitchatConnection(actionId: string): void {
+		if (!this._twitchatConnectionHandlers[actionId]) return;
+		delete this._twitchatConnectionHandlers[actionId];
 	}
 
 	/*******************
@@ -281,11 +309,15 @@ export default class TwitchatSocket {
 		});
 	}
 
-	private updateConnexionCount(): void {
-		streamDeck.settings.setGlobalSettings({
-			// Only count main app connections
-			connexionCount: this._connexions.filter((v) => v.type === 'main').length,
+	private async updateConnexionCount(): Promise<void> {
+		await streamDeck.settings.setGlobalSettings<GlobalSettings>({
+			clientCount: this._connexions.length,
+			mainAppCount: this._connexions.filter((v) => v.type === 'main').length,
 		});
+		for (const key in this._twitchatConnectionHandlers) {
+			if (!Object.hasOwn(this._twitchatConnectionHandlers, key)) continue;
+			this._twitchatConnectionHandlers[key](this._connexions.some((c) => c.type === 'main'));
+		}
 	}
 
 	private reduceCounterList() {

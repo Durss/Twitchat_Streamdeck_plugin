@@ -11,6 +11,7 @@ export class ChatFeedScrollUp extends AbstractAction<Settings> {
 	 * Init action
 	 */
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
+		super.onWillAppear(ev);
 		if (!ev.action.isKey()) return;
 		if (!ev.payload.settings.scrollAmount) {
 			ev.action.setSettings({

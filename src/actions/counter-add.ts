@@ -11,6 +11,7 @@ export class CounterAdd extends AbstractAction<Settings> {
 	 * Init action
 	 */
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
+		super.onWillAppear(ev);
 		if (!ev.action.isKey()) return;
 		if (!ev.payload.settings.countAdd) {
 			ev.action.setSettings({

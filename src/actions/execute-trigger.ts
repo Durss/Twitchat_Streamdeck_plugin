@@ -18,8 +18,8 @@ export class ExecuteTrigger extends AbstractAction<Settings> {
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
 		const trigger = data.triggerList.find((t) => t.id === settings.triggerId);
-		if (trigger?.disabled) this.fadeIcon(action);
-		else this.resetIcon(action);
+		if (trigger?.disabled) this.setDisabledState(action);
+		else this.setEnabled(action);
 	}
 }
 

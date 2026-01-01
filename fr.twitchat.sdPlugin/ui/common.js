@@ -19,62 +19,58 @@ customElements.whenDefined('sdpi-i18n').then(() => {
 
 			// Replace placeholders with slotted content
 			let result = message;
-			slots.forEach(el => {
+			slots.forEach((el) => {
 				const slotName = el.getAttribute('name');
 				const placeholder = `\{${slotName}\}`;
 				result = result.replace(new RegExp(placeholder, 'gi'), el.outerHTML);
 			});
 
-			var sheet = new CSSStyleSheet
-			sheet.replaceSync( `a {
+			var sheet = new CSSStyleSheet();
+			sheet.replaceSync(`a {
 	color: #00aaff;
 	text-decoration: none;
-}`)
-			this.shadowRoot.adoptedStyleSheets.push(sheet)
+}`);
+			this.shadowRoot.adoptedStyleSheets.push(sheet);
 
 			return html`<span .innerHTML=${result}></span>`;
 		};
 
 		// Force re-render of existing elements
-		document.querySelectorAll('sdpi-i18n').forEach(el => el.requestUpdate());
+		document.querySelectorAll('sdpi-i18n').forEach((el) => el.requestUpdate());
 	}
 });
 
 /**
  * Called any time global settings are received or updated
  * Watches for Twitchat instances connection changes to redirect or show messages accordingly
- * @param {*} settings 
+ * @param {*} settings
  */
 function onSettingsReceived(settings) {
-	const count = settings.connexionCount || 0;
+	const count = settings.mainAppCount || 0;
 	//If on main page, check how many twitchat instances are connected
-	if (document.location.href.endsWith("main.html")) {
+	if (document.location.href.endsWith('main.html')) {
 		if (count === 0) {
 			// If no twitchat is detected, show offline message
-			document.getElementById("offline").style.display = "block";
+			document.getElementById('offline').style.display = 'block';
 		} else if (count > 1) {
 			// If multiple twitchat instances are detected, show multiple instances message
-			document.getElementById("multiple-instances").style.display = "block";
+			document.getElementById('multiple-instances').style.display = 'block';
 		} else {
 			// If exactly one twitchat instance is detected, redirect to the action page
 			(async function () {
 				const info = await SDPIComponents.streamDeckClient.getConnectionInfo();
-				const action = info.actionInfo.action.split(".").pop();
+				const action = info.actionInfo.action.split('.').pop();
 				document.location.href = `./${action}.html`;
 			})();
 		}
-	} else
-		if (count === 0 || count > 1) {
-			document.location.href = "./main.html";
-		}
+	} else if (count === 0 || count > 1) {
+		document.location.href = './main.html';
+	}
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
 	// Get global settings to check how many twitchat instances are connected
-	SDPIComponents
-		.streamDeckClient
-		.getGlobalSettings()
-		.then((settings) => onSettingsReceived(settings));
+	SDPIComponents.streamDeckClient.getGlobalSettings().then((settings) => onSettingsReceived(settings));
 
 	// Subscribe to global settings changes to detect Twitchat instances connection changes
 	SDPIComponents.streamDeckClient.didReceiveGlobalSettings.subscribe((event) => {

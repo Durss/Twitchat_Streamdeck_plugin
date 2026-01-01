@@ -46,6 +46,9 @@ export type TwitchatEventMap = {
 	 * Set voice bot enabled/disabled state
 	 */
 	SET_VOICE_CONTROL_STATE: {
+		/**
+		 * Enable or disable voice control
+		 */
 		enabled: boolean;
 	};
 	/**
@@ -101,30 +104,45 @@ export type TwitchatEventMap = {
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Mark all messages as read in a chat feed
+	 */
 	SET_CHAT_FEED_READ_ALL: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Pause auto-scrolling in a chat feed
+	 */
 	SET_CHAT_FEED_PAUSE: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Resume auto-scrolling in a chat feed
+	 */
 	SET_CHAT_FEED_UNPAUSE: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Scroll a chat feed to the bottom
+	 */
 	SET_CHAT_FEED_SCROLL_BOTTOM: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Move message selection in a chat feed
+	 */
 	SET_CHAT_FEED_SELECT: {
 		/**
 		 * Direction to move selection
@@ -138,12 +156,20 @@ export type TwitchatEventMap = {
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Delete the currently selected message in a chat feed
+	 * First select a message with SET_CHAT_FEED_SELECT
+	 */
 	SET_CHAT_FEED_SELECT_ACTION_DELETE: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Ban the user of the currently selected message in a chat feed
+	 * First select a message with SET_CHAT_FEED_SELECT
+	 */
 	SET_CHAT_FEED_SELECT_ACTION_BAN: {
 		/**
 		 * Column index
@@ -155,44 +181,72 @@ export type TwitchatEventMap = {
 		 */
 		duration?: number;
 	};
+	/**
+	 * Open action chooser for the currently selected message in a chat feed
+	 * First select a message with SET_CHAT_FEED_SELECT
+	 */
 	SET_CHAT_FEED_SELECT_CHOOSING_ACTION: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Save the currently selected message in a chat feed
+	 * First select a message with SET_CHAT_FEED_SELECT
+	 */
 	SET_CHAT_FEED_SELECT_ACTION_SAVE: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Highlight the currently selected message in a chat feed
+	 * First select a message with SET_CHAT_FEED_SELECT
+	 */
 	SET_CHAT_FEED_SELECT_ACTION_HIGHLIGHT: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Shoutout the user of the currently selected message in a chat feed
+	 * First select a message with SET_CHAT_FEED_SELECT
+	 */
 	SET_CHAT_FEED_SELECT_ACTION_SHOUTOUT: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Cancel the action selection for the currently selected message in a chat feed
+	 */
 	SET_CHAT_FEED_SELECT_ACTION_CANCEL: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
 	};
+	/**
+	 * Mark messages as read in the greet them feed
+	 */
 	SET_GREET_FEED_READ: {
 		/**
 		 * Number of messages to mark as read
 		 */
 		messageCount: number;
 	};
+	/**
+	 * Clears the greet them feed
+	 */
 	SET_GREET_FEED_READ_ALL: undefined;
 
+	/**
+	 * Triggered when the user changes Voicemod voice
+	 */
 	ON_VOICEMOD_VOICE_CHANGE: {
 		/**
 		 * Voice ID that got selected
@@ -200,8 +254,19 @@ export type TwitchatEventMap = {
 		voiceId: string;
 	};
 
+	/**
+	 * Request current ending credits overlay presence
+	 * @answer SET_ENDING_CREDITS_PRESENCE
+	 */
 	GET_ENDING_CREDITS_PRESENCE: undefined;
+	/**
+	 * Response with current ending credits overlay presence
+	 */
 	SET_ENDING_CREDITS_PRESENCE: undefined;
+	/**
+	 * Request for ending credits data
+	 * @answer SET_ENDING_CREDITS_DATA
+	 */
 	GET_ENDING_CREDITS_DATA: {
 		/**
 		 * Date offset to get data from
@@ -212,9 +277,21 @@ export type TwitchatEventMap = {
 		 */
 		includeOverlayParams?: boolean;
 	};
+	/**
+	 * Response with ending credits data
+	 */
 	SET_ENDING_CREDITS_DATA: StreamSummaryData;
+	/**
+	 * Triggered when ending credits animation completes
+	 */
 	ON_ENDING_CREDITS_COMPLETE: undefined;
+	/**
+	 * Receive ending credits configuration data
+	 */
 	ON_ENDING_CREDITS_CONFIGS: EndingCreditsParams;
+	/**
+	 * Control ending credits playback
+	 */
 	SET_ENDING_CREDITS_CONTROL: {
 		/**
 		 * Go to previous section
@@ -234,11 +311,27 @@ export type TwitchatEventMap = {
 		scrollToSectionID?: string;
 	};
 
+	/**
+	 * Request current chat highlight overlay presence
+	 * @answer SET_CHAT_HIGHLIGHT_OVERLAY_PRESENCE
+	 */
 	GET_CHAT_HIGHLIGHT_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Advertise for highlight overlay presence
+	 */
 	SET_CHAT_HIGHLIGHT_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Send a clip to the chat highlight overlay
+	 */
 	SET_CHAT_HIGHLIGHT_OVERLAY_CLIP: ChatHighlightInfo;
+	/**
+	 * Send a message to the chat highlight overlay
+	 */
 	SET_CHAT_HIGHLIGHT_OVERLAY_MESSAGE: ChatHighlightInfo | undefined;
 
+	/**
+	 * Triggered when a message is marked or unmarked as read
+	 */
 	ON_MESSAGE_MARKED_AS_READ: {
 		/**
 		 * Manually marked as read
@@ -266,13 +359,23 @@ export type TwitchatEventMap = {
 		};
 	};
 
+	/**
+	 * Request animated text overlay configuration
+	 * @answer ON_ANIMATED_TEXT_CONFIGS
+	 */
 	GET_ANIMATED_TEXT_CONFIGS: {
 		/**
 		 * Animated text overlay ID
 		 */
 		id: string;
 	};
+	/**
+	 * Receive animated text overlay configuration
+	 */
 	ON_ANIMATED_TEXT_CONFIGS: AnimatedTextData;
+	/**
+	 * Set text content for an animated text overlay
+	 */
 	SET_ANIMATED_TEXT_CONTENT: {
 		/**
 		 * Overlay ID to send the text to
@@ -298,18 +401,27 @@ export type TwitchatEventMap = {
 		 */
 		bypassAll?: boolean;
 	};
+	/**
+	 * Triggered when an animated text show animation completes
+	 */
 	ON_ANIMATED_TEXT_SHOW_COMPLETE: {
 		/**
 		 * Query ID sent when setting the text from ANIMATED_TEXT_SET
 		 */
 		queryId: string;
 	};
+	/**
+	 * Triggered when an animated text hide animation completes
+	 */
 	ON_ANIMATED_TEXT_HIDE_COMPLETE: {
 		/**
 		 * Query ID sent when setting the text from ANIMATED_TEXT_SET
 		 */
 		queryId: string;
 	};
+	/**
+	 * Triggered when an animated text overlay close animation completes
+	 */
 	ON_ANIMATED_TEXT_CLOSE: {
 		/**
 		 * ID of the overlay that finished closing animation
@@ -321,12 +433,19 @@ export type TwitchatEventMap = {
 		queryId: string;
 	};
 
+	/**
+	 * Request bingo grid configuration
+	 * @answer ON_BINGO_GRID_CONFIGS
+	 */
 	GET_BINGO_GRID_CONFIGS: {
 		/**
 		 * Bingo grid ID to get parameters for
 		 */
 		id: string;
 	};
+	/**
+	 * Receive a bingo grid configuration
+	 */
 	ON_BINGO_GRID_CONFIGS: {
 		/**
 		 * Bingo grid ID
@@ -351,12 +470,18 @@ export type TwitchatEventMap = {
 		 */
 		newDiagonalBingos?: (0 | 1)[];
 	};
+	/**
+	 * Advertise bingo grid overlay presence
+	 */
 	SET_BINGO_GRID_OVERLAY_PRESENCE: {
 		/**
 		 * Bingo grid ID to advertise presence of
 		 */
 		id: string;
 	};
+	/**
+	 * Triggered when a heat click occurs on a bingo grid cell
+	 */
 	ON_BINGO_GRID_HEAT_CLICK: {
 		/**
 		 * Bingo grid ID to get parameters for
@@ -371,6 +496,9 @@ export type TwitchatEventMap = {
 		 */
 		click: HeatClickData;
 	};
+	/**
+	 * Triggered when a viewer completes a bingo
+	 */
 	ON_BINGO_GRID_VIEWER_EVENT: {
 		/**
 		 * Bingo grid ID
@@ -389,6 +517,9 @@ export type TwitchatEventMap = {
 		 */
 		count: number;
 	};
+	/**
+	 * Receive bingo grid leaderboard
+	 */
 	ON_BINGO_GRID_LEADER_BOARD: {
 		/**
 		 * Bingo grid ID
@@ -406,13 +537,14 @@ export type TwitchatEventMap = {
 		}[];
 	};
 
+	/**
+	 * Request list of all counters
+	 * @answer ON_COUNTER_LIST
+	 */
 	GET_ALL_COUNTERS: undefined;
-	GET_COUNTER: {
-		/**
-		 * Counter ID to get value of
-		 */
-		id: string;
-	};
+	/**
+	 * Receive the list of all counters
+	 */
 	ON_COUNTER_LIST: {
 		counterList: {
 			id: string;
@@ -420,11 +552,33 @@ export type TwitchatEventMap = {
 			perUser: boolean;
 		}[];
 	};
+	/**
+	 * Request a specific counter entity
+	 * @answer ON_COUNTER_UPDATE
+	 */
+	GET_COUNTER: {
+		/**
+		 * Counter ID to get value of
+		 */
+		id: string;
+	};
+	/**
+	 * Response with counter update
+	 */
 	ON_COUNTER_UPDATE: {
 		counter: CounterData;
 	};
+	/**
+	 * Add a value to a counter
+	 */
 	SET_COUNTER_ADD: {
+		/**
+		 * Counter ID to add value to
+		 */
 		id: string;
+		/**
+		 * Action to perform
+		 */
 		action: TriggerActionCountDataAction;
 		/**
 		 * Value to add to the counter.
@@ -434,33 +588,54 @@ export type TwitchatEventMap = {
 		value: string;
 	};
 
+	/**
+	 * Request custom train data and state
+	 * @answer ON_CUSTOM_TRAIN_DATA
+	 */
 	GET_CUSTOM_TRAIN_DATA: {
 		/**
 		 * Custom train ID to get state for
 		 * */
 		id: string;
 	};
+	/**
+	 * Receive custom train configuration and state
+	 */
 	ON_CUSTOM_TRAIN_DATA: {
 		configs: CustomTrainData;
 		state: CustomTrainState;
 	};
 
-	ON_DISTORT_OVERLAY_CONFIGS: {
-		params: HeatDistortionData;
-	};
+	/**
+	 * Request distortion overlay configuration
+	 * @answer ON_DISTORT_OVERLAY_CONFIGS
+	 */
 	GET_DISTORT_OVERLAY_CONFIGS: {
 		/**
 		 * Distortion overlay ID to get parameters for
 		 */
 		id: string;
 	};
+	/**
+	 * Receive a distortion overlay configuration data
+	 */
+	ON_DISTORT_OVERLAY_CONFIGS: {
+		params: HeatDistortionData;
+	};
 
+	/**
+	 * Request donation goals overlay configuration
+	 * @answer ON_DONATION_GOALS_OVERLAY_CONFIGS
+	 */
 	GET_DONATION_GOALS_OVERLAY_CONFIGS: {
 		/**
 		 * Overlay ID to get parameters for
 		 */
 		id: string;
 	};
+	/**
+	 * Receive a donation goals overlay configurations
+	 */
 	ON_DONATION_GOALS_OVERLAY_CONFIGS: {
 		params: DonationGoalOverlayConfig;
 		goal: number;
@@ -468,6 +643,9 @@ export type TwitchatEventMap = {
 		raisedPersonnal: number;
 		skin: 'default' | string;
 	};
+	/**
+	 * Triggered when a donation event occurs
+	 */
 	ON_DONATION_EVENT: {
 		/**
 		 * Overlay ID the donation event should be displayed on
@@ -483,7 +661,14 @@ export type TwitchatEventMap = {
 		amount: string;
 	};
 
+	/**
+	 * Request current playing track information
+	 * @answer ON_CURRENT_TRACK
+	 */
 	GET_CURRENT_TRACK: undefined;
+	/**
+	 * Receive current track information
+	 */
 	ON_CURRENT_TRACK: {
 		params: MusicPlayerParamsData;
 		trackName?: string;
@@ -493,25 +678,79 @@ export type TwitchatEventMap = {
 		cover?: string;
 		skin?: string;
 	};
+	/**
+	 * Triggered when a track is added to the music queue
+	 */
 	ON_TRACK_ADDED_TO_QUEUE: MusicTrackData;
 
+	/**
+	 * Triggered when a heat click occurs on the music player
+	 */
 	ON_MUSIC_PLAYER_HEAT_CLICK: HeatClickData;
 
+	/**
+	 * Request polls overlay presence
+	 * @answer ON_POLLS_OVERLAY_PRESENCE
+	 */
 	GET_POLLS_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Advertise for polls overlay presence
+	 */
 	ON_POLLS_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Request polls overlay configuration
+	 * @answer ON_POLL_OVERLAY_CONFIGS
+	 */
 	GET_POLLS_OVERLAY_CONFIGS: undefined;
+	/**
+	 * Receive poll overlay configuration
+	 */
 	ON_POLL_OVERLAY_CONFIGS: { parameters: PollOverlayParamStoreData };
+	/**
+	 * Triggered when poll progress updates
+	 */
 	ON_POLL_PROGRESS: { poll: MessagePollData } | undefined;
 
+	/**
+	 * Request predictions overlay presence
+	 * @answer ON_PREDICTIONS_OVERLAY_PRESENCE
+	 */
 	GET_PREDICTIONS_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Advertise for predictions overlay presence
+	 */
 	ON_PREDICTIONS_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Request predictions overlay configuration
+	 * @answer ON_PREDICTION_OVERLAY_CONFIGS
+	 */
 	GET_PREDICTIONS_OVERLAY_CONFIGS: undefined;
+	/**
+	 * Receive prediction overlay configuration
+	 */
 	ON_PREDICTION_OVERLAY_CONFIGS: { parameters: PredictionOverlayParamStoreData };
+	/**
+	 * Triggered when prediction progress updates
+	 */
 	ON_PREDICTION_PROGRESS: { prediction: MessagePredictionData } | undefined;
 
+	/**
+	 * Request timer overlay presence
+	 * @answer ON_TIMER_OVERLAY_PRESENCE
+	 */
 	GET_TIMER_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Advertise for timer overlay presence
+	 */
 	ON_TIMER_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Request list of all timers
+	 * @answer ON_TIMER_LIST
+	 */
 	GET_TIMER_LIST: undefined;
+	/**
+	 * Receive list of all timers and countdowns
+	 */
 	ON_TIMER_LIST: {
 		timerList: {
 			id: string;
@@ -521,13 +760,23 @@ export type TwitchatEventMap = {
 		}[];
 	};
 
+	/**
+	 * Request specific timer configuration
+	 * @answer ON_TIMER_START
+	 */
 	GET_TIMER: {
 		/**
 		 * Timer ID to get configs for
 		 */
 		id: string;
 	};
+	/**
+	 * Triggered when a timer starts
+	 */
 	ON_TIMER_START: TimerData;
+	/**
+	 * Add time to a timer
+	 */
 	SET_TIMER_ADD: {
 		/**
 		 * Timer ID to add time to
@@ -540,8 +789,17 @@ export type TwitchatEventMap = {
 		 */
 		value: string;
 	};
+	/**
+	 * Triggered when a timer stops
+	 */
 	ON_TIMER_STOP: TimerData;
+	/**
+	 * Triggered when a countdown starts
+	 */
 	ON_COUNTDOWN_START: TimerData;
+	/**
+	 * Add time to a countdown
+	 */
 	SET_COUNTDOWN_ADD: {
 		/**
 		 * Countdown ID to add time to
@@ -554,11 +812,27 @@ export type TwitchatEventMap = {
 		 */
 		value: string;
 	};
+	/**
+	 * Triggered when a countdown completes
+	 */
 	ON_COUNTDOWN_COMPLETE: TimerData;
 
+	/**
+	 * Request wheel overlay presence
+	 * @answer ON_WHEEL_OVERLAY_PRESENCE
+	 */
 	GET_WHEEL_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Advertise for wheel overlay presence
+	 */
 	ON_WHEEL_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Triggered when wheel overlay animation starts
+	 */
 	ON_WHEEL_OVERLAY_START: WheelData;
+	/**
+	 * Triggered when wheel overlay animation completes
+	 */
 	ON_WHEEL_OVERLAY_ANIMATION_COMPLETE: {
 		/**
 		 * Winner info
@@ -574,48 +848,132 @@ export type TwitchatEventMap = {
 		delay?: number;
 	};
 
+	/**
+	 * Request ad break overlay presence
+	 * @answer ON_AD_BREAK_OVERLAY_PRESENCE
+	 */
 	GET_AD_BREAK_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Advertise for ad break overlay presence
+	 */
 	ON_AD_BREAK_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Request ad break overlay configuration
+	 * @answer ON_AD_BREAK_OVERLAY_CONFIGS
+	 */
 	GET_AD_BREAK_OVERLAY_CONFIGS: undefined;
+	/**
+	 * Receive ad break overlay configuration
+	 */
 	ON_AD_BREAK_OVERLAY_CONFIGS: AdBreakOverlayData;
+	/**
+	 * Triggered when an ad break occurs
+	 */
 	ON_AD_BREAK_OVERLAY_DATA: CommercialData;
 
+	/**
+	 * Request bitswall overlay presence
+	 * @answer ON_BITSWALL_OVERLAY_PRESENCE
+	 */
 	GET_BITSWALL_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Advertise for bitswall overlay presence
+	 */
 	ON_BITSWALL_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Request bitswall overlay configuration
+	 * @answer ON_BITSWALL_OVERLAY_CONFIGS
+	 */
 	GET_BITSWALL_OVERLAY_CONFIGS: undefined;
+	/**
+	 * Receive bitswall overlay configuration
+	 */
 	ON_BITSWALL_OVERLAY_CONFIGS: BitsWallOverlayData;
 
+	/**
+	 * Request chat poll overlay presence
+	 * @answer ON_CHAT_POLL_OVERLAY_PRESENCE
+	 */
 	GET_CHAT_POLL_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Advertise for chat poll overlay presence
+	 */
 	ON_CHAT_POLL_OVERLAY_PRESENCE: undefined;
+	/**
+	 * Request chat poll overlay configuration
+	 * @answer ON_CHAT_POLL_OVERLAY_CONFIGS
+	 */
 	GET_CHAT_POLL_OVERLAY_CONFIGS: undefined;
+	/**
+	 * Receive chat poll overlay configuration
+	 */
 	ON_CHAT_POLL_OVERLAY_CONFIGS: { parameters: PollOverlayParamStoreData };
+	/**
+	 * Triggered when chat poll progress updates
+	 */
 	ON_CHAT_POLL_PROGRESS: { poll: ChatPollData } | undefined;
 
 	/**
 	 * A chat message has been deleted
 	 */
 	ON_MESSAGE_DELETED: {
+		/**
+		 * Channel ID the message was deleted from
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		message: string;
+		/**
+		 * User info
+		 */
 		user: {
 			id: string;
 			login: string;
 			displayName: string;
 		};
 	};
+	/**
+	 * Triggered when a user sends bits (cheers)
+	 */
 	ON_BITS: {
+		/**
+		 * Channel ID where bits were sent
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		message: string;
+		/**
+		 * Parsed message chunks
+		 */
 		message_chunks?: ParseMessageChunk[];
+		/**
+		 * User who sent bits
+		 */
 		user: {
 			id: string;
 			login: string;
 			displayName: string;
 		};
+		/**
+		 * Number of bits sent
+		 */
 		bits: number;
+		/**
+		 * Whether the message is pinned
+		 */
 		pinned: boolean;
+		/**
+		 * Pin level (1-10)
+		 */
 		pinLevel: number;
 	};
+	/**
+	 * Triggered when a whisper message is received
+	 */
 	ON_MESSAGE_WHISPER: {
 		/**
 		 * Number of unread whispers
@@ -634,79 +992,199 @@ export type TwitchatEventMap = {
 			displayName: string;
 		};
 	};
+	/**
+	 * Triggered when a message is received from a non-follower
+	 */
 	ON_MESSAGE_FROM_NON_FOLLOWER: {
+		/**
+		 * Channel ID where the message was sent
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		message: string;
+		/**
+		 * User info
+		 */
 		user: {
 			id: string;
 			login: string;
 			displayName: string;
 		};
 	};
+	/**
+	 * Triggered when the streamer is mentioned in a message
+	 */
 	ON_MENTION: {
+		/**
+		 * Channel ID where the message was sent
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		message: string;
+		/**
+		 * User info
+		 */
 		user: {
 			id: string;
 			login: string;
 			displayName: string;
 		};
 	};
+	/**
+	 * Triggered when a user sends their first message of the day
+	 */
 	ON_MESSAGE_FIRST_TODAY: {
+		/**
+		 * Channel ID where the message was sent
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		message: string;
+		/**
+		 * User info
+		 */
 		user: {
 			id: string;
 			login: string;
 			displayName: string;
 		};
 	};
+	/**
+	 * Triggered when a user sends their first message ever in the channel
+	 */
 	ON_MESSAGE_FIRST_ALL_TIME: {
+		/**
+		 * Channel ID where the message was sent
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		message: string;
+		/**
+		 * User info
+		 */
 		user: {
 			id: string;
 			login: string;
 			displayName: string;
 		};
 	};
+	/**
+	 * Triggered when a channel point reward is redeemed
+	 */
 	ON_REWARD_REDEEM: {
+		/**
+		 * Channel ID where the reward was redeemed
+		 */
 		channel: string;
+		/**
+		 * Optional message sent with the reward redemption
+		 */
 		message?: string;
+		/**
+		 * Parsed message chunks
+		 */
 		message_chunks?: ParseMessageChunk[];
+		/**
+		 * User info
+		 */
 		user: {
 			id: string;
 			login: string;
 			displayName: string;
 		};
+		/**
+		 * Reward info
+		 */
 		reward: {
 			id: string;
 			cost: number;
 			title: string;
 		};
 	};
+	/**
+	 * Triggered when a subscription event occurs (new sub, resub, gift, etc.)
+	 */
 	ON_SUBSCRIPTION: {
+		/**
+		 * Channel ID where the subscription event occurred
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		message: string;
+		/**
+		 * Parsed message chunks
+		 */
 		message_chunks: ParseMessageChunk[];
+		/**
+		 * User info
+		 */
 		user: {
 			id: string;
 			login: string;
 			displayName: string;
 		};
+		/**
+		 * Subscription tier
+		 */
 		tier: MessageSubscriptionData['tier'];
+		/**
+		 * Number of months the user subscribed for
+		 */
 		months: number;
+		/**
+		 * List of gift recipients (empty if not a gift)
+		 */
 		recipients: { uid: string; login: string }[];
+		/**
+		 * Number of consecutive months the user has been subscribed
+		 */
 		streakMonths: number;
+		/**
+		 * Total number of months the user has been subscribed for
+		 */
 		totalSubDuration: number;
+		/**
+		 * Number of gifts sent
+		 */
 		giftCount: number;
+		/**
+		 * Is subscription a Prime upgrade (went from prime to normal sub)
+		 */
 		isPrimeUpgrade: boolean;
+		/**
+		 * Is subscription a gift
+		 */
 		isGift: boolean;
+		/**
+		 * Is subscription a gift upgrade (gifted sub upgraded to normal sub)
+		 */
 		isGiftUpgrade: boolean;
+		/**
+		 * Is subscription a resubscription
+		 */
 		isResub: boolean;
 	};
+	/**
+	 * Triggered when a user follows the channel
+	 */
 	ON_FOLLOW: {
+		/**
+		 * Channel ID where the follow occurred
+		 */
 		channel: string;
+		/**
+		 * Message content
+		 */
 		user: {
 			id: string;
 			login: string;
@@ -721,6 +1199,9 @@ export type TwitchatEventMap = {
 	 */
 	SET_EMERGENCY_MODE:
 		| {
+				/**
+				 * New emergency mode state
+				 */
 				enabled: boolean;
 				/**
 				 * If set to true, a confirmation modal will be shown
@@ -736,7 +1217,14 @@ export type TwitchatEventMap = {
 		enabled: boolean;
 	};
 
+	/**
+	 * Request available label overlay placeholders
+	 * @answer ON_LABEL_OVERLAY_PLACEHOLDERS
+	 */
 	GET_LABEL_OVERLAY_PLACEHOLDERS: undefined;
+	/**
+	 * Advertise for label overlay placeholders
+	 */
 	ON_LABEL_OVERLAY_PLACEHOLDERS: {
 		[tag: string]: {
 			value: string | number;
@@ -756,12 +1244,19 @@ export type TwitchatEventMap = {
 				| 'image';
 		};
 	};
+	/**
+	 * Request label overlay configuration
+	 * @answer ON_LABEL_OVERLAY_CONFIGS
+	 */
 	GET_LABEL_OVERLAY_CONFIGS: {
 		/**
 		 * Label ID
 		 */
 		id: string;
 	};
+	/**
+	 * Receive label overlay configuration
+	 */
 	ON_LABEL_OVERLAY_CONFIGS: {
 		/**
 		 * Label ID
@@ -772,7 +1267,14 @@ export type TwitchatEventMap = {
 		isValid?: boolean;
 	};
 
+	/**
+	 * Request number of chat columns
+	 * @answer ON_CHAT_COLUMNS_COUNT
+	 */
 	GET_CHAT_COLUMNS_COUNT: undefined;
+	/**
+	 * Receive number of chat columns
+	 */
 	ON_CHAT_COLUMNS_COUNT: {
 		/**
 		 * Number of chat columns
@@ -780,11 +1282,30 @@ export type TwitchatEventMap = {
 		count: number;
 	};
 
+	/**
+	 * Request list of all Q&A sessions
+	 * @answer ON_QNA_SESSION_LIST
+	 */
 	GET_QNA_SESSION_LIST: undefined;
+	/**
+	 * Receive list of all Q&A sessions
+	 */
 	ON_QNA_SESSION_LIST: {
+		/**
+		 * Available Q&A sessions
+		 */
 		sessionList: {
+			/**
+			 * Q&A session ID
+			 */
 			id: string;
+			/**
+			 * Command to use to submit a new entry
+			 */
 			command: string;
+			/**
+			 * Is the Q&A session currently open for new entries
+			 */
 			open: boolean;
 		}[];
 	};
@@ -807,35 +1328,63 @@ export type TwitchatEventMap = {
 		id: string;
 	};
 
+	/**
+	 * Execute a specific trigger manually
+	 */
 	SET_EXECUTE_TRIGGER: {
 		/**
 		 * Trigger ID to execute
 		 */
 		id: string;
 	};
+	/**
+	 * Request list of all triggers
+	 * @answer ON_TRIGGER_LIST
+	 */
 	GET_TRIGGER_LIST: undefined;
+	/**
+	 * Receive list of all triggers
+	 */
 	ON_TRIGGER_LIST: {
+		/**
+		 * Available trigger list
+		 */
 		triggerList: {
+			/**
+			 * Trigger ID
+			 */
 			id: string;
+			/**
+			 * Trigger name
+			 */
 			name: string;
+			/**
+			 * Is the trigger currently disabled
+			 */
 			disabled: boolean;
 		}[];
 	};
+	/**
+	 * Enable or disable a specific trigger
+	 */
 	SET_TRIGGER_STATE: {
 		/**
 		 * Trigger ID to change state of
 		 */
 		id: string;
 		/**
-		 * Force trigger state
-		 * true to enable it
-		 * false to disabled
+		 * Force trigger state:
+		 * - true: enable it
+		 * - false: disable it
 		 *
-		 * Don't set this field to just toggle current state
+		 * Omit this field to toggle current state
 		 */
 		forcedState?: boolean;
 	};
 
+	/**
+	 * Play an SFXR sound
+	 */
 	SET_PLAY_SFXR: {
 		/**
 		 * SFXR sound parameters as a string
@@ -854,7 +1403,7 @@ export type TwitchatEventMap = {
 	 */
 	SET_AUTOMOD_ACCEPT: undefined;
 	/**
-	 * Rject latest message held by automod
+	 * Reject latest message held by automod
 	 */
 	SET_AUTOMOD_REJECT: undefined;
 	/**
@@ -895,31 +1444,71 @@ export type TwitchatEventMap = {
 	 * Toggle current raffle display
 	 */
 	SET_RAFFLE_TOGGLE: undefined;
-	SET_SHOUTOUT: undefined;
+	/**
+	 * Shoutout the user that raided the channel the most recently
+	 */
+	SET_SHOUTOUT_LAST_RAIDER: undefined;
+	/**
+	 * Clear any current message or clip displayed in chat highlight overlay
+	 */
 	SET_CLEAR_CHAT_HIGHLIGHT: undefined;
+	/**
+	 * Stop any Twitch poll currently running
+	 */
 	SET_STOP_POLL: undefined;
+	/**
+	 * Stop any Twitch prediction currently running
+	 */
 	SET_STOP_PREDICTION: undefined;
+	/**
+	 * Send a message to chat
+	 */
 	SET_SEND_MESSAGE: {
+		/**
+		 * Message content to send
+		 */
 		message: string;
 	};
+	/**
+	 * Pick a winner for the first active raffle.
+	 * If multiple raffles are active, only the first one started will be considered.
+	 */
 	SET_RAFFLE_PICK_WINNER: undefined;
+	/**
+	 * Stop any current text-to-speech audio playback
+	 */
 	SET_STOP_CURRENT_TTS_AUDIO: undefined;
+	/**
+	 * Send a custom message to the chat feed with optional styling and actions
+	 */
 	SET_SEND_CUSTOM_CHAT_MESSAGE: {
-		//Message to display
+		/**
+		 * Message to display
+		 */
 		message?: string;
-		//Defines if the close button should be disaplay
-		//defaults to "true" if omitted
+		/**
+		 * Defines if the close button should be displayed
+		 * Defaults to "true" if omitted
+		 */
 		canClose?: boolean;
-		//Defines if the message should be displayed on the "greet them" section
+		/**
+		 * Defines if the message should be displayed on the "greet them" section
+		 */
 		todayFirst?: boolean;
-		//User info
+		/**
+		 * User info
+		 */
 		user?: {
 			name: string;
 			color?: string;
 		};
-		//Column index to display the message to
+		/**
+		 * Column index to display the message to
+		 */
 		col?: number;
-		//Button icon see list of values above
+		/**
+		 * Button icon see list of values above
+		 */
 		icon?:
 			| 'ad'
 			| 'add'
@@ -1103,30 +1692,54 @@ export type TwitchatEventMap = {
 			| 'watchStreak'
 			| 'whispers'
 			| 'youtube';
-		//Color of the message for "highlight" style
+		/**
+		 * Color of the message for "highlight" style
+		 */
 		highlightColor?: string;
-		//Message style
+		/**
+		 * Message style
+		 */
 		style?: 'message' | 'highlight' | 'error';
-		//Option quote displayed in a dedicated holder
+		/**
+		 * Option quote displayed in a dedicated holder
+		 */
 		quote?: string;
-		//buttons to add
+		/**
+		 * buttons to add
+		 */
 		actions?: {
-			//Button icon see list of values above
+			/**
+			 * Button icon see list of values above
+			 */
 			icon?: string;
-			//Button label
+			/**
+			 * Button label
+			 */
 			label: string;
-			//Type of action
+			/**
+			 * Type of action
+			 */
 			actionType?: 'url' | 'trigger' | 'message' | 'discord';
-			//Page to open in a new tab for "url" actionType
+			/**
+			 * Page to open in a new tab for "url" actionType
+			 */
 			url?: string;
-			//window target for "url" actionType
+			/**
+			 * Window target for "url" actionType
+			 */
 			urlTarget?: string;
-			//Trigger to execute for "trigger" actionType.
-			//Use CTRL+Alt+D on your triggers list to show their IDs
+			/**
+			 * Trigger to execute for "trigger" actionType.
+			 * Use CTRL+Alt+D on your triggers list to show their IDs
+			 */
 			triggerId?: string;
-			//Message sent on chat for "message" and "discord" actionType values
+			/**
+			 * Message sent on chat for "message" and "discord" actionType values
+			 */
 			message?: string;
-			//Button style
+			/**
+			 * Button style
+			 */
 			theme?: 'default' | 'primary' | 'secondary' | 'alert';
 		}[];
 	};
@@ -1137,17 +1750,50 @@ export type TwitchatEventMap = {
 	 */
 	GET_GLOBAL_STATES: undefined;
 
+	/**
+	 * Response to GET_GLOBAL_STATES
+	 */
 	ON_GLOBAL_STATES: {
+		/**
+		 * List of active timer and their state
+		 */
 		activeTimers: string[];
-		activeCountowns: string[];
+		/**
+		 * List of active countdowns and their state
+		 */
+		activeCountdowns: string[];
+		/**
+		 * Current counter values
+		 */
 		counterValues: { [counterId: string]: number };
+		/**
+		 * Current emergency mode state
+		 */
 		emergencyMode: boolean;
+		/**
+		 * Is any text-to-speech currently speaking
+		 */
 		ttsSpeaking: boolean;
+		/**
+		 * Can the user perform auto shoutouts
+		 */
 		canAutoShoutout: boolean;
+		/**
+		 * Is the viewers count visible on chat bar
+		 */
 		moderationToolsVisible: boolean;
+		/**
+		 * Are deleted messages being censored
+		 */
 		censorshipEnabled: boolean;
+		/**
+		 * Is there an active chat alert being shown
+		 */
 		hasActiveChatAlert: boolean;
-		voiceBotEnabled: boolean;
+		/**
+		 * Is voice control enabled
+		 */
+		voiceControlEnabled: boolean;
 	};
 
 	/**
