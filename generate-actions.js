@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import readline from 'readline';
 
 // Paths
-const iconsSourceDir = './icons_source';
 const actionsImgDir = './fr.twitchat.sdPlugin/imgs/actions';
 const actionsUiDir = './fr.twitchat.sdPlugin/ui';
 const actionsSrcDir = './src/actions';
@@ -11,77 +11,69 @@ const pluginPath = './src/plugin.ts';
 const frJsonPath = './fr.twitchat.sdPlugin/fr.json';
 const localeJsPath = './fr.twitchat.sdPlugin/ui/locale.js';
 
+// Create readline interface for prompts
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
+
 /**
- * Convert icon filename to ID format (lowercase with dashes)
- * MY_ICON.svg -> my-icon
+ * Prompt user for input
  */
-function toId(filename) {
-	return path.parse(filename).name.toLowerCase().replace(/_/g, '-');
+function prompt(question) {
+	return new Promise((resolve) => {
+		rl.question(question, (answer) => {
+			resolve(answer.trim());
+		});
+	});
 }
 
 /**
- * Convert icon filename to ID_ACTION format (name without extension)
- * MY_ICON.svg -> MY_ICON
+ * Convert action ID to CamelCase for class name
+ * my-action -> MyAction
  */
-function toIdAction(filename) {
-	return path.parse(filename).name;
-}
-
-/**
- * Convert icon filename to CamelCase
- * MY_ICON.svg -> MyIcon
- */
-function toCamelCase(filename) {
-	const name = path.parse(filename).name;
-	return name
-		.split('_')
+function toCamelCase(id) {
+	return id
+		.split('-')
 		.map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
 		.join('');
 }
 
 /**
- * Convert icon filename to display name
- * MY_ICON.svg -> My icon
+ * Convert action ID to ID_ACTION format (uppercase with underscores)
+ * my-action -> MY_ACTION
  */
-function toDisplayName(filename) {
-	const name = path.parse(filename).name;
-	const words = name.toLowerCase().replace(/_/g, ' ');
-	return words.charAt(0).toUpperCase() + words.slice(1);
+function toIdAction(id) {
+	return id.toUpperCase().replace(/-/g, '_');
 }
 
 /**
- * Create action folder and copy icon
+ * Create action folder (without icon, as it should be created manually)
  * Returns true if created, false if skipped
  */
-function createActionFolder(iconFile, id) {
+function createActionFolder(id) {
 	const targetDir = path.join(actionsImgDir, id);
-	const targetPath = path.join(targetDir, 'icon.svg');
 
-	// Check if icon already exists
-	if (fs.existsSync(targetPath)) {
+	// Check if folder already exists
+	if (fs.existsSync(targetDir)) {
 		console.log(`⊘ Skipped folder (already exists): ${targetDir}`);
 		return false;
 	}
 
-	// Create directory if it doesn't exist
-	if (!fs.existsSync(targetDir)) {
-		fs.mkdirSync(targetDir, { recursive: true });
-	}
+	// Create directory
+	fs.mkdirSync(targetDir, { recursive: true });
 
-	// Copy icon file
-	const sourcePath = path.join(iconsSourceDir, iconFile);
-	fs.copyFileSync(sourcePath, targetPath);
-
-	console.log(`✓ Created folder and copied icon: ${targetDir}`);
+	console.log(`✓ Created folder: ${targetDir}`);
+	console.log(`  ⚠️  Remember to add an icon.svg file in this folder!`);
 	return true;
 }
 
 /**
  * Create action entry for manifest.json
  */
-function createManifestEntry(iconFile, id) {
+function createManifestEntry(id, name) {
 	return {
-		Name: toDisplayName(iconFile),
+		Name: name,
 		UUID: `fr.twitchat.action.${id}`,
 		Icon: `imgs/actions/${id}/icon`,
 		Tooltip: '',
@@ -97,58 +89,43 @@ function createManifestEntry(iconFile, id) {
 }
 
 /**
- * Update manifest.json with new actions
+ * Update manifest.json with new action
  */
-function updateManifest(newActions) {
+function updateManifest(newAction) {
 	const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 
-	// Create a map of existing actions by UUID
-	const existingActionsMap = new Map();
-	manifest.Actions.forEach((action) => {
-		existingActionsMap.set(action.UUID, action);
-	});
+	// Check if action already exists
+	const existingIndex = manifest.Actions.findIndex((a) => a.UUID === newAction.UUID);
 
-	// Start with existing actions in their current order
-	const updatedActions = [...manifest.Actions];
-
-	// Track which new actions to add
-	const newActionUUIDs = new Set(newActions.map((a) => a.UUID));
-	const existingUUIDs = new Set(manifest.Actions.map((a) => a.UUID));
-
-	// Add only truly new actions at the end
-	let addedCount = 0;
-	newActions.forEach((newAction) => {
-		if (!existingUUIDs.has(newAction.UUID)) {
-			updatedActions.push(newAction);
-			addedCount++;
-		}
-	});
-
-	manifest.Actions = updatedActions;
+	if (existingIndex >= 0) {
+		// Update existing action
+		manifest.Actions[existingIndex] = newAction;
+		console.log(`✓ Updated existing action in manifest.json: ${newAction.UUID}`);
+	} else {
+		// Add new action
+		manifest.Actions.push(newAction);
+		console.log(`✓ Added new action to manifest.json: ${newAction.UUID}`);
+	}
 
 	fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, '\t'));
-	console.log(`✓ Updated manifest.json (${addedCount} new actions added, ${updatedActions.length - addedCount} existing preserved)`);
 }
 
 /**
- * Update fr.json and en.json with action keys
+ * Update fr.json with action key and french name
  */
-function updateLocalizationFiles(newActions) {
+function updateFrenchLocalization(actionUUID, frenchName) {
 	if (!fs.existsSync(frJsonPath)) {
 		fs.writeFileSync(frJsonPath, JSON.stringify({}, null, '\t'));
 	}
 
-	// Read existing localization files
+	// Read existing fr.json
 	const frJson = JSON.parse(fs.readFileSync(frJsonPath, 'utf8'));
 
-	// Add new action keys (preserve existing ones)
-	newActions.forEach((action) => {
-		const actionId = action.UUID; // Use full UUID as key
-
-		if (!frJson[actionId]) {
-			frJson[actionId] = { Name: '', Tooltip: '' };
-		}
-	});
+	// Add or update action key
+	frJson[actionUUID] = {
+		Name: frenchName,
+		Tooltip: frJson[actionUUID]?.Tooltip || '',
+	};
 
 	// Sort keys alphabetically for consistency
 	const sortedFrJson = Object.keys(frJson)
@@ -158,16 +135,16 @@ function updateLocalizationFiles(newActions) {
 			return acc;
 		}, {});
 
-	// Write back to files
+	// Write back to file
 	fs.writeFileSync(frJsonPath, JSON.stringify(sortedFrJson, null, '\t'));
 
-	console.log(`✓ Updated fr.json with new action keys`);
+	console.log(`✓ Updated fr.json with french name: "${frenchName}"`);
 }
 
 /**
- * Update locale.js with action keys
+ * Update locale.js with action key
  */
-function updateLocaleFile(newActions) {
+function updateLocaleFile(id) {
 	// Read existing locale.js file
 	let localeContent = fs.readFileSync(localeJsPath, 'utf8');
 
@@ -218,19 +195,14 @@ function updateLocaleFile(newActions) {
 		}
 	}
 
-	// Add new action keys (preserve existing ones)
-	newActions.forEach((action) => {
-		// Extract the last part of UUID as the key
-		const actionId = action.UUID.replace('fr.twitchat.action.', '');
+	// Add action key if it doesn't exist
+	if (!enLocale[id]) {
+		enLocale[id] = {};
+	}
 
-		if (!enLocale[actionId]) {
-			enLocale[actionId] = {};
-		}
-
-		if (!frLocale[actionId]) {
-			frLocale[actionId] = {};
-		}
-	});
+	if (!frLocale[id]) {
+		frLocale[id] = {};
+	}
 
 	// Sort keys alphabetically for consistency
 	const sortedEnLocale = Object.keys(enLocale)
@@ -247,6 +219,40 @@ function updateLocaleFile(newActions) {
 			return acc;
 		}, {});
 
+	// Helper function to format a property name (quote if needed)
+	function formatPropertyName(key) {
+		// Quote if contains dashes, spaces, or other special characters
+		if (/[^a-zA-Z0-9_$]/.test(key)) {
+			return `'${key}'`;
+		}
+		return key;
+	}
+
+	// Helper function to format a value as JavaScript
+	function formatValue(val, baseIndent) {
+		if (typeof val === 'string') {
+			// Escape quotes, backslashes and newlines in strings
+			const escapedVal = val.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n');
+			return `'${escapedVal}'`;
+		} else if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+			// Format nested objects
+			const nestedProps = Object.keys(val)
+				.map((k) => {
+					return `${baseIndent}\t\t${formatPropertyName(k)}: ${formatValue(val[k], baseIndent + '\t')}`;
+				})
+				.join(',\n');
+			return nestedProps ? `{\n${nestedProps},\n${baseIndent}\t}` : '{}';
+		} else if (Array.isArray(val)) {
+			return JSON.stringify(val);
+		} else if (typeof val === 'number' || typeof val === 'boolean') {
+			return String(val);
+		} else if (val === null) {
+			return 'null';
+		} else {
+			return "''";
+		}
+	}
+
 	// Helper function to format locale object as JavaScript
 	function formatLocaleObject(obj, indent = '\t\t') {
 		const entries = Object.keys(obj).map((key) => {
@@ -254,13 +260,11 @@ function updateLocaleFile(newActions) {
 			const props = Object.keys(value)
 				.map((prop) => {
 					const val = value[prop];
-					// Escape quotes in values
-					const escapedVal = typeof val === 'string' ? val.replace(/"/g, '\\"') : val;
-					return `${indent}\t${prop}: "${escapedVal}"`;
+					return `${indent}\t${formatPropertyName(prop)}: ${formatValue(val, indent)}`;
 				})
 				.join(',\n');
-			const v = props ? `{\n${props}\n${indent}}` : '{ }';
-			return `${indent}"${key}": ${v}`;
+			const v = props ? `{\n${props},\n${indent}}` : '{}';
+			return `${indent}${formatPropertyName(key)}: ${v}`;
 		});
 		return entries.join(',\n');
 	}
@@ -277,14 +281,14 @@ ${formatLocaleObject(sortedFrLocale)}
 `;
 
 	fs.writeFileSync(localeJsPath, newContent);
-	console.log(`✓ Updated locale.js with action keys`);
+	console.log(`✓ Updated locale.js with action key: ${id}`);
 }
 
 /**
  * Create HTML UI file
  * Returns true if created, false if skipped
  */
-function createHtmlFile(iconFile, id) {
+function createHtmlFile(id, name) {
 	const targetPath = path.join(actionsUiDir, `${id}.html`);
 
 	// Check if HTML file already exists
@@ -293,13 +297,11 @@ function createHtmlFile(iconFile, id) {
 		return false;
 	}
 
-	const displayName = toDisplayName(iconFile);
-
 	const content = `<!DOCTYPE html>
 <html>
 
 <head lang="en">
-	<title>${displayName} Settings</title>
+	<title>${name} Settings</title>
 	<meta charset="utf-8" />
 	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
 	<script type="module" src="./common.js"></script>
@@ -322,7 +324,7 @@ function createHtmlFile(iconFile, id) {
  * Create TypeScript action file
  * Returns true if created, false if skipped
  */
-function createActionFile(iconFile, id) {
+function createActionFile(id, name) {
 	const targetPath = path.join(actionsSrcDir, `${id}.ts`);
 
 	// Check if action file already exists
@@ -331,24 +333,25 @@ function createActionFile(iconFile, id) {
 		return false;
 	}
 
-	const idCamel = toCamelCase(iconFile);
-	const idAction = toIdAction(iconFile);
+	const className = toCamelCase(id);
+	const eventName = toIdAction(id);
 
-	const content = `import { action, KeyDownEvent, SingletonAction } from "@elgato/streamdeck";
-import TwitchatSocket from "../TwitchatSocket";
+	const content = `import { action, KeyDownEvent } from '@elgato/streamdeck';
+import TwitchatSocket from '../TwitchatSocket';
+import { AbstractAction } from './AbstractActions';
 
 /**
- * Action for ${toDisplayName(iconFile)}.
+ * Action for ${name}.
  */
-@action({ UUID: "fr.twitchat.action.${id}" })
-export class ${idCamel} extends AbstractAction<Settings> {
-\toverride async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-\t\tTwitchatSocket.instance.broadcast("${idAction}");
+@action({ UUID: 'fr.twitchat.action.${id}' })
+export class ${className} extends AbstractAction<Settings> {
+\toverride async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
+\t\tTwitchatSocket.instance.broadcast('${eventName}');
 \t}
 }
 
 /**
- * Settings for {@link ${idCamel}}.
+ * Settings for {@link ${className}}.
  */
 type Settings = {};
 `;
@@ -359,158 +362,166 @@ type Settings = {};
 }
 
 /**
- * Update plugin.ts with imports and registrations
+ * Update plugin.ts with import and registration
  */
-function updatePluginFile(iconFiles) {
+function updatePluginFile(id) {
 	let content = fs.readFileSync(pluginPath, 'utf8');
 
-	// Generate new imports and registrations
-	const newImports = iconFiles
-		.map((iconFile) => {
-			const id = toId(iconFile);
-			const idCamel = toCamelCase(iconFile);
-			return `import { ${idCamel} } from "./actions/${id}";`;
-		})
-		.join('\n');
+	const className = toCamelCase(id);
+	const newImport = `import { ${className} } from "./actions/${id}";`;
+	const newRegistration = `streamDeck.actions.registerAction(new ${className}());`;
 
-	const newRegistrations = iconFiles
-		.map((iconFile) => {
-			const idCamel = toCamelCase(iconFile);
-			return `streamDeck.actions.registerAction(new ${idCamel}());`;
-		})
-		.join('\n');
+	// Check if import already exists
+	const importPattern = new RegExp(`import \\{ ${className} \\} from "\\.\\/actions\\/${id}";`, 'g');
+	const hasImport = importPattern.test(content);
 
-	// Remove old imports and registrations for regenerated actions
-	const idsToReplace = iconFiles.map(toId);
-	const camelCasesToReplace = iconFiles.map(toCamelCase);
+	// Check if registration already exists
+	const regPattern = new RegExp(`streamDeck\\.actions\\.registerAction\\(new ${className}\\(\\)\\);`, 'g');
+	const hasRegistration = regPattern.test(content);
 
-	// Remove old imports
-	idsToReplace.forEach((id) => {
-		const importPattern = new RegExp(`import \\{ \\w+ \\} from "\\.\\/actions\\/${id}";?\n?`, 'g');
-		content = content.replace(importPattern, '');
-	});
+	if (hasImport && hasRegistration) {
+		console.log(`⊘ Skipped plugin.ts update (already has import and registration)`);
+		return false;
+	}
 
-	// Remove old registrations
-	camelCasesToReplace.forEach((camelCase) => {
-		const regPattern = new RegExp(`streamDeck\\.actions\\.registerAction\\(new ${camelCase}\\(\\)\\);?\n?`, 'g');
-		content = content.replace(regPattern, '');
-	});
+	// Add import if not exists
+	if (!hasImport) {
+		// Find where to insert imports (after TwitchatSocket import, before any code)
+		const twitchatImportMatch = content.match(/import TwitchatSocket from ["']\.\/TwitchatSocket["'];?\n/);
+		let importInsertIndex;
 
-	// Remove old "Register actions" comments
-	content = content.replace(/\/\/ Register actions\n/g, '');
-	content = content.replace(/\/\/ Finally, connect to the Stream Deck\.\n/g, '');
-
-	// Find where to insert imports (after TwitchatSocket import, before any code)
-	const twitchatImportMatch = content.match(/import TwitchatSocket from ["']\.\/TwitchatSocket["'];?\n/);
-	let importInsertIndex;
-
-	if (twitchatImportMatch) {
-		importInsertIndex = content.indexOf(twitchatImportMatch[0]) + twitchatImportMatch[0].length;
-	} else {
-		// Fallback: insert after the last import statement
-		const importRegex = /import.*from.*["'];?\n/g;
-		const imports = content.match(importRegex);
-		if (imports && imports.length > 0) {
-			importInsertIndex = content.lastIndexOf(imports[imports.length - 1]) + imports[imports.length - 1].length;
+		if (twitchatImportMatch) {
+			importInsertIndex = content.indexOf(twitchatImportMatch[0]) + twitchatImportMatch[0].length;
 		} else {
-			importInsertIndex = content.indexOf('\n') + 1;
+			// Fallback: insert after the last import statement
+			const importRegex = /import.*from.*["'];?\n/g;
+			const imports = content.match(importRegex);
+			if (imports && imports.length > 0) {
+				importInsertIndex = content.lastIndexOf(imports[imports.length - 1]) + imports[imports.length - 1].length;
+			} else {
+				importInsertIndex = content.indexOf('\n') + 1;
+			}
+		}
+
+		// Insert new import
+		content = content.slice(0, importInsertIndex) + newImport + '\n' + content.slice(importInsertIndex);
+	}
+
+	// Add registration if not exists
+	if (!hasRegistration) {
+		// Find the registration section (before streamDeck.connect())
+		const connectIndex = content.indexOf('streamDeck.connect();');
+
+		if (connectIndex === -1) {
+			console.warn('Warning: Could not find streamDeck.connect() call');
+			return false;
+		}
+
+		// Find the last registration before connect
+		const beforeConnect = content.slice(0, connectIndex);
+		const lastRegMatch = beforeConnect.match(/streamDeck\.actions\.registerAction\(new \w+\(\)\);/g);
+
+		if (lastRegMatch && lastRegMatch.length > 0) {
+			// Add after the last registration
+			const lastReg = lastRegMatch[lastRegMatch.length - 1];
+			const lastRegIndex = beforeConnect.lastIndexOf(lastReg) + lastReg.length;
+			content = content.slice(0, lastRegIndex) + '\n' + newRegistration + content.slice(lastRegIndex);
+		} else {
+			// Add before connect with proper comments
+			const beforeConnectContent = content.slice(0, connectIndex);
+			const afterConnectContent = content.slice(connectIndex);
+			content =
+				beforeConnectContent +
+				'// Register actions\n' +
+				newRegistration +
+				'\n\n// Finally, connect to the Stream Deck.\n' +
+				afterConnectContent;
 		}
 	}
 
-	// Insert new imports
-	content = content.slice(0, importInsertIndex) + '\n' + newImports + '\n' + content.slice(importInsertIndex);
-
-	// Insert new registrations (before streamDeck.connect())
-	const connectIndex = content.indexOf('streamDeck.connect();');
-	const beforeConnect = content.slice(0, connectIndex);
-	const afterConnect = content.slice(connectIndex);
-
-	// Add comment and registrations
-	content = beforeConnect + '// Register actions\n' + newRegistrations + '\n\n// Finally, connect to the Stream Deck.\n' + afterConnect;
-
 	fs.writeFileSync(pluginPath, content);
-	console.log(`✓ Updated plugin.ts with ${iconFiles.length} imports and registrations`);
+	console.log(`✓ Updated plugin.ts with import and registration`);
+	return true;
 }
 
 /**
  * Main function
  */
-function main() {
-	console.log('🚀 Starting action generation...\n');
+async function main() {
+	console.log('🚀 Stream Deck Action Generator\n');
 
-	// Read all icon files
-	const iconFiles = fs
-		.readdirSync(iconsSourceDir)
-		.filter((file) => file.endsWith('.svg'))
-		.sort();
-
-	if (iconFiles.length === 0) {
-		console.log('❌ No SVG files found in icons_source directory');
-		return;
-	}
-
-	console.log(`Found ${iconFiles.length} icon(s):\n`);
-
-	const newActions = [];
-	const stats = {
-		created: [],
-		skipped: [],
-	};
-
-	// Process each icon
-	iconFiles.forEach((iconFile) => {
-		const id = toId(iconFile);
-		const displayName = toDisplayName(iconFile);
-		console.log(`\n📝 Processing: ${iconFile} -> ${id}`);
-
-		// Check if this is a new action or existing one
-		const folderCreated = createActionFolder(iconFile, id);
-		const htmlCreated = createHtmlFile(iconFile, id);
-		const fileCreated = createActionFile(iconFile, id);
-
-		// Track creation status
-		const isNew = folderCreated || htmlCreated || fileCreated;
-		if (isNew) {
-			stats.created.push(displayName);
-		} else {
-			stats.skipped.push(displayName);
+	try {
+		// Prompt for action ID
+		const actionId = await prompt('Enter the action ID (e.g., my-action): ');
+		if (!actionId) {
+			console.error('❌ Action ID is required');
+			rl.close();
+			process.exit(1);
 		}
 
+		// Validate action ID format (lowercase with dashes)
+		if (!/^[a-z0-9-]+$/.test(actionId)) {
+			console.error('❌ Action ID must be lowercase with dashes only (e.g., my-action)');
+			rl.close();
+			process.exit(1);
+		}
+
+		// Prompt for English name
+		const englishName = await prompt('Enter the action name (English): ');
+		if (!englishName) {
+			console.error('❌ English name is required');
+			rl.close();
+			process.exit(1);
+		}
+
+		// Prompt for French name
+		const frenchName = await prompt('Enter the action name (French): ');
+		if (!frenchName) {
+			console.error('❌ French name is required');
+			rl.close();
+			process.exit(1);
+		}
+
+		rl.close();
+
+		const fullUUID = `fr.twitchat.action.${actionId}`;
+		console.log(`\n📝 Creating action with:`);
+		console.log(`   UUID: ${fullUUID}`);
+		console.log(`   English Name: ${englishName}`);
+		console.log(`   French Name: ${frenchName}`);
+		console.log('');
+
+		// Create action folder
+		const folderCreated = createActionFolder(actionId);
+
+		// Create HTML file
+		const htmlCreated = createHtmlFile(actionId, englishName);
+
+		// Create TypeScript action file
+		const actionFileCreated = createActionFile(actionId, englishName);
+
 		// Create manifest entry
-		const manifestEntry = createManifestEntry(iconFile, id);
-		newActions.push(manifestEntry);
-	});
+		const manifestEntry = createManifestEntry(actionId, englishName);
+		updateManifest(manifestEntry);
 
-	// Update manifest.json
-	console.log('\n');
-	updateManifest(newActions);
+		// Update French localization
+		updateFrenchLocalization(fullUUID, frenchName);
 
-	// Update localization files
-	updateLocalizationFiles(newActions);
+		// Update locale.js
+		updateLocaleFile(actionId);
 
-	// Update plugin.ts
-	updatePluginFile(iconFiles);
+		// Update plugin.ts
+		updatePluginFile(actionId);
 
-	updateLocaleFile(newActions);
+		console.log('\n✅ Action generation complete!');
 
-	console.log('\n✅ Action generation complete!');
-	console.log(`\n📊 Summary:`);
-	console.log(`   Total icons processed: ${iconFiles.length}`);
-	console.log(`   Actions created: ${stats.created.length}`);
-	console.log(`   Actions skipped (already exist): ${stats.skipped.length}`);
-
-	if (stats.created.length > 0) {
-		console.log('\n✨ Created actions:');
-		stats.created.forEach((name) => {
-			console.log(`  ✓ ${name}`);
-		});
-	}
-
-	if (stats.skipped.length > 0) {
-		console.log('\n⊘ Skipped actions (already exist):');
-		stats.skipped.forEach((name) => {
-			console.log(`  - ${name}`);
-		});
+		if (folderCreated) {
+			console.log(`\n⚠️  Don't forget to add an icon.svg file in: ${path.join(actionsImgDir, actionId)}`);
+		}
+	} catch (error) {
+		console.error('\n❌ Error:', error.message);
+		rl.close();
+		process.exit(1);
 	}
 }
 

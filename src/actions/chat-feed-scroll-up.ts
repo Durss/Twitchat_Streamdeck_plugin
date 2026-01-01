@@ -17,7 +17,6 @@ export class ChatFeedScrollUp extends AbstractAction<Settings> {
 				scrollAmount: 50,
 			});
 		}
-		this.subscribeTo('COLUMNS');
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {

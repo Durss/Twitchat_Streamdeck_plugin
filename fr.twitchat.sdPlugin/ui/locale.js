@@ -1,19 +1,5 @@
 SDPIComponents.i18n.locales = {
 	en: {
-		global: {
-			'loading-data': 'Loading data...',
-			'no-data': 'No data available.',
-			'error-loading-data': 'Error loading data.',
-			'col-index': 'Column index',
-			'loading-columns': 'Loading columns...',
-			'scroll-amount': 'Scroll amount',
-			'no-trigger': 'No trigger available.',
-		},
-		main: {
-			offline:
-				'⚠️ Twitchat not detected.\nPlease make sure {TWITCHAT} is opened at least once.\n\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
-			'multiple-instances': '⚠️ More than 1 Twitchat instance detected. This may cause issues.\n\nPlease close all other instances except one.',
-		},
 		'automod-accept': {},
 		'automod-reject': {},
 		'bingo-toggle': {},
@@ -48,13 +34,6 @@ SDPIComponents.i18n.locales = {
 				duration: 'Duration',
 			},
 		},
-		'timer-add': {
-			'loading-timers': 'Loading timers...',
-			fields: {
-				timerId: 'Timer',
-				duration: 'Duration',
-			},
-		},
 		'counter-add': {
 			'loading-counters': 'Loading counters...',
 			fields: {
@@ -76,17 +55,14 @@ SDPIComponents.i18n.locales = {
 				triggerId: 'Trigger',
 			},
 		},
-		'toggle-trigger': {
-			'loading-triggers': 'Loading trigger list...',
-			fields: {
-				triggerId: 'Trigger',
-				triggerAction: 'Action',
-			},
-			action: {
-				ENABLE: 'Enable',
-				DISABLE: 'Disable',
-				TOGGLE: 'Toggle',
-			},
+		global: {
+			'loading-data': 'Loading data...',
+			'no-data': 'No data available.',
+			'error-loading-data': 'Error loading data.',
+			'col-index': 'Column index',
+			'loading-columns': 'Loading columns...',
+			'scroll-amount': 'Scroll amount',
+			'no-trigger': 'No trigger available.',
 		},
 		'greet-feed-read': {
 			fields: {
@@ -95,6 +71,11 @@ SDPIComponents.i18n.locales = {
 		},
 		'greet-feed-read-all': {},
 		'hide-alert': {},
+		main: {
+			offline:
+				'⚠️ Twitchat not detected.\nPlease make sure {TWITCHAT} is opened at least once.\n\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
+			'multiple-instances': '⚠️ More than 1 Twitchat instance detected. This may cause issues.\n\nPlease close all other instances except one.',
+		},
 		'merge-toggle': {},
 		'mod-tools-toggle': {},
 		'poll-toggle': {},
@@ -121,22 +102,29 @@ SDPIComponents.i18n.locales = {
 		'set-emergency-mode': {},
 		shoutout: {},
 		'stop-tts': {},
+		'timer-add': {
+			'loading-timers': 'Loading timers...',
+			fields: {
+				timerId: 'Timer',
+				duration: 'Duration',
+			},
+		},
+		'toggle-trigger': {
+			'loading-triggers': 'Loading trigger list...',
+			fields: {
+				triggerId: 'Trigger',
+				triggerAction: 'Action',
+			},
+			action: {
+				ENABLE: 'Enable',
+				DISABLE: 'Disable',
+				TOGGLE: 'Toggle',
+			},
+		},
 		'viewers-count-toggle': {},
+		'voice-control': {},
 	},
 	fr: {
-		global: {
-			'loading-data': 'Chargement des données...',
-			'no-data': 'Aucune donnée disponible.',
-			'error-loading-data': 'Erreur lors du chargement des données.',
-			'col-index': 'Colonne',
-			'loading-columns': 'Chargement des colonnes...',
-		},
-		main: {
-			offline:
-				"⚠️ Twitchat non détecté.\nAssurez-vous que {TWITCHAT} soit ouvert au moins une fois.\n\nSi vous rencontrez des problèmes pour connecter Twitchat avec Stream Deck, venez chercher de l'aide sur {DISCORD}.",
-			'multiple-instances':
-				"⚠️ Twitchat est lancé plus d'une fois.\nCeci peut causer des problèmes.\n\nVeuillez fermer toutes les instances sauf une.",
-		},
 		'automod-accept': {},
 		'automod-reject': {},
 		'bingo-toggle': {},
@@ -170,13 +158,6 @@ SDPIComponents.i18n.locales = {
 				duration: 'Durée',
 			},
 		},
-		'timer-add': {
-			'loading-timers': 'Chargement des minuteurs...',
-			fields: {
-				timerId: 'Minuteur',
-				duration: 'Durée',
-			},
-		},
 		'counter-add': {
 			'loading-counters': 'Chargement des compteurs...',
 			fields: {
@@ -198,17 +179,12 @@ SDPIComponents.i18n.locales = {
 				triggerId: 'Trigger',
 			},
 		},
-		'toggle-trigger': {
-			'loading-triggers': 'Chargement des triggers...',
-			fields: {
-				triggerId: 'Trigger',
-				triggerAction: 'Action',
-			},
-			action: {
-				ENABLE: 'Activer',
-				DISABLE: 'Désactiver',
-				TOGGLE: 'Basculer',
-			},
+		global: {
+			'loading-data': 'Chargement des données...',
+			'no-data': 'Aucune donnée disponible.',
+			'error-loading-data': 'Erreur lors du chargement des données.',
+			'col-index': 'Colonne',
+			'loading-columns': 'Chargement des colonnes...',
 		},
 		'greet-feed-read': {
 			fields: {
@@ -217,6 +193,12 @@ SDPIComponents.i18n.locales = {
 		},
 		'greet-feed-read-all': {},
 		'hide-alert': {},
+		main: {
+			offline:
+				"⚠️ Twitchat non détecté.\nAssurez-vous que {TWITCHAT} soit ouvert au moins une fois.\n\nSi vous rencontrez des problèmes pour connecter Twitchat avec Stream Deck, venez chercher de l'aide sur {DISCORD}.",
+			'multiple-instances':
+				"⚠️ Twitchat est lancé plus d'une fois.\nCeci peut causer des problèmes.\n\nVeuillez fermer toutes les instances sauf une.",
+		},
 		'merge-toggle': {},
 		'mod-tools-toggle': {},
 		'poll-toggle': {},
@@ -243,6 +225,26 @@ SDPIComponents.i18n.locales = {
 		'set-emergency-mode': {},
 		shoutout: {},
 		'stop-tts': {},
+		'timer-add': {
+			'loading-timers': 'Chargement des minuteurs...',
+			fields: {
+				timerId: 'Minuteur',
+				duration: 'Durée',
+			},
+		},
+		'toggle-trigger': {
+			'loading-triggers': 'Chargement des triggers...',
+			fields: {
+				triggerId: 'Trigger',
+				triggerAction: 'Action',
+			},
+			action: {
+				ENABLE: 'Activer',
+				DISABLE: 'Désactiver',
+				TOGGLE: 'Basculer',
+			},
+		},
 		'viewers-count-toggle': {},
+		'voice-control': {},
 	},
 };

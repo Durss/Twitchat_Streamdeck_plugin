@@ -3,7 +3,7 @@ import WebSocket, { WebSocketServer } from 'ws';
 import { setTimeout } from 'timers';
 import https from 'https';
 import CertificateManager from './CertificateManager';
-import { TwitchatEventMap } from './TwitchatEventMap';
+import { json2Event, TwitchatEventMap } from './TwitchatEventMap';
 /**
  * Created : 26/02/2025
  */
@@ -13,8 +13,13 @@ export default class TwitchatSocket {
 	private _socketServerSSL: WebSocketServer | null = null;
 	private _httpServerSSL: https.Server | null = null;
 	private _connexions: { type: 'main' | 'other'; ws: WebSocket }[] = [];
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	private _callbacks: Map<string, (data: any) => void> = new Map();
+	private _callbackListeners: { [key: string]: { [actionId: string]: (data: TwitchatEventMap[keyof TwitchatEventMap]) => void } } = {};
+
+	public timerList: TwitchatEventMap['ON_TIMER_LIST']['timerList'] = [];
+	public triggerList: TwitchatEventMap['ON_TRIGGER_LIST']['triggerList'] = [];
+	public counterList: TwitchatEventMap['ON_COUNTER_LIST']['counterList'] = [];
+	public chatColCount: TwitchatEventMap['ON_CHAT_COLUMNS_COUNT']['count'] = 0;
+	public qnaList: TwitchatEventMap['ON_QNA_SESSION_LIST']['sessionList'] = [];
 
 	constructor() {}
 
@@ -43,12 +48,12 @@ export default class TwitchatSocket {
 				: [undefined, args[0] as WebSocket, args[1] as number];
 
 		if (this._connexions.length === 0 && !ws) {
-			if (attempts >= 30) return;
+			if (attempts >= 10) return;
 			//Wait for a connexion and retry
 			setTimeout(() => {
 				// @ts-expect-error couldn't find a way to make ts happy here
 				this.broadcast(action, data, ws, attempts + 1);
-			}, 1000);
+			}, 500);
 			return;
 		}
 		const json = JSON.stringify({ action, data });
@@ -56,34 +61,9 @@ export default class TwitchatSocket {
 			ws.send(json);
 		} else {
 			this._connexions.forEach((client) => {
-				client.ws.send(json);
+				if (client.type == 'main') client.ws.send(json);
 			});
 		}
-	}
-
-	/**
-	 * Request for information to Twitchat
-	 * @param action
-	 * @param data
-	 * @returns
-	 */
-	public subscribe<ResponseEvent extends keyof TwitchatEventMap>(
-		action: keyof TwitchatEventMap,
-		resultEvent: ResponseEvent,
-		callback: (data: TwitchatEventMap[ResponseEvent]) => void,
-	): void {
-		this._callbacks.set(resultEvent, (data: TwitchatEventMap[ResponseEvent]) => {
-			callback(data);
-		});
-		// @ts-expect-error i'm too lazy to strongly type this for now
-		this.broadcast(action);
-	}
-
-	/**
-	 * Unsubscribe from all events
-	 */
-	public unsubscribeAll(): void {
-		this._callbacks.clear();
 	}
 
 	/**
@@ -195,27 +175,69 @@ export default class TwitchatSocket {
 		streamDeck.logger.info('[TwitchatSocket] Use wss://localhost:30386 for secure connections');
 	}
 
+	public on<Event extends keyof TwitchatEventMap>(event: Event, actionId: string, listener: (data: TwitchatEventMap[Event]) => void): void {
+		if (!this._callbackListeners[event]) {
+			this._callbackListeners[event] = {};
+		}
+		this._callbackListeners[event][actionId] = listener as (data: TwitchatEventMap[keyof TwitchatEventMap]) => void;
+		this.populatePropertInspector();
+	}
+
+	public off(event: keyof TwitchatEventMap, actionId: string): void {
+		if (!this._callbackListeners[event]) return;
+		delete this._callbackListeners[event][actionId];
+	}
+
+	/*******************
+	 * PRIVATE METHODS *
+	 *******************/
+
 	/**
 	 * Handles a new WebSocket connection (shared between WS and WSS)
 	 */
 	private handleConnection(ws: WebSocket): void {
 		this._connexions.push({ type: 'other', ws });
 		this.updateConnexionCount();
-		streamDeck.logger.info(`[TwitchatSocket] New connection established. Total: ${this._connexions.length}`);
 
-		ws.on('message', (event) => {
-			const json = JSON.parse(event.toString()) as { type: keyof TwitchatEventMap; data: unknown };
-			const callback = this._callbacks.get(json.type);
-			if (callback) {
-				callback(json.data);
-			}
-			if (json.type === 'ON_FLAG_MAIN_APP') {
-				const connexion = this._connexions.find((c) => c.ws === ws);
-				if (connexion) {
-					connexion.type = 'main';
+		ws.on('message', (eventSource) => {
+			const event = json2Event(eventSource.toString());
+			Object.values(this._callbackListeners[event.type] || {}).forEach((callback) => callback(event.data));
+			switch (event.type) {
+				case 'ON_FLAG_MAIN_APP': {
+					const connexion = this._connexions.find((c) => c.ws === ws);
+					if (connexion) {
+						connexion.type = 'main';
+					}
+					this.updateConnexionCount();
+					this.broadcast('GET_ALL_COUNTERS');
+					this.broadcast('GET_CHAT_COLUMNS_COUNT');
+					this.broadcast('GET_TRIGGER_LIST');
+					this.broadcast('GET_TIMER_LIST');
+					this.broadcast('GET_QNA_SESSION_LIST');
+					break;
 				}
-				this.updateConnexionCount();
+				case 'ON_TIMER_LIST': {
+					this.timerList = event.data.timerList || [];
+					break;
+				}
+				case 'ON_TRIGGER_LIST': {
+					this.triggerList = event.data.triggerList || [];
+					break;
+				}
+				case 'ON_COUNTER_LIST': {
+					this.counterList = event.data.counterList || [];
+					break;
+				}
+				case 'ON_CHAT_COLUMNS_COUNT': {
+					this.chatColCount = event.data.count || 1;
+					break;
+				}
+				case 'ON_QNA_SESSION_LIST': {
+					this.qnaList = event.data.sessionList || [];
+					break;
+				}
 			}
+			this.populatePropertInspector();
 		});
 
 		ws.on('close', () => {
@@ -232,13 +254,139 @@ export default class TwitchatSocket {
 		});
 	}
 
-	/*******************
-	 * PRIVATE METHODS *
-	 *******************/
+	private populatePropertInspector(): void {
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getQnas',
+			items: this.reduceQnaList(),
+		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getColumns',
+			items: this.reduceColumnCount(),
+		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getCounters',
+			items: this.reduceCounterList(),
+		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getTriggers',
+			items: this.reduceTriggerList(),
+		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getTimers',
+			items: this.reduceTimerList(),
+		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getCountdowns',
+			items: this.reduceCountdownList(),
+		});
+	}
+
 	private updateConnexionCount(): void {
 		streamDeck.settings.setGlobalSettings({
 			// Only count main app connections
 			connexionCount: this._connexions.filter((v) => v.type === 'main').length,
 		});
 	}
+
+	private reduceCounterList() {
+		let items = TwitchatSocket.instance.counterList
+			.filter((c) => c.perUser === false)
+			.map((counter): SelectItem => ({ value: counter.id, label: counter.name }));
+		if (items.length === 0) {
+			items = [
+				{
+					value: '',
+					label: streamDeck.i18n.translate('no-counter'),
+					disabled: true,
+				},
+			];
+		}
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
+		return items;
+	}
+
+	private reduceColumnCount() {
+		const items: SelectItem<number>[] = [];
+		for (let i = 0; i < TwitchatSocket.instance.chatColCount; i++) {
+			items.push({ value: i, label: (i + 1).toString() });
+		}
+		return items;
+	}
+
+	private reduceTriggerList() {
+		let items = TwitchatSocket.instance.triggerList.map(
+			(trigger): SelectItem => ({
+				value: trigger.id,
+				label: trigger.disabled ? `🔴 ${trigger.name}` : `🟢 ${trigger.name}`,
+				// disabled: trigger.disabled === true,
+			}),
+		);
+		if (items.length === 0) {
+			items = [{ value: '', label: streamDeck.i18n.translate('no-trigger'), disabled: true }];
+		}
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
+		return items;
+	}
+
+	private reduceTimerList() {
+		let items = TwitchatSocket.instance.timerList
+			.filter((timer) => timer.type === 'timer')
+			.map(
+				(timer): SelectItem => ({
+					value: timer.id,
+					label: timer.title,
+					disabled: !timer.enabled,
+				}),
+			);
+		return items;
+	}
+
+	private reduceCountdownList() {
+		let items = TwitchatSocket.instance.timerList
+			.filter((timer) => timer.type === 'countdown')
+			.map(
+				(timer): SelectItem => ({
+					value: timer.id,
+					label: timer.title,
+					disabled: !timer.enabled,
+				}),
+			);
+		return items;
+	}
+
+	private reduceQnaList() {
+		let items = TwitchatSocket.instance.qnaList.map(
+			(qna): SelectItem => ({
+				value: qna.id,
+				label: qna.command,
+				disabled: !qna.open,
+			}),
+		);
+		if (items.length === 0) {
+			items = [
+				{
+					value: '',
+					label: streamDeck.i18n.translate('no-qna-session'),
+					disabled: true,
+				},
+			];
+		}
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
+		return items;
+	}
 }
+
+type SelectItem<V = string> = {
+	value: V;
+	label: string;
+	disabled?: boolean;
+};

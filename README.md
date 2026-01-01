@@ -43,12 +43,27 @@ Final package will be `./fr.twitchat.streamDeckPlugin`
 
 ## Add a new plugin action
 Action creation has been made easier thanks to a custom script.  
-Just create a new icon under `icons_source` folder and run:
+Run the following command and follow the prompts:
 ```
 node generate-actions.js
 ```
-This will automatically create an entry in `fr.twitchat.sdPlugin/manifest.json` that you'll need to complete Specifically `Tooltip` and optionally a better `Name`.  
-It will also create a dedicated action file under `src/actions` and the property inspector template under `fr.twitchat.sdPlugin/ui`. Customize both these files depending on what the action should do.
+
+The script will prompt you for:
+- **Action ID**: The last part of the UUID (e.g., `my-action` for `fr.twitchat.action.my-action`)
+  - Must be lowercase with dashes only
+- **Action Name (English)**: The display name in English (e.g., "My Action")
+- **Action Name (French)**: The display name in French (e.g., "Mon Action")
+
+The script will automatically:
+- Create the action folder structure in `fr.twitchat.sdPlugin/imgs/actions/[id]/`
+- Generate the HTML UI file in `fr.twitchat.sdPlugin/ui/[id].html`
+- Create the TypeScript action class in `src/actions/[id].ts`
+- Update the manifest.json with the action entry
+- Update fr.json with the French translation
+- Update locale.js with the action keys
+- Register the action in plugin.ts
+
+**⚠️ Don't forget to add an `icon.svg` file in the created action folder!**
 
 ## Get live exectution logs
 This will show you live logs of the stream deck plugin execution:

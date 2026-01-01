@@ -15,7 +15,6 @@ export class TimerAdd extends AbstractAction<Settings> {
 				timerAdd: 0,
 			});
 		}
-		this.subscribeTo('TIMERS');
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {

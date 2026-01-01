@@ -19,7 +19,6 @@ export class CounterAdd extends AbstractAction<Settings> {
 				counterAction: 'ADD',
 			});
 		}
-		this.subscribeTo('COUNTERS');
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {

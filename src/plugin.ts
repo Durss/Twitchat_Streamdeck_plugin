@@ -18,8 +18,6 @@ import { ChatFeedUnpause } from './actions/chat-feed-unpause';
 import { ClearChatHighlight } from './actions/clear-chat-highlight';
 import { CountdownAdd } from './actions/countdown-add';
 import { CounterAdd } from './actions/counter-add';
-import { DisableStt } from './actions/disable-stt';
-import { EnableStt } from './actions/enable-stt';
 import { ExecuteTrigger } from './actions/execute-trigger';
 import { GreetFeedRead } from './actions/greet-feed-read';
 import { GreetFeedReadAll } from './actions/greet-feed-read-all';
@@ -39,6 +37,7 @@ import { StopTts } from './actions/stop-tts';
 import { TimerAdd } from './actions/timer-add';
 import { ToggleTrigger } from './actions/toggle-trigger';
 import { ViewersCountToggle } from './actions/viewers-count-toggle';
+import { VoiceControl } from './actions/voice-control';
 
 // We can enable "trace" logging so that all messages between the Stream Deck, and the plugin are recorded. When storing sensitive information
 streamDeck.logger.setLevel('debug');
@@ -60,8 +59,6 @@ streamDeck.actions.registerAction(new ChatFeedUnpause());
 streamDeck.actions.registerAction(new ClearChatHighlight());
 streamDeck.actions.registerAction(new CountdownAdd());
 streamDeck.actions.registerAction(new CounterAdd());
-streamDeck.actions.registerAction(new DisableStt());
-streamDeck.actions.registerAction(new EnableStt());
 streamDeck.actions.registerAction(new ExecuteTrigger());
 streamDeck.actions.registerAction(new GreetFeedRead());
 streamDeck.actions.registerAction(new GreetFeedReadAll());
@@ -81,6 +78,7 @@ streamDeck.actions.registerAction(new StopTts());
 streamDeck.actions.registerAction(new TimerAdd());
 streamDeck.actions.registerAction(new ToggleTrigger());
 streamDeck.actions.registerAction(new ViewersCountToggle());
+streamDeck.actions.registerAction(new VoiceControl());
 
 // Finally, connect to the Stream Deck.
 streamDeck.connect();

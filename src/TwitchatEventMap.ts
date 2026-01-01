@@ -1,4 +1,30 @@
 /**
+ * Union type of all possible event objects with discriminated type field
+ */
+export type TwitchatEvent = {
+	[K in keyof TwitchatEventMap]: {
+		type: K;
+		data: TwitchatEventMap[K];
+	};
+}[keyof TwitchatEventMap];
+
+/**
+ * Converts a JSON string to a typed Twitchat event object.
+ * The returned object has a discriminated union type, allowing TypeScript
+ * to narrow the data type based on the "type" field.
+ *
+ * @example
+ * const event = json2Event('{"type":"ON_TIMER_LIST","data":{...}}');
+ * if(event.type === "ON_TIMER_LIST") {
+ *   // TypeScript knows event.data is TwitchatEventMap["ON_TIMER_LIST"]
+ *   event.data.timerList
+ * }
+ */
+export function json2Event(json: string): TwitchatEvent {
+	return JSON.parse(json) as TwitchatEvent;
+}
+
+/**
  * Twitchat event map
  *
  * Bellow that event list are shit loads of type definitions extracted from Twitchat
@@ -17,82 +43,11 @@ export type TwitchatEventMap = {
 	 */
 	ON_OBS_WEBSOCKET_DISCONNECTED: undefined;
 	/**
-	 * Scene has changed in OBS
+	 * Set voice bot enabled/disabled state
 	 */
-	ON_OBS_SCENE_CHANGE: {
-		sceneName: string;
+	SET_VOICE_CONTROL_STATE: {
+		enabled: boolean;
 	};
-	/**
-	 * Source mute state has changed in OBS
-	 */
-	ON_OBS_MUTE_TOGGLE: {
-		inputName: string;
-		inputMuted: boolean;
-	};
-	/**
-	 * Playback has started in an OBS media source
-	 */
-	ON_OBS_PLAYBACK_STARTED: {
-		inputName: string;
-	};
-	/**
-	 * Playback has paused in an OBS media source
-	 */
-	ON_OBS_PLAYBACK_PAUSED: {
-		inputName: string;
-	};
-	/**
-	 * Started
-	 */
-	ON_OBS_PLAYBACK_NEXT: {
-		inputName: string;
-	};
-	ON_OBS_PLAYBACK_PREVIOUS: {
-		inputName: string;
-	};
-	ON_OBS_PLAYBACK_RESTARTED: {
-		inputName: string;
-	};
-	ON_OBS_PLAYBACK_ENDED: {
-		inputName: string;
-	};
-	ON_OBS_INPUT_NAME_CHANGED: {
-		inputName: string;
-		oldInputName: string;
-	};
-	ON_OBS_SCENE_NAME_CHANGED: {
-		sceneName: string;
-		oldSceneName: string;
-	};
-	ON_OBS_FILTER_NAME_CHANGED: {
-		sourceName: string;
-		filterName: string;
-		oldFilterName: string;
-	};
-	ON_OBS_SOURCE_TOGGLE: {
-		item: OBSSourceItem;
-		event: {
-			sceneName: string;
-			sceneItemId: number;
-			sceneItemEnabled: boolean;
-		};
-	};
-	ON_OBS_FILTER_TOGGLE: {
-		sourceName: string;
-		filterName: string;
-		filterEnabled: boolean;
-	};
-	ON_OBS_STREAM_STATE: {
-		outputActive: boolean;
-		outputState: string;
-	};
-	ON_OBS_RECORD_STATE: {
-		outputActive: boolean;
-		outputState: string;
-		outputPath: string;
-	};
-	SET_ENABLE_STT: undefined;
-	SET_DISABLE_STT: undefined;
 	/**
 	 * Scroll a chat feed up
 	 */
@@ -459,7 +414,7 @@ export type TwitchatEventMap = {
 		id: string;
 	};
 	ON_COUNTER_LIST: {
-		counters: {
+		counterList: {
 			id: string;
 			name: string;
 			perUser: boolean;
@@ -558,7 +513,7 @@ export type TwitchatEventMap = {
 	ON_TIMER_OVERLAY_PRESENCE: undefined;
 	GET_TIMER_LIST: undefined;
 	ON_TIMER_LIST: {
-		timers: {
+		timerList: {
 			id: string;
 			title: string;
 			enabled: boolean;
@@ -739,7 +694,7 @@ export type TwitchatEventMap = {
 			login: string;
 			displayName: string;
 		};
-		tier: 1 | 2 | 3 | 'prime';
+		tier: MessageSubscriptionData['tier'];
 		months: number;
 		recipients: { uid: string; login: string }[];
 		streakMonths: number;
@@ -1177,6 +1132,25 @@ export type TwitchatEventMap = {
 	};
 
 	/**
+	 * Requests for global states
+	 * @answer ON_GLOBAL_STATES
+	 */
+	GET_GLOBAL_STATES: undefined;
+
+	ON_GLOBAL_STATES: {
+		activeTimers: string[];
+		activeCountowns: string[];
+		counterValues: { [counterId: string]: number };
+		emergencyMode: boolean;
+		ttsSpeaking: boolean;
+		canAutoShoutout: boolean;
+		moderationToolsVisible: boolean;
+		censorshipEnabled: boolean;
+		hasActiveChatAlert: boolean;
+		voiceBotEnabled: boolean;
+	};
+
+	/**
 	 * @private
 	 */
 	ON_FLAG_MAIN_APP: undefined;
@@ -1246,6 +1220,126 @@ export type TwitchatEventMap = {
 	 * @private
 	 */
 	SET_OPEN_PREDICTION_CREATION_FORM: undefined;
+	/**
+	 * Scene has changed in OBS
+	 * @private
+	 */
+	ON_OBS_SCENE_CHANGE: {
+		sceneName: string;
+	};
+	/**
+	 * Source mute state has changed in OBS
+	 * @private
+	 */
+	ON_OBS_MUTE_TOGGLE: {
+		inputName: string;
+		inputMuted: boolean;
+	};
+	/**
+	 * Playback has started in an OBS media source
+	 * @private
+	 */
+	ON_OBS_PLAYBACK_STARTED: {
+		inputName: string;
+	};
+	/**
+	 * Playback has paused in an OBS media source
+	 * @private
+	 */
+	ON_OBS_PLAYBACK_PAUSED: {
+		inputName: string;
+	};
+	/**
+	 * Started playing next item in an OBS media source
+	 * @private
+	 */
+	ON_OBS_PLAYBACK_NEXT: {
+		inputName: string;
+	};
+	/**
+	 * Started playing previous item in an OBS media source
+	 * @private
+	 */
+	ON_OBS_PLAYBACK_PREVIOUS: {
+		inputName: string;
+	};
+	/**
+	 * Playback has restarted in an OBS media source
+	 * @private
+	 */
+	ON_OBS_PLAYBACK_RESTARTED: {
+		inputName: string;
+	};
+	/**
+	 * Playback has ended in an OBS media source
+	 * @private
+	 */
+	ON_OBS_PLAYBACK_ENDED: {
+		inputName: string;
+	};
+	/**
+	 * An input name has changed in OBS
+	 * @private
+	 */
+	ON_OBS_INPUT_NAME_CHANGED: {
+		inputName: string;
+		oldInputName: string;
+	};
+	/**
+	 * A scene name has changed in OBS
+	 * @private
+	 */
+	ON_OBS_SCENE_NAME_CHANGED: {
+		sceneName: string;
+		oldSceneName: string;
+	};
+	/**
+	 * A source filter name has changed in OBS
+	 * @private
+	 */
+	ON_OBS_FILTER_NAME_CHANGED: {
+		sourceName: string;
+		filterName: string;
+		oldFilterName: string;
+	};
+	/**
+	 * A source has been added to a scene in OBS
+	 * @private
+	 */
+	ON_OBS_SOURCE_TOGGLE: {
+		item: OBSSourceItem;
+		event: {
+			sceneName: string;
+			sceneItemId: number;
+			sceneItemEnabled: boolean;
+		};
+	};
+	/**
+	 * A source filter has been enabled/disabled in OBS
+	 * @private
+	 */
+	ON_OBS_FILTER_TOGGLE: {
+		sourceName: string;
+		filterName: string;
+		filterEnabled: boolean;
+	};
+	/**
+	 * Stream state has changed in OBS
+	 * @private
+	 */
+	ON_OBS_STREAM_STATE: {
+		outputActive: boolean;
+		outputState: string;
+	};
+	/**
+	 * Recording state has changed in OBS
+	 * @private
+	 */
+	ON_OBS_RECORD_STATE: {
+		outputActive: boolean;
+		outputState: string;
+		outputPath: string;
+	};
 };
 
 type StreamSummaryData = {
@@ -2628,4 +2722,11 @@ type SourceTransform = {
 	sourceHeight: number;
 	sourceWidth: number;
 	width: number;
+};
+
+type MessageSubscriptionData = {
+	/**
+	 * Sub tier
+	 */
+	tier: 1 | 2 | 3 | 'prime';
 };

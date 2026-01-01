@@ -1,12 +1,12 @@
 {
-	"Localization":{
-		"loading-counters":"Chargement des compteurs...",
-		"no-counter":"Aucun compteur disponible.",
-		"no-trigger":"Aucun trigger disponible.",
-		"no-timer":"Aucun minuteur disponible.",
-		"no-qna-session":"Aucune session Q&A disponible.",
-		"error-loading-data":"Erreur lors du chargement des données.",
-		"select-placeholder":"sélectionner..."
+	"Localization": {
+		"loading-counters": "Chargement des compteurs...",
+		"no-counter": "Aucun compteur disponible.",
+		"no-trigger": "Aucun trigger disponible.",
+		"no-timer": "Aucun minuteur disponible.",
+		"no-qna-session": "Aucune session Q&A disponible.",
+		"error-loading-data": "Erreur lors du chargement des données.",
+		"select-placeholder": "sélectionner..."
 	},
 	"fr.twitchat.action.automod-accept": {
 		"Name": "",
@@ -160,6 +160,10 @@
 	},
 	"fr.twitchat.action.viewers-count-toggle": {
 		"Name": "",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.voice-control": {
+		"Name": "Activer/Désactiver le contrôle vocal",
 		"Tooltip": ""
 	}
 }

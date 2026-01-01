@@ -372,38 +372,6 @@
 			]
 		},
 		{
-			"Name": "Disable speech recognition",
-			"UUID": "fr.twitchat.action.disable-stt",
-			"Icon": "imgs/actions/disable-stt/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/disable-stt.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/disable-stt/icon",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Enable speech recognition",
-			"UUID": "fr.twitchat.action.enable-stt",
-			"Icon": "imgs/actions/enable-stt/icon",
-			"Tooltip": "Enable the speech recognition to control twitchat with your voice",
-			"PropertyInspectorPath": "ui/enable-stt.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/enable-stt/icon",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
 			"Name": "Remove some messages from \"Greet Them\" section",
 			"UUID": "fr.twitchat.action.greet-feed-read",
 			"Icon": "imgs/actions/greet-feed-read/icon",
@@ -607,6 +575,22 @@
 			"States": [
 				{
 					"Image": "imgs/actions/viewers-count-toggle/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Enable/Disable voice control",
+			"UUID": "fr.twitchat.action.voice-control",
+			"Icon": "imgs/actions/voice-control/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/voice-control.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/voice-control/icon",
 					"TitleAlignment": "middle"
 				}
 			]
