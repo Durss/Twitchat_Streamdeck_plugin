@@ -847,7 +847,10 @@ export type TwitchatEventMap = {
 			 * Timer type
 			 */
 			type: 'timer' | 'countdown';
-		} & Pick<TimerData, 'isDefault' | 'startAt_ms' | 'endAt_ms' | 'offset_ms' | 'pauseDuration_ms' | 'paused' | 'pausedAt_ms' | 'duration_ms'>)[];
+		} & Pick<
+			TimerData,
+			'isDefault' | 'startAt_ms' | 'endAt_ms' | 'offset_ms' | 'pauseDuration_ms' | 'paused' | 'pausedAt_ms' | 'duration_ms'
+		>)[];
 	};
 
 	/**
@@ -2167,9 +2170,30 @@ type StreamSummaryData = {
 	params?: EndingCreditsParams;
 	follows: { uid: string; login: string }[];
 	raids: { uid: string; login: string; raiders: number }[];
-	subs: { uid: string; login: string; tier: 1 | 2 | 3 | 'prime'; subDuration?: number; fromActiveSubs?: true; platform: ChatPlatform }[];
-	resubs: { uid: string; login: string; tier: 1 | 2 | 3 | 'prime'; subDuration?: number; fromActiveSubs?: true; platform: ChatPlatform }[];
-	subgifts: { uid: string; login: string; tier: 1 | 2 | 3 | 'prime'; total: number; fromActiveSubs?: true; platform: ChatPlatform }[];
+	subs: {
+		uid: string;
+		login: string;
+		tier: 1 | 2 | 3 | 'prime';
+		subDuration?: number;
+		fromActiveSubs?: true;
+		platform: ChatPlatform;
+	}[];
+	resubs: {
+		uid: string;
+		login: string;
+		tier: 1 | 2 | 3 | 'prime';
+		subDuration?: number;
+		fromActiveSubs?: true;
+		platform: ChatPlatform;
+	}[];
+	subgifts: {
+		uid: string;
+		login: string;
+		tier: 1 | 2 | 3 | 'prime';
+		total: number;
+		fromActiveSubs?: true;
+		platform: ChatPlatform;
+	}[];
 	bits: { uid: string; login: string; bits: number; pinned: boolean }[];
 	hypeChats: { uid: string; login: string; amount: number; currency: string }[];
 	rewards: { uid: string; login: string; reward: { name: string; id: string; icon: string } }[];
@@ -2193,7 +2217,12 @@ type StreamSummaryData = {
 		tos: number;
 		tosDuration: number;
 	}[];
-	tips: { login: string; amount: number; currency: string; platform: 'kofi' | 'streamlabs' | 'streamelements' | 'tipeee' | 'patreon' }[];
+	tips: {
+		login: string;
+		amount: number;
+		currency: string;
+		platform: 'kofi' | 'streamlabs' | 'streamelements' | 'tipeee' | 'patreon';
+	}[];
 	merch: { login: string; products: string[]; total: number; currency: string; platform: 'kofi' | 'streamlabs' }[];
 	powerups: {
 		login: string;

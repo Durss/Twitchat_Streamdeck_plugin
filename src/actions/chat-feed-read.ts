@@ -11,13 +11,14 @@ export class ChatFeedRead extends AbstractAction<Settings> {
 	 * Init action
 	 */
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
-		super.onWillAppear(ev);
 		if (!ev.action.isKey()) return;
 		if (!ev.payload.settings.readCount) {
 			ev.action.setSettings({
+				colIndex: 0,
 				readCount: 1,
 			});
 		}
+		super.onWillAppear(ev);
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {

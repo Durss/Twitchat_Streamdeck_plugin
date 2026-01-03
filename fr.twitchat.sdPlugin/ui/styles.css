@@ -6,3 +6,27 @@ a {
 	color: #00aaff;
 	text-decoration: none;
 }
+
+mark {
+	background-color: rgba(255, 255, 255, 0.35);
+	padding: 0 2px;
+	border-radius: 3px;
+}
+
+body.hide sdpi-item:not(.loader) {
+	display: none;
+}
+
+body.hide sdpi-item.loader {
+	width: 1em;
+}
+body:not(.hide) sdpi-item.loader {
+	display: none;
+}
+
+body .loader svg {
+	display: block;
+	height: 2em;
+	width: 2em;
+	padding-left: 100px;
+}

@@ -1,5 +1,22 @@
 import { html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 
+document.body.classList.add('hide');
+const loader = document.createElement('sdpi-item');
+loader.className = 'loader';
+loader.innerHTML = `<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="30 30 40 43" preserveAspectRatio="xMidYMid" class="lds-eclipse">
+	<style keep="true">
+		.spinner-adf6S66 {
+			animation: spin-adf6S66 0.6s infinite steps(12);
+			transform-origin: 50px 51px;
+		}
+		@keyframes spin-adf6S66 {
+			to { transform: rotate(360deg); }
+		}
+	</style>
+	<path class="spinner-adf6S66" stroke="none" d="M30 50A20 20 0 0 0 70 50A20 22 0 0 1 30 50" fill="#ffffff"></path>
+</svg>
+`;
+document.body.prepend(loader);
 customElements.whenDefined('sdpi-i18n').then(() => {
 	const originalElement = customElements.get('sdpi-i18n');
 	if (originalElement) {
@@ -29,7 +46,13 @@ customElements.whenDefined('sdpi-i18n').then(() => {
 			sheet.replaceSync(`a {
 	color: #00aaff;
 	text-decoration: none;
-}`);
+}
+mark {
+	background-color: rgba(255, 255, 255, 0.15);
+	padding: 0 2px;
+	border-radius: 3px;
+}
+`);
 			this.shadowRoot.adoptedStyleSheets.push(sheet);
 
 			return html`<span .innerHTML=${result}></span>`;
@@ -52,9 +75,11 @@ function onSettingsReceived(settings) {
 		if (count === 0) {
 			// If no twitchat is detected, show offline message
 			document.getElementById('offline').style.display = 'block';
+			document.body.classList.remove('hide');
 		} else if (count > 1) {
 			// If multiple twitchat instances are detected, show multiple instances message
 			document.getElementById('multiple-instances').style.display = 'block';
+			document.body.classList.remove('hide');
 		} else {
 			// If exactly one twitchat instance is detected, redirect to the action page
 			(async function () {
@@ -65,6 +90,8 @@ function onSettingsReceived(settings) {
 		}
 	} else if (count === 0 || count > 1) {
 		document.location.href = './main.html';
+	} else {
+		document.body.classList.remove('hide');
 	}
 }
 

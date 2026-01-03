@@ -1,4 +1,4 @@
-import { action, DialRotateEvent } from '@elgato/streamdeck';
+import streamDeck, { action, DialRotateEvent, WillAppearEvent } from '@elgato/streamdeck';
 import TwitchatSocket from '../TwitchatSocket';
 import { AbstractAction } from './AbstractActions';
 
@@ -7,8 +7,26 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.chat-feed-read-encoder' })
 export class ChatFeedReadEncoder extends AbstractAction<Settings> {
+	override onWillAppear(ev: WillAppearEvent<Settings>): void {
+		if (!ev.action.isDial()) return;
+		if (!ev.payload.settings.colIndex) {
+			ev.action.setSettings({
+				colIndex: 0,
+			});
+		}
+		let colIndex = ev.payload.settings.colIndex || 0;
+		if (typeof colIndex == 'string') colIndex = parseInt(colIndex);
+		ev.action.setFeedbackLayout('$X1');
+		ev.action.setFeedback({
+			title: { value: streamDeck.i18n.translate('chat-feed-read') + ' (' + (colIndex + 1) + ')' },
+		});
+		super.onWillAppear(ev);
+	}
 	override async onDialRotate(ev: DialRotateEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_READ', { colIndex: ev.payload.settings.colIndex || 0, count: ev.payload.ticks });
+		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_READ', {
+			colIndex: ev.payload.settings.colIndex || 0,
+			count: ev.payload.ticks,
+		});
 	}
 }
 

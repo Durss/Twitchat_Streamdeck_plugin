@@ -84,7 +84,9 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		TwitchatSocket.instance.broadcastCachedEvents();
 	}
 
-	protected getActionState(action: DialAction<{}> | KeyAction<{}>): typeof this._actionStateCache extends Map<string, infer U> ? U : never {
+	protected getActionState(
+		action: DialAction<{}> | KeyAction<{}>,
+	): typeof this._actionStateCache extends Map<string, infer U> ? U : never {
 		return this._actionStateCache.get(action.id) || 'default';
 	}
 
@@ -154,7 +156,14 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 
 		svg = this.injectLogo(svg);
 		// eslint-disable-next-line no-undef
-		action.setImage(`data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`);
+		const img = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+		if (action.isKey()) {
+			action.setImage(img);
+		} else if (action.isDial()) {
+			action.setFeedback({
+				icon: { value: img },
+			});
+		}
 	}
 
 	private injectLogo(svg: string): string {
@@ -194,7 +203,7 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		return svg.replace(
 			'</svg>',
 			`
-				<rect x="0" y="0" width="144px" height="${svgLines.length * 20 + 10}px" rx="12px" ry="12px" style="fill: ${color}; fill-opacity: .7; stroke: #000000; stroke-opacity: .7; stroke-miterlimit: 10; stroke-width: 3px;"/>
+				<rect x="0" y="-20" width="144px" height="${svgLines.length * 20 + 10 + 20}px" rx="12px" ry="12px" style="fill: ${color}; fill-opacity: .7; stroke: #000000; stroke-opacity: .7; stroke-miterlimit: 10; stroke-width: 3px;"/>
 				${svgLines.join('\n')}
 			</svg>`,
 		);

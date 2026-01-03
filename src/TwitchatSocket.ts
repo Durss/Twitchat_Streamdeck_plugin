@@ -14,7 +14,9 @@ export default class TwitchatSocket {
 	private _socketServerSSL: WebSocketServer | null = null;
 	private _httpServerSSL: https.Server | null = null;
 	private _connexions: { type: 'main' | 'other'; ws: WebSocket }[] = [];
-	private _callbackListeners: { [key: string]: { [actionId: string]: (data: TwitchatEventMap[keyof TwitchatEventMap]) => void } } = {};
+	private _callbackListeners: {
+		[key: string]: { [actionId: string]: (data: TwitchatEventMap[keyof TwitchatEventMap]) => void };
+	} = {};
 	private _lastEventDataCache: Partial<{ [key in keyof TwitchatEventMap]?: TwitchatEventMap[key] }> = {};
 	private _twitchatConnectionHandlers: { [actionId: string]: (connected: boolean) => void } = {};
 
@@ -176,7 +178,11 @@ export default class TwitchatSocket {
 		streamDeck.logger.info('[TwitchatSocket] Use wss://localhost:30386 for secure connections');
 	}
 
-	public on<Event extends keyof TwitchatEventMap>(event: Event, actionId: string, listener: (data: TwitchatEventMap[Event]) => void): void {
+	public on<Event extends keyof TwitchatEventMap>(
+		event: Event,
+		actionId: string,
+		listener: (data: TwitchatEventMap[Event]) => void,
+	): void {
 		if (!this._callbackListeners[event]) {
 			this._callbackListeners[event] = {};
 		}
@@ -220,7 +226,8 @@ export default class TwitchatSocket {
 		ws.on('message', (eventSource) => {
 			const event = json2Event(eventSource.toString());
 			Object.values(this._callbackListeners[event.type] || {}).forEach((callback) => callback(event.data));
-			(this._lastEventDataCache as Record<keyof TwitchatEventMap, TwitchatEventMap[keyof TwitchatEventMap]>)[event.type] = event.data;
+			(this._lastEventDataCache as Record<keyof TwitchatEventMap, TwitchatEventMap[keyof TwitchatEventMap]>)[event.type] =
+				event.data;
 			switch (event.type) {
 				case 'ON_FLAG_MAIN_APP': {
 					const connexion = this._connexions.find((c) => c.ws === ws);

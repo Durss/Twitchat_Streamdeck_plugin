@@ -15,7 +15,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/send-message/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -31,7 +31,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/execute-trigger/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -47,7 +47,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/toggle-trigger/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -63,7 +63,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/stop-tts/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -79,12 +79,12 @@
 			"States": [
 				{
 					"Image": "imgs/actions/set-emergency-mode/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
 		{
-			"Name": "Send a shoutout to the latest raider",
+			"Name": "Send a shoutout to the last raider",
 			"UUID": "fr.twitchat.action.shoutout",
 			"Icon": "imgs/actions/shoutout/icon",
 			"Tooltip": "",
@@ -95,7 +95,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/shoutout/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -111,7 +111,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/automod-accept/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -127,7 +127,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/automod-reject/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -143,7 +143,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/censor-deleted-messages-toggle/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -159,7 +159,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-read/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -175,7 +175,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-read-all/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -191,10 +191,11 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-read-encoder/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			],
 			"Encoder": {
+				"layout": "$X1",
 				"TriggerDescription": {
 					"Rotate": "Move read marker"
 				}
@@ -212,10 +213,11 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-scroll/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			],
 			"Encoder": {
+				"layout": "$X1",
 				"TriggerDescription": {
 					"Rotate": "Scroll chat"
 				}
@@ -233,7 +235,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-scroll-down/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -249,12 +251,12 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-scroll-up/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
 		{
-			"Name": "Perform action on a message",
+			"Name": "Select and perform action on a message",
 			"UUID": "fr.twitchat.action.chat-feed-select",
 			"Icon": "imgs/actions/chat-feed-select/icon",
 			"Tooltip": "",
@@ -265,7 +267,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-select/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			],
 			"Encoder": {
@@ -287,7 +289,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/clear-chat-highlight/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -303,7 +305,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/countdown-add/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -319,7 +321,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/timer-add/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -335,7 +337,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/counter-add/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -351,7 +353,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/greet-feed-read/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -367,7 +369,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/greet-feed-read-all/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -383,7 +385,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/hide-alert/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -399,7 +401,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/merge-toggle/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -415,7 +417,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/mod-tools-toggle/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -431,7 +433,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/poll-toggle/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -447,7 +449,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/prediction-toggle/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -463,7 +465,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/bingo-toggle/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -479,7 +481,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/qna-highlight/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -495,7 +497,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/qna-skip/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -511,7 +513,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/raffle-pick-winner/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -527,7 +529,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/raffle-toggle/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -543,7 +545,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/viewers-count-toggle/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -559,7 +561,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/voice-control/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -575,7 +577,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-pause/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		}

@@ -67,11 +67,14 @@ SDPIComponents.i18n.locales = {
 			},
 		},
 		'greet-feed-read-all': {},
-		'hide-alert': {},
+		'hide-alert': {
+			info: 'For more details, in Twitchat, head over settings => chat features => Enable chat alert.',
+		},
 		main: {
 			offline:
-				'⚠️ Twitchat not detected.\nPlease make sure {TWITCHAT} is opened at least once.\n\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
-			'multiple-instances': '⚠️ More than 1 Twitchat instance detected. This may cause issues.\n\nPlease close all other instances except one.',
+				'⚠️ Twitchat not detected.\nPlease make sure (ex: {TWITCHAT}) is opened at least once.\n\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
+			'multiple-instances':
+				'⚠️ More than 1 Twitchat instance detected. This may cause issues.\n\nPlease close all other instances except one.',
 		},
 		'merge-toggle': {},
 		'mod-tools-toggle': {},
@@ -92,6 +95,7 @@ SDPIComponents.i18n.locales = {
 		'raffle-pick-winner': {},
 		'raffle-toggle': {},
 		'send-message': {
+			info: 'You can use any Twitch command (ex: {TWITCH}), any Twitchat command (ex: {TWITCHAT}) or any of your custom /command created on the triggers.',
 			fields: {
 				message: 'Message',
 			},
@@ -186,10 +190,12 @@ SDPIComponents.i18n.locales = {
 			},
 		},
 		'greet-feed-read-all': {},
-		'hide-alert': {},
+		'hide-alert': {
+			info: "Pour plus d'info, rendez-vous dans Twitchat dans paramètres => fonctionnalités de tchat => Activer la fenêtre d'alerte.",
+		},
 		main: {
 			offline:
-				"⚠️ Twitchat non détecté.\nAssurez-vous que {TWITCHAT} soit ouvert au moins une fois.\n\nSi vous rencontrez des problèmes pour connecter Twitchat avec Stream Deck, venez chercher de l'aide sur {DISCORD}.",
+				"⚠️ Twitchat non détecté.\nAssurez-vous que (ex: {TWITCHAT}) soit ouvert au moins une fois.\n\nSi vous rencontrez des problèmes pour connecter Twitchat avec Stream Deck, venez chercher de l'aide sur {DISCORD}.",
 			'multiple-instances':
 				"⚠️ Twitchat est lancé plus d'une fois.\nCeci peut causer des problèmes.\n\nVeuillez fermer toutes les instances sauf une.",
 		},
@@ -212,6 +218,7 @@ SDPIComponents.i18n.locales = {
 		'raffle-pick-winner': {},
 		'raffle-toggle': {},
 		'send-message': {
+			info: "Vous pouvez utiliser n'importe quelle commande Twitch (ex: {TWITCH}), n'importe quelle commande Twitchat (ex: {TWITCHAT}) ou n'importe laquelle de vos /commande personnalisées créées dans les triggers.",
 			fields: {
 				message: 'Message',
 			},

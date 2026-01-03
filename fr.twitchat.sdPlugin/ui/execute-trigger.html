@@ -1,19 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+	<head lang="en">
+		<title>Execute trigger Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
 
-<head lang="en">
-	<title>Execute trigger Settings</title>
-	<meta charset="utf-8" />
-	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	<script type="module" src="./common.js"></script>
-	<script src="./locale.js"></script>
-</head>
-
-<body>
-	<sdpi-item label="__MSG_execute-trigger.fields.triggerId__">
-		<sdpi-select setting="triggerId" datasource="getTriggers" loading="__MSG_execute-trigger.loading-triggers__" hot-reload>
-		</sdpi-select>
-	</sdpi-item>
-</body>
-
+	<body>
+		<sdpi-item label="__MSG_execute-trigger.fields.triggerId__">
+			<sdpi-select setting="triggerId" datasource="getTriggers" loading="__MSG_execute-trigger.loading-triggers__" hot-reload> </sdpi-select>
+		</sdpi-item>
+	</body>
 </html>

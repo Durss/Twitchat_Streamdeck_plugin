@@ -67,18 +67,19 @@ export class ChatFeedSelect extends AbstractAction<Settings> {
 		}
 		this._selectModeMap.set(ev.action.id, selectMode);
 
-		let index = this._selectIndexMap.get(ev.action.id) || 0;
-		const colIndex = ev.payload.settings.colIndex || 0;
+		let actionIndex = this._selectIndexMap.get(ev.action.id) || 0;
+		let colIndex = ev.payload.settings.colIndex || 0;
+		if (typeof colIndex == 'string') colIndex = parseInt(colIndex);
 		if (selectMode === true) {
 			await ev.action.setFeedbackLayout('layouts/chat-feed-select-layout.json');
 			await ev.action.setFeedback({
-				title: { value: streamDeck.i18n.translate('chat-feed-select-action') },
-				action: { value: '◄ ' + SELECT_ACTIONS[index].label + ' ►', color: SELECT_ACTIONS[index].color },
+				title: { value: streamDeck.i18n.translate('chat-feed-select-action') + ' (' + (colIndex + 1) + ')' },
+				action: { value: '◄ ' + SELECT_ACTIONS[actionIndex].label + ' ►', color: SELECT_ACTIONS[actionIndex].color },
 			});
 		} else {
-			TwitchatSocket.instance.broadcast(SELECT_ACTIONS[index].action, {
+			TwitchatSocket.instance.broadcast(SELECT_ACTIONS[actionIndex].action, {
 				colIndex,
-				...SELECT_ACTIONS[index].params,
+				...SELECT_ACTIONS[actionIndex].params,
 			});
 			await this.resetStrip(ev);
 		}
@@ -89,9 +90,11 @@ export class ChatFeedSelect extends AbstractAction<Settings> {
 	): Promise<void> {
 		if (ev.action.isDial() === false) return;
 
+		let colIndex = ev.payload.settings.colIndex || 0;
+		if (typeof colIndex == 'string') colIndex = parseInt(colIndex);
 		await ev.action.setFeedbackLayout('$X1');
 		await ev.action.setFeedback({
-			title: { value: streamDeck.i18n.translate('chat-feed-select-select') },
+			title: { value: streamDeck.i18n.translate('chat-feed-select-select') + ' (' + (colIndex + 1) + ')' },
 		});
 	}
 }
@@ -116,7 +119,12 @@ const SELECT_ACTIONS: readonly SelectActionItem[] = [
 	{ color: '#616161', label: 'CANCEL', action: 'SET_CHAT_FEED_SELECT_ACTION_CANCEL', params: { colIndex: 0 } },
 	{ color: '#d9a808', label: 'DELETE', action: 'SET_CHAT_FEED_SELECT_ACTION_DELETE', params: { colIndex: 0 } },
 	{ color: '#d97b08', label: 'TIMEOUT 1s', action: 'SET_CHAT_FEED_SELECT_ACTION_BAN', params: { colIndex: 0, duration: 1 } },
-	{ color: '#d93c08', label: 'TIMEOUT 600s', action: 'SET_CHAT_FEED_SELECT_ACTION_BAN', params: { colIndex: 0, duration: 600 } },
+	{
+		color: '#d93c08',
+		label: 'TIMEOUT 600s',
+		action: 'SET_CHAT_FEED_SELECT_ACTION_BAN',
+		params: { colIndex: 0, duration: 600 },
+	},
 	{ color: '#FF0000', label: 'BAN', action: 'SET_CHAT_FEED_SELECT_ACTION_BAN', params: { colIndex: 0 } },
 	{ color: '#47c2ff', label: 'HIGHLIGHT', action: 'SET_CHAT_FEED_SELECT_ACTION_HIGHLIGHT', params: { colIndex: 0 } },
 	{ color: '#475cff', label: 'SAVE', action: 'SET_CHAT_FEED_SELECT_ACTION_SAVE', params: { colIndex: 0 } },

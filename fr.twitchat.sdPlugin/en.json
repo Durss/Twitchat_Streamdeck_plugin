@@ -7,7 +7,10 @@
 		"no-qna-session": "No Q&A sessions available.",
 		"error-loading-data": "Error loading data.",
 		"select-placeholder": "select...",
-		"chat-feed-select-select": "Select a message",
-		"chat-feed-select-action": "Action"
+		"chat-feed-select-select": "Select mess.",
+		"chat-feed-select-action": "Action",
+		"chat-feed-scroll": "Scroll chat",
+		"chat-feed-read": "Read pos",
+		"invalid-value": "invalid value"
 	}
 }

@@ -1,21 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+	<head lang="en">
+		<title>Greet feed read Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<script src="./dynamicRange.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
 
-<head lang="en">
-	<title>Greet feed read Settings</title>
-	<meta charset="utf-8" />
-	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	<script type="module" src="./common.js"></script>
-	<script src="./locale.js"></script>
-	<script src="./dynamicRange.js"></script>
-</head>
-
-<body>
-	<sdpi-item class="rangeWithValue" label="__MSG_greet-feed-read.fields.readCount__">
-		<sdpi-range setting="readCount" min="0" max="100" step="1" default="1">
-		</sdpi-range>
-		<span class="rangeValue">0</span>
-	</sdpi-item>
-</body>
-
+	<body>
+		<sdpi-item class="rangeWithValue" label="__MSG_greet-feed-read.fields.readCount__">
+			<sdpi-range setting="readCount" min="0" max="100" step="1" default="1"> </sdpi-range>
+			<span class="rangeValue">0</span>
+		</sdpi-item>
+	</body>
 </html>

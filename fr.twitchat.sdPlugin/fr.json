@@ -7,23 +7,26 @@
 		"no-qna-session": "Aucune session Q&A disponible.",
 		"error-loading-data": "Erreur lors du chargement des données.",
 		"select-placeholder": "sélectionner...",
-		"chat-feed-select-select": "Sélectionner un message",
-		"chat-feed-select-action": "Action"
+		"chat-feed-select-select": "Select° mess.",
+		"chat-feed-select-action": "Action",
+		"chat-feed-scroll": "Défiler chat",
+		"chat-feed-read": "Marqueur lu",
+		"invalid-value": "Valeur invalide"
 	},
 	"fr.twitchat.action.automod-accept": {
-		"Name": "",
+		"Name": "Accepter le dernier message retenu par l'automod",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.automod-reject": {
-		"Name": "",
+		"Name": "Rejeter le dernier message retenu par l'automod",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.bingo-toggle": {
-		"Name": "",
+		"Name": "Afficher/Masquer le bingo en cours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.censor-deleted-messages-toggle": {
-		"Name": "",
+		"Name": "Activer/Désactiver la censure des messages supprimés",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-pause": {
@@ -31,31 +34,31 @@
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-read": {
-		"Name": "",
+		"Name": "Marquer certains messages comme lus",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-read-all": {
-		"Name": "",
+		"Name": "Marquer tous les messages comme lus",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-read-encoder": {
-		"Name": "",
+		"Name": "Déplacer le marqueur de lecture du tchat",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-scroll": {
-		"Name": "",
+		"Name": "Faire défiler le chat",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-scroll-down": {
-		"Name": "",
+		"Name": "Faire défiler le chat vers le bas",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-scroll-up": {
-		"Name": "",
+		"Name": "Faire défiler le chat vers le haut",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-select": {
-		"Name": "",
+		"Name": "Sélectionner un message du tchat",
 		"Tooltip": "",
 		"Encoder": {
 			"TriggerDescription": {
@@ -65,91 +68,91 @@
 		}
 	},
 	"fr.twitchat.action.clear-chat-highlight": {
-		"Name": "",
+		"Name": "Masquer le message actuellement mis en avant",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.countdown-add": {
-		"Name": "",
+		"Name": "Ajouter du temps à un compte à rebours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.counter-add": {
-		"Name": "",
+		"Name": "Ajouter une valeur à un compteur",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.execute-trigger": {
-		"Name": "",
+		"Name": "Exécuter un trigger",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.greet-feed-read": {
-		"Name": "",
+		"Name": "Retirer des messages de la section \"Dîtes bonjour\"",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.greet-feed-read-all": {
-		"Name": "",
+		"Name": "Vider la section \"Dîtes bonjour\"",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.hide-alert": {
-		"Name": "",
+		"Name": "Masquer l'alerte de tchat en cours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.merge-toggle": {
-		"Name": "",
+		"Name": "Activer/Désactiver la fusion de messages consécutifs",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.mod-tools-toggle": {
-		"Name": "",
+		"Name": "Afficher/Masquer les outils de modération",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.poll-toggle": {
-		"Name": "",
+		"Name": "Afficher/Masquer le sondage en cours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.prediction-toggle": {
-		"Name": "",
+		"Name": "Afficher/Masquer la prédiction en cours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.qna-highlight": {
-		"Name": "",
+		"Name": "Mettre en avant la 1ère question d'une session de Questions/Réponses",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.qna-skip": {
-		"Name": "",
+		"Name": "Retirer la 1ère question d'une session de Questions/Réponses",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.raffle-pick-winner": {
-		"Name": "",
+		"Name": "Tirer un·e gagnant·e pour le tirage au sort en cours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.raffle-toggle": {
-		"Name": "",
+		"Name": "Afficher/Masquer le tirage au sort en cours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.send-message": {
-		"Name": "",
+		"Name": "Envoyer un message dans le chat",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.set-emergency-mode": {
-		"Name": "",
+		"Name": "Activer/Désactiver le mode urgence",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.shoutout": {
-		"Name": "",
+		"Name": "Envoyer un shoutout à la dernière personne ayant raidé",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.stop-tts": {
-		"Name": "",
+		"Name": "Arrêter toute synthèse vocale en cours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.timer-add": {
-		"Name": "",
+		"Name": "Ajouter ou retirer du temps à un minuteur",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.toggle-trigger": {
-		"Name": "",
+		"Name": "Activer/Désactiver un trigger",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.viewers-count-toggle": {
-		"Name": "",
+		"Name": "Afficher/Masquer le nombre de spectateurices",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.voice-control": {

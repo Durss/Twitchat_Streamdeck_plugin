@@ -297,22 +297,22 @@ function createHtmlFile(id, name) {
 		return false;
 	}
 
-	const content = `<!DOCTYPE html>
+	const content = `<!doctype html>
 <html>
+	<head lang="en">
+		<title>Chat feed select Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
 
-<head lang="en">
-	<title>${name} Settings</title>
-	<meta charset="utf-8" />
-	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	<script type="module" src="./common.js"></script>
-	<script src="./locale.js"></script>
-</head>
-
-<body>
+	<body>
 	<!-- Property inspector components documentation https://sdpi-components.dev/docs/components -->
-</body>
-
+	</body>
 </html>
+
 `;
 
 	fs.writeFileSync(targetPath, content);

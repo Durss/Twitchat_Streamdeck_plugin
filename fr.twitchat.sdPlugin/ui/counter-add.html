@@ -1,38 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+	<head lang="en">
+		<title>Counter add Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<script src="./dynamicRange.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
 
-<head lang="en">
-	<title>Counter add Settings</title>
-	<meta charset="utf-8" />
-	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	<script type="module" src="./common.js"></script>
-	<script src="./locale.js"></script>
-	<script src="./dynamicRange.js"></script>
-</head>
+	<body>
+		<sdpi-item label="__MSG_counter-add.fields.counterId__">
+			<sdpi-select setting="counterId" datasource="getCounters" loading="__MSG_counter-add.loading-counters__" hot-reload> </sdpi-select>
+		</sdpi-item>
 
-<body>
-	<sdpi-item label="__MSG_counter-add.fields.counterId__">
-		<sdpi-select setting="counterId" datasource="getCounters" loading="__MSG_counter-add.loading-counters__" hot-reload>
-		</sdpi-select>
-	</sdpi-item>
+		<sdpi-item label="__MSG_counter-add.fields.counterAction__">
+			<sdpi-select setting="counterAction">
+				<option value="ADD">__MSG_counter-add.action.ADD__</option>
+				<option value="DEL">__MSG_counter-add.action.DEL__</option>
+				<option value="SET">__MSG_counter-add.action.SET__</option>
+			</sdpi-select>
+		</sdpi-item>
 
-	<sdpi-item label="__MSG_counter-add.fields.counterAction__">
-		<sdpi-select setting="counterAction">
-        	<option value="ADD">__MSG_counter-add.action.ADD__</option>
-        	<option value="DEL">__MSG_counter-add.action.DEL__</option>
-        	<option value="SET">__MSG_counter-add.action.SET__</option>
-		</sdpi-select>
-	</sdpi-item>
-
-	<sdpi-item label="__MSG_counter-add.fields.countAdd__">
-		<sdpi-textfield
-			setting="countAdd"
-			pattern="[0-9]+"
-			placeholder="0"
-			required>
-		</sdpi-textfield>
-	</sdpi-item>
-	
-</body>
-
+		<sdpi-item label="__MSG_counter-add.fields.countAdd__">
+			<sdpi-textfield setting="countAdd" pattern="[0-9]+" placeholder="0" required> </sdpi-textfield>
+		</sdpi-item>
+	</body>
 </html>

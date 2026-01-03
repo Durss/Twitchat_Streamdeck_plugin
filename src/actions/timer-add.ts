@@ -1,8 +1,8 @@
-import { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import streamDeck, { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
 import { clearInterval, setInterval } from 'timers';
 import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
-import { formatDuration } from '../Utils';
+import { formatDuration, parseTimerValue } from '../Utils';
 import { AbstractAction } from './AbstractActions';
 
 /**
@@ -22,6 +22,15 @@ export class TimerAdd extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
+		const value = ev.payload.settings.timeAdd;
+		if (
+			!parseTimerValue(value).isValid ||
+			this.getActionState(ev.action) === 'error' ||
+			this.getActionState(ev.action) === 'disabled'
+		) {
+			ev.action.showAlert();
+			return;
+		}
 		TwitchatSocket.instance.broadcast('SET_TIMER_ADD', {
 			id: ev.payload.settings.timerId,
 			value: ev.payload.settings.timeAdd,
@@ -34,6 +43,17 @@ export class TimerAdd extends AbstractAction<Settings> {
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
 		if (this._forceOfflineState) return;
+
+		const parsed = parseTimerValue(settings.timeAdd);
+		if (parsed.isValid && typeof parsed.value === 'number') {
+			action.setTitle(parsed.value < 0 ? `${parsed.value}` : `+${parsed.value}`);
+		} else if (parsed.isValid) {
+			this.setText(action, '');
+		} else {
+			this.setText(action, streamDeck.i18n.translate('invalid-value'));
+			this.setErrorState(action);
+			return;
+		}
 
 		let timer = data?.timerList.find((t) => t.id === settings.timerId);
 		if (!timer && !settings.timerId) {

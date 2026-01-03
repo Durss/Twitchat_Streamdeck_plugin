@@ -6,11 +6,18 @@
 		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
 		<script type="module" src="./common.js"></script>
 		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
 	</head>
 
 	<body>
 		<sdpi-item label="__MSG_send-message.fields.message__">
 			<sdpi-textarea setting="message" maxlength="250" rows="3" showlength> </sdpi-textarea>
+		</sdpi-item>
+		<sdpi-item>
+			<sdpi-i18n key="send-message.info">
+				<slot name="twitch"><i>/announce</i></slot>
+				<slot name="twitchat"><i>/tts</i></slot>
+			</sdpi-i18n>
 		</sdpi-item>
 	</body>
 </html>
