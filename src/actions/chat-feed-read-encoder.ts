@@ -1,4 +1,4 @@
-import streamDeck, { action, DialRotateEvent, WillAppearEvent } from '@elgato/streamdeck';
+import streamDeck, { action, DialRotateEvent, TouchTapEvent, WillAppearEvent } from '@elgato/streamdeck';
 import TwitchatSocket from '../TwitchatSocket';
 import { AbstractAction } from './AbstractActions';
 
@@ -22,6 +22,13 @@ export class ChatFeedReadEncoder extends AbstractAction<Settings> {
 		});
 		super.onWillAppear(ev);
 	}
+
+	override onTouchTap(ev: TouchTapEvent<Settings>): Promise<void> | void {
+		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_READ_ALL', {
+			colIndex: ev.payload.settings.colIndex || 0,
+		});
+	}
+
 	override async onDialRotate(ev: DialRotateEvent<Settings>): Promise<void> {
 		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_READ', {
 			colIndex: ev.payload.settings.colIndex || 0,

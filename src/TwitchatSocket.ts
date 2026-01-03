@@ -289,6 +289,10 @@ export default class TwitchatSocket {
 			event: 'getAnimatedTexts',
 			items: this.reduceAnimatedTextList(),
 		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getBingoGrids',
+			items: this.reduceBingoList(),
+		});
 	}
 
 	private async updateConnexionCount(): Promise<void> {
@@ -412,6 +416,30 @@ export default class TwitchatSocket {
 				{
 					value: '',
 					label: streamDeck.i18n.translate('no-animated-text'),
+					disabled: true,
+				},
+			];
+		}
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
+		return items;
+	}
+
+	private reduceBingoList() {
+		let items = this._lastEventDataCache['ON_GLOBAL_STATES']?.bingoGridList.map(
+			(grid): SelectItem => ({
+				value: grid.id,
+				label: !grid.enabled ? `🔴 ${grid.name}` : `🟢 ${grid.name}`,
+				// disabled: !animatedText.enabled,
+			}),
+		);
+		if (!items || items.length === 0) {
+			items = [
+				{
+					value: '',
+					label: streamDeck.i18n.translate('no-bingo-grid'),
 					disabled: true,
 				},
 			];

@@ -6,13 +6,19 @@
 		"no-timer": "Aucun minuteur disponible.",
 		"no-qna-session": "Aucune session Q&A disponible.",
 		"no-animated-text": "Aucun texte animé disponible.",
+		"no-bingo-grid": "Aucune grille de bingo disponible.",
 		"error-loading-data": "Erreur lors du chargement des données.",
 		"select-placeholder": "sélectionner...",
 		"chat-feed-select-select": "Select° mess.",
 		"chat-feed-select-action": "Action",
 		"chat-feed-scroll": "Défiler chat",
 		"chat-feed-read": "Marqueur lu",
-		"invalid-value": "Valeur invalide"
+		"invalid-value": "Valeur invalide",
+		"missing-timer": "minuteur\nmanquant",
+		"missing-counter": "compteur\nmanquant",
+		"missing-qna-session": "session Q&R\nmanquante",
+		"missing-overlay": "overlay\nmanquant",
+		"missing-trigger": "trigger\nmanquant"
 	},
 	"fr.twitchat.action.automod-accept": {
 		"Name": "Accepter le dernier message retenu par l'automod",
@@ -142,6 +148,10 @@
 	},
 	"fr.twitchat.action.shoutout": {
 		"Name": "Envoyer un shoutout à la dernière personne ayant raidé",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.show-bingo-grid": {
+		"Name": "Afficher/Masquer une grille de bingo",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.stop-tts": {

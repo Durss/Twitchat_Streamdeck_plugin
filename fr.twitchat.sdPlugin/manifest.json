@@ -596,6 +596,22 @@
 					"TitleAlignment": "bottom"
 				}
 			]
+		},
+		{
+			"Name": "Show/Hide a bingo grid overlay",
+			"UUID": "fr.twitchat.action.show-bingo-grid",
+			"Icon": "imgs/actions/show-bingo-grid/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/show-bingo-grid.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/show-bingo-grid/icon",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "Twitchat",

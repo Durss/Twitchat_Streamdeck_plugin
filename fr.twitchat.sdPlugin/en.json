@@ -6,12 +6,18 @@
 		"no-timer": "No timers available.",
 		"no-qna-session": "No Q&A sessions available.",
 		"no-animated-text": "No animated texts available.",
+		"no-bingo-grid": "No bingo grids available.",
 		"error-loading-data": "Error loading data.",
 		"select-placeholder": "select...",
 		"chat-feed-select-select": "Select mess.",
 		"chat-feed-select-action": "Action",
 		"chat-feed-scroll": "Scroll chat",
 		"chat-feed-read": "Read pos",
-		"invalid-value": "invalid value"
+		"invalid-value": "invalid value",
+		"missing-timer": "missing timer",
+		"missing-counter": "missing counter",
+		"missing-qna-session": "missing Q&A\nsession",
+		"missing-overlay": "missing overlay",
+		"missing-trigger": "missing trigger"
 	}
 }

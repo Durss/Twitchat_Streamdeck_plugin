@@ -1,4 +1,4 @@
-import { action, DialAction, KeyAction, KeyDownEvent } from '@elgato/streamdeck';
+import streamDeck, { action, DialAction, KeyAction, KeyDownEvent } from '@elgato/streamdeck';
 import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
 import { AbstractAction } from './AbstractActions';
@@ -22,11 +22,13 @@ export class ExecuteTrigger extends AbstractAction<Settings> {
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
 		const trigger = data?.triggerList.find((t) => t.id === settings.triggerId);
+
 		this.setText(action, '');
+
 		if (trigger?.disabled) {
 			this.setDisabledState(action);
 		} else if (!trigger) {
-			this.setText(action, 'Missing Trigger');
+			this.setText(action, streamDeck.i18n.translate('missing-trigger'));
 			this.setErrorState(action);
 		} else {
 			this.setEnabledState(action);

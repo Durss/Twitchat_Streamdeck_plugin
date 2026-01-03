@@ -106,7 +106,7 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	}
 
 	protected setText(action: DialAction<{}> | KeyAction<{}>, text: string): void {
-		this._actionStateTitleCache.set(action.id, text);
+		this._actionStateTitleCache.set(action.id, text.replace(/&/, '&amp;'));
 		this.applyState(action);
 	}
 
@@ -143,10 +143,12 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 			switch (state) {
 				case 'disabled':
 					svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .35;`);
+					svg = svg.replace(/(stroke: ?#.*;)/gi, `$1 stroke-opacity: .35;`);
 					svg = svg.replace(/<image/gi, `<image style="opacity: .35;"`);
 					break;
 				case 'error':
 					svg = svg.replace(/(fill: ?#.*;)/gi, `fill: #ff3333; fill-opacity: .8;`);
+					svg = svg.replace(/(stroke: ?#.*;)/gi, `stroke: #ff3333; stroke-opacity: .8;`);
 					break;
 			}
 			const label = this._actionStateTitleCache.get(action.id);

@@ -1,4 +1,4 @@
-import { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import streamDeck, { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
 import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
 import { AbstractAction } from './AbstractActions';
@@ -35,10 +35,10 @@ export class QnaHighlight extends AbstractAction<Settings> {
 	): void {
 		const qnaSession = data?.sessionList.find((q) => q.id === settings.qnaId);
 		if (!qnaSession) {
-			this.setText(action, 'Missing Q&amp;A\nsession');
+			this.setText(action, streamDeck.i18n.translate('missing-qna-session'));
 			this.setErrorState(action);
 		} else {
-			this.setText(action, qnaSession.command.replace(/&/, '&amp;'));
+			this.setText(action, qnaSession.command);
 			this.setEnabledState(action);
 		}
 	}

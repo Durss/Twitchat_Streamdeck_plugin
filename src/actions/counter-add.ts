@@ -1,4 +1,4 @@
-import { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import streamDeck, { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
 import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
 import { AbstractAction } from './AbstractActions';
@@ -45,7 +45,7 @@ export class CounterAdd extends AbstractAction<Settings> {
 
 		const counter = data?.counterValues.find((c) => c.id === _settings.counterId);
 		if (!counter) {
-			this.setText(action, 'Missing Counter');
+			this.setText(action, streamDeck.i18n.translate('missing-counter'));
 			this.setErrorState(action);
 			return;
 		} else {

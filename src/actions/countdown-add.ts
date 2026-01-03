@@ -61,7 +61,7 @@ export class CountdownAdd extends AbstractAction<Settings> {
 		}
 
 		if (!timer || !timer?.enabled) {
-			this.setText(action, 'Missing timer');
+			this.setText(action, streamDeck.i18n.translate('missing-timer'));
 			this.setErrorState(action);
 		} else {
 			const renderTimer = () => {

@@ -1,15 +1,14 @@
 import streamDeck, { action, DialAction, KeyAction, KeyDownEvent } from '@elgato/streamdeck';
 import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
-import { UUID } from '../Utils';
 import { AbstractAction } from './AbstractActions';
 import { setTimeout } from 'timers';
 
 /**
- * Action for Write animated text.
+ * Action for Show/Hide a bingo grid overlay.
  */
-@action({ UUID: 'fr.twitchat.action.set-animated-text' })
-export class SetAnimatedText extends AbstractAction<Settings> {
+@action({ UUID: 'fr.twitchat.action.show-bingo-grid' })
+export class ShowBingoGrid extends AbstractAction<Settings> {
 	private _disabledMap: Map<string, boolean> = new Map();
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		if (this.getActionState(ev.action) === 'error' || this.getActionState(ev.action) === 'disabled') {
@@ -21,11 +20,8 @@ export class SetAnimatedText extends AbstractAction<Settings> {
 				this._disabledMap.delete(ev.action.id);
 				this.setEnabledState(ev.action);
 			}, 1500);
-			TwitchatSocket.instance.broadcast('SET_ANIMATED_TEXT_CONTENT_FROM_SD', {
-				queryId: UUID(),
-				id: ev.payload.settings.animatedTextId,
-				text: ev.payload.settings.message,
-				autoHide: ev.payload.settings.autoHide == true,
+			TwitchatSocket.instance.broadcast('SET_BINGO_GRID_CONFIGS_VISIBILITY_FROM_SD', {
+				id: ev.payload.settings.bingoGridId,
 			});
 		}
 	}
@@ -35,28 +31,24 @@ export class SetAnimatedText extends AbstractAction<Settings> {
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
-		const overlay = data?.animatedTextList.find((t) => t.id === settings.animatedTextId);
+		const bingoGrid = data?.bingoGridList.find((q) => q.id === settings.bingoGridId);
 		if (this._disabledMap.get(action.id)) {
 			this.setDisabledState(action);
 			return;
 		}
-		this.setText(action, '');
-		if (!overlay) {
-			this.setText(action, streamDeck.i18n.translate('missing-overlay'));
+		if (!bingoGrid) {
+			this.setText(action, streamDeck.i18n.translate('missing-bingo-grid'));
 			this.setErrorState(action);
-		} else if (!overlay.enabled) {
-			this.setDisabledState(action);
 		} else {
+			this.setText(action, bingoGrid.name);
 			this.setEnabledState(action);
 		}
 	}
 }
 
 /**
- * Settings for {@link SetAnimatedText}.
+ * Settings for {@link ShowBingoGrid}.
  */
 type Settings = {
-	animatedTextId: string;
-	message: string;
-	autoHide: boolean;
+	bingoGridId: string;
 };

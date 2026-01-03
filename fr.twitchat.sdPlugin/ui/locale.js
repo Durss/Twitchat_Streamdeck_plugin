@@ -110,6 +110,12 @@ SDPIComponents.i18n.locales = {
 		},
 		'set-emergency-mode': {},
 		shoutout: {},
+		'show-bingo-grid': {
+			'loading-bingo-grids': 'Loading bingo grids...',
+			fields: {
+				bingoGridId: 'Bingo Grid',
+			},
+		},
 		'stop-tts': {},
 		'timer-add': {
 			'loading-timers': 'Loading timers...',
@@ -241,6 +247,12 @@ SDPIComponents.i18n.locales = {
 		},
 		'set-emergency-mode': {},
 		shoutout: {},
+		'show-bingo-grid': {
+			'loading-bingo-grids': 'Chargement des grilles de bingo...',
+			fields: {
+				bingoGridId: 'Grille de bingo',
+			},
+		},
 		'stop-tts': {},
 		'timer-add': {
 			'loading-timers': 'Chargement des minuteurs...',
