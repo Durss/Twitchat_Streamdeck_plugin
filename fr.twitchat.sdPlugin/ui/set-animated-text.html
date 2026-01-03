@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Chat feed select Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<sdpi-item label="__MSG_set-animated-text.fields.animatedTextId__">
+			<sdpi-select
+				setting="animatedTextId"
+				datasource="getAnimatedTexts"
+				loading="__MSG_set-animated-text.loading-animated-texts__"
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item label="__MSG_set-animated-text.fields.message__">
+			<sdpi-textarea setting="message" maxlength="500" rows="3" showlength> </sdpi-textarea>
+			<sdpi-checkbox label="__MSG_set-animated-text.fields.autoHide__" setting="autoHide"></sdpi-checkbox>
+		</sdpi-item>
+	</body>
+</html>

@@ -37,6 +37,7 @@ import { ToggleTrigger } from './actions/toggle-trigger';
 import { ViewersCountToggle } from './actions/viewers-count-toggle';
 import { VoiceControl } from './actions/voice-control';
 import { ChatFeedPause } from './actions/chat-feed-pause';
+import { SetAnimatedText } from './actions/set-animated-text';
 
 // We can enable "trace" logging so that all messages between the Stream Deck, and the plugin are recorded. When storing sensitive information
 streamDeck.logger.setLevel('debug');
@@ -77,6 +78,7 @@ streamDeck.actions.registerAction(new ToggleTrigger());
 streamDeck.actions.registerAction(new ViewersCountToggle());
 streamDeck.actions.registerAction(new VoiceControl());
 streamDeck.actions.registerAction(new ChatFeedPause());
+streamDeck.actions.registerAction(new SetAnimatedText());
 
 // Finally, connect to the Stream Deck.
 streamDeck.settings.useExperimentalMessageIdentifiers = true;

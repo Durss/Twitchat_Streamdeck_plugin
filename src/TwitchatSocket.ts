@@ -285,6 +285,10 @@ export default class TwitchatSocket {
 			event: 'getCountdowns',
 			items: this.reduceCountdownList(),
 		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getAnimatedTexts',
+			items: this.reduceAnimatedTextList(),
+		});
 	}
 
 	private async updateConnexionCount(): Promise<void> {
@@ -351,8 +355,8 @@ export default class TwitchatSocket {
 			.map(
 				(timer): SelectItem => ({
 					value: timer.id,
-					label: timer.title,
-					disabled: !timer.enabled,
+					label: !timer.enabled ? `🔴 ${timer.title}` : `🟢 ${timer.title}`,
+					// disabled: !timer.enabled,
 				}),
 			);
 		return items;
@@ -364,8 +368,8 @@ export default class TwitchatSocket {
 			.map(
 				(timer): SelectItem => ({
 					value: timer.id,
-					label: timer.title,
-					disabled: !timer.enabled,
+					label: !timer.enabled ? `🔴 ${timer.title}` : `🟢 ${timer.title}`,
+					// disabled: !timer.enabled,
 				}),
 			);
 		return items;
@@ -375,8 +379,8 @@ export default class TwitchatSocket {
 		let items = this._lastEventDataCache['ON_QNA_SESSION_LIST']?.sessionList?.map(
 			(qna): SelectItem => ({
 				value: qna.id,
-				label: qna.command,
-				disabled: !qna.open,
+				label: !qna.open ? `🔴 ${qna.command}` : `🟢 ${qna.command}`,
+				// disabled: !qna.open,
 			}),
 		);
 		if (!items || items.length === 0) {
@@ -384,6 +388,30 @@ export default class TwitchatSocket {
 				{
 					value: '',
 					label: streamDeck.i18n.translate('no-qna-session'),
+					disabled: true,
+				},
+			];
+		}
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
+		return items;
+	}
+
+	private reduceAnimatedTextList() {
+		let items = this._lastEventDataCache['ON_GLOBAL_STATES']?.animatedTextList.map(
+			(animatedText): SelectItem => ({
+				value: animatedText.id,
+				label: !animatedText.enabled ? `🔴 ${animatedText.name}` : `🟢 ${animatedText.name}`,
+				// disabled: !animatedText.enabled,
+			}),
+		);
+		if (!items || items.length === 0) {
+			items = [
+				{
+					value: '',
+					label: streamDeck.i18n.translate('no-animated-text'),
 					disabled: true,
 				},
 			];

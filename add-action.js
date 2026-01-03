@@ -410,12 +410,14 @@ function updatePluginFile(id) {
 	// Add registration if not exists
 	if (!hasRegistration) {
 		// Find the registration section (before streamDeck.connect())
-		const connectIndex = content.indexOf('streamDeck.connect();');
+		const connectMatch = content.match(/streamDeck\.connect\(\)/);
 
-		if (connectIndex === -1) {
+		if (!connectMatch) {
 			console.warn('Warning: Could not find streamDeck.connect() call');
 			return false;
 		}
+
+		const connectIndex = connectMatch.index;
 
 		// Find the last registration before connect
 		const beforeConnect = content.slice(0, connectIndex);
@@ -510,7 +512,7 @@ async function main() {
 		// Update locale.js
 		updateLocaleFile(actionId);
 
-		// Update plugin.ts
+		// Update plugin.ts with import and registration
 		updatePluginFile(actionId);
 
 		console.log('\n✅ Action generation complete!');

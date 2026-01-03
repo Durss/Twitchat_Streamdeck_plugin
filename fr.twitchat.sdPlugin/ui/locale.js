@@ -100,6 +100,14 @@ SDPIComponents.i18n.locales = {
 				message: 'Message',
 			},
 		},
+		'set-animated-text': {
+			'loading-animated-texts': 'Loading overlay list...',
+			fields: {
+				animatedTextId: 'Overlay',
+				message: 'Message',
+				autoHide: 'Auto hide text after animation completes',
+			},
+		},
 		'set-emergency-mode': {},
 		shoutout: {},
 		'stop-tts': {},
@@ -221,6 +229,14 @@ SDPIComponents.i18n.locales = {
 			info: "Vous pouvez utiliser n'importe quelle commande Twitch (ex: {TWITCH}), n'importe quelle commande Twitchat (ex: {TWITCHAT}) ou n'importe laquelle de vos /commande personnalisées créées dans les triggers.",
 			fields: {
 				message: 'Message',
+			},
+		},
+		'set-animated-text': {
+			'loading-animated-texts': 'Chargement de la liste...',
+			fields: {
+				animatedTextId: 'Overlay',
+				message: 'Message',
+				autoHide: "Masquer automatiquement le texte après l'animation",
 			},
 		},
 		'set-emergency-mode': {},

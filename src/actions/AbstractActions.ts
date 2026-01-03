@@ -143,6 +143,7 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 			switch (state) {
 				case 'disabled':
 					svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .35;`);
+					svg = svg.replace(/<image/gi, `<image style="opacity: .35;"`);
 					break;
 				case 'error':
 					svg = svg.replace(/(fill: ?#.*;)/gi, `fill: #ff3333; fill-opacity: .8;`);

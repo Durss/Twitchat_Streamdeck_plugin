@@ -5,6 +5,7 @@
 		"no-trigger": "Aucun trigger disponible.",
 		"no-timer": "Aucun minuteur disponible.",
 		"no-qna-session": "Aucune session Q&A disponible.",
+		"no-animated-text": "Aucun texte animé disponible.",
 		"error-loading-data": "Erreur lors du chargement des données.",
 		"select-placeholder": "sélectionner...",
 		"chat-feed-select-select": "Select° mess.",
@@ -129,6 +130,10 @@
 	},
 	"fr.twitchat.action.send-message": {
 		"Name": "Envoyer un message dans le chat",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.set-animated-text": {
+		"Name": "Écrire du texte animé",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.set-emergency-mode": {

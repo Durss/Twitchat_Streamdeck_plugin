@@ -1970,6 +1970,20 @@ export type TwitchatEventMap = {
 		chatColConfs: {
 			paused: boolean;
 		}[];
+		animatedTextList: {
+			/**
+			 * Animated text ID
+			 */
+			id: string;
+			/**
+			 * Animated text name
+			 */
+			name: string;
+			/**
+			 * Is the animated text enabled ?
+			 */
+			enabled: boolean;
+		}[];
 	};
 
 	/**
@@ -2162,6 +2176,14 @@ export type TwitchatEventMap = {
 		outputState: string;
 		outputPath: string;
 	};
+	/**
+	 * Alias of SET_ANIMATED_TEXT_CONTENT but that's listend by Twitchat.
+	 * Twitchat will then broadcast SET_ANIMATED_TEXT_CONTENT to the overlay.
+	 * This way SD can send animated text to the overlay even though it's not
+	 * directly connected to it.
+	 * @private
+	 */
+	SET_ANIMATED_TEXT_CONTENT_FROM_SD: TwitchatEventMap['SET_ANIMATED_TEXT_CONTENT'];
 };
 
 type StreamSummaryData = {
