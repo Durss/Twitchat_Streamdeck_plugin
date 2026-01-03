@@ -276,38 +276,6 @@
 			}
 		},
 		{
-			"Name": "Pause a chat column",
-			"UUID": "fr.twitchat.action.chat-feed-pause",
-			"Icon": "imgs/actions/chat-feed-pause/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-pause.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/chat-feed-pause/icon",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Unpause a chat column",
-			"UUID": "fr.twitchat.action.chat-feed-unpause",
-			"Icon": "imgs/actions/chat-feed-unpause/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-unpause.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/chat-feed-unpause/icon",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
 			"Name": "Close currently highlighted message",
 			"UUID": "fr.twitchat.action.clear-chat-highlight",
 			"Icon": "imgs/actions/clear-chat-highlight/icon",
@@ -594,6 +562,22 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Pause/Unpause chat feed",
+			"UUID": "fr.twitchat.action.chat-feed-pause",
+			"Icon": "imgs/actions/chat-feed-pause/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-pause.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-pause/icon",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "Twitchat",
@@ -603,7 +587,7 @@
 	"Icon": "imgs/plugin/marketplace",
 	"SDKVersion": 3,
 	"Software": {
-		"MinimumVersion": "6.9"
+		"MinimumVersion": "7.1"
 	},
 	"OS": [
 		{

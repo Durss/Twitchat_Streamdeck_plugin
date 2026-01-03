@@ -48,9 +48,20 @@ export type TwitchatEventMap = {
 	SET_VOICE_CONTROL_STATE: {
 		/**
 		 * Enable or disable voice control
+		 * Omit to toggle current state
+		 */
+		enabled?: boolean;
+	};
+	/**
+	 * Triggered when voice control state is updated
+	 */
+	ON_VOICE_CONTROL_STATE_CHANGE: {
+		/**
+		 * Voice control enabled state
 		 */
 		enabled: boolean;
 	};
+	/**
 	/**
 	 * Scroll a chat feed up
 	 */
@@ -563,9 +574,12 @@ export type TwitchatEventMap = {
 		id: string;
 	};
 	/**
-	 * Response with counter update
+	 * Receive counter update
 	 */
 	ON_COUNTER_UPDATE: {
+		/**
+		 * Counter data
+		 */
 		counter: CounterData;
 	};
 	/**
@@ -637,10 +651,28 @@ export type TwitchatEventMap = {
 	 * Receive a donation goals overlay configurations
 	 */
 	ON_DONATION_GOALS_OVERLAY_CONFIGS: {
+		/**
+		 * Overlay parameters
+		 */
 		params: DonationGoalOverlayConfig;
+		/**
+		 * Goal to reach
+		 */
 		goal: number;
+		/**
+		 * Amount raised so far
+		 */
 		raisedTotal: number;
+		/**
+		 * Amount raised on our personnal fundraiser account.
+		 * Only used for Streamlabs Charity to differenciate between personal donations and
+		 * the total amount raised for the charity
+		 */
 		raisedPersonnal: number;
+		/**
+		 * Optional skin name
+		 * @private
+		 */
 		skin: 'default' | string;
 	};
 	/**
@@ -670,12 +702,34 @@ export type TwitchatEventMap = {
 	 * Receive current track information
 	 */
 	ON_CURRENT_TRACK: {
+		/**
+		 * Music player parameters
+		 */
 		params: MusicPlayerParamsData;
+		/**
+		 * Current track title
+		 */
 		trackName?: string;
+		/**
+		 * Current track artist name
+		 */
 		artistName?: string;
+		/***
+		 * Current track duration in milliseconds
+		 */
 		trackDuration?: number;
+		/**
+		 * Current track playback position in milliseconds
+		 */
 		trackPlaybackPos?: number;
+		/**
+		 * Current track cover URL
+		 */
 		cover?: string;
+		/**
+		 * Optional skin name
+		 * @private
+		 */
 		skin?: string;
 	};
 	/**
@@ -707,9 +761,17 @@ export type TwitchatEventMap = {
 	 */
 	ON_POLL_OVERLAY_CONFIGS: { parameters: PollOverlayParamStoreData };
 	/**
-	 * Triggered when poll progress updates
+	 * Triggered when poll progress updates.
+	 * If no active poll, body is undefined
 	 */
-	ON_POLL_PROGRESS: { poll: MessagePollData } | undefined;
+	ON_POLL_PROGRESS:
+		| {
+				/**
+				 * Poll's data
+				 */
+				poll: MessagePollData;
+		  }
+		| undefined;
 
 	/**
 	 * Request predictions overlay presence
@@ -728,11 +790,24 @@ export type TwitchatEventMap = {
 	/**
 	 * Receive prediction overlay configuration
 	 */
-	ON_PREDICTION_OVERLAY_CONFIGS: { parameters: PredictionOverlayParamStoreData };
+	ON_PREDICTION_OVERLAY_CONFIGS: {
+		/**
+		 * Prediction overlay parameters
+		 */
+		parameters: PredictionOverlayParamStoreData;
+	};
 	/**
 	 * Triggered when prediction progress updates
+	 * If no active prediction, body is undefined
 	 */
-	ON_PREDICTION_PROGRESS: { prediction: MessagePredictionData } | undefined;
+	ON_PREDICTION_PROGRESS:
+		| {
+				/**
+				 * Prediction's data
+				 */
+				prediction: MessagePredictionData;
+		  }
+		| undefined;
 
 	/**
 	 * Request timer overlay presence
@@ -752,12 +827,27 @@ export type TwitchatEventMap = {
 	 * Receive list of all timers and countdowns
 	 */
 	ON_TIMER_LIST: {
-		timerList: {
+		/**
+		 * List of timers and countdowns
+		 */
+		timerList: ({
+			/**
+			 * Timer ID
+			 */
 			id: string;
+			/**
+			 * Timer title
+			 */
 			title: string;
+			/**
+			 * Is the timer enabled ?
+			 */
 			enabled: boolean;
+			/**
+			 * Timer type
+			 */
 			type: 'timer' | 'countdown';
-		}[];
+		} & Pick<TimerData, 'isDefault' | 'startAt_ms' | 'endAt_ms' | 'offset_ms' | 'pauseDuration_ms' | 'paused' | 'pausedAt_ms' | 'duration_ms'>)[];
 	};
 
 	/**
@@ -1226,8 +1316,17 @@ export type TwitchatEventMap = {
 	 * Advertise for label overlay placeholders
 	 */
 	ON_LABEL_OVERLAY_PLACEHOLDERS: {
+		/**
+		 * Hashmap of available placeholders
+		 */
 		[tag: string]: {
+			/**
+			 * Placeholder value
+			 */
 			value: string | number;
+			/**
+			 * Placeholder type
+			 */
 			type:
 				| 'string'
 				| 'number'
@@ -1262,8 +1361,18 @@ export type TwitchatEventMap = {
 		 * Label ID
 		 */
 		id: string;
+		/**
+		 * Label data
+		 */
 		data: LabelItemData | null;
+		/**
+		 * Does the label actually exists ?
+		 * If not, overlay will show an error
+		 */
 		exists?: boolean;
+		/**
+		 * False if label mode is "placeholder" but related placeholder doesn't exist
+		 */
 		isValid?: boolean;
 	};
 
@@ -1757,15 +1866,41 @@ export type TwitchatEventMap = {
 		/**
 		 * List of active timer and their state
 		 */
-		activeTimers: string[];
+		activeTimers: Pick<
+			TimerData,
+			| 'id'
+			| 'duration_ms'
+			| 'enabled'
+			| 'endAt_ms'
+			| 'isDefault'
+			| 'offset_ms'
+			| 'pauseDuration_ms'
+			| 'paused'
+			| 'pausedAt_ms'
+			| 'startAt_ms'
+			| 'type'
+		>[];
 		/**
 		 * List of active countdowns and their state
 		 */
-		activeCountdowns: string[];
+		activeCountdowns: Pick<
+			TimerData,
+			| 'id'
+			| 'duration_ms'
+			| 'enabled'
+			| 'endAt_ms'
+			| 'isDefault'
+			| 'offset_ms'
+			| 'pauseDuration_ms'
+			| 'paused'
+			| 'pausedAt_ms'
+			| 'startAt_ms'
+			| 'type'
+		>[];
 		/**
 		 * Current counter values
 		 */
-		counterValues: { [counterId: string]: number };
+		counterValues: { id: string; value: number }[];
 		/**
 		 * Current emergency mode state
 		 */
@@ -1775,9 +1910,9 @@ export type TwitchatEventMap = {
 		 */
 		ttsSpeaking: boolean;
 		/**
-		 * Can the user perform auto shoutouts
+		 * Last raider's name
 		 */
-		canAutoShoutout: boolean;
+		lastRaiderName: string | undefined;
 		/**
 		 * Is the viewers count visible on chat bar
 		 */
@@ -1794,6 +1929,44 @@ export type TwitchatEventMap = {
 		 * Is voice control enabled
 		 */
 		voiceControlEnabled: boolean;
+		/**
+		 * Is viewer count visible
+		 */
+		showViewerCount: boolean;
+		/**
+		 * Is message merging enabled
+		 */
+		messageMergeEnabled: boolean;
+		/**
+		 * Is there a message highlighted
+		 */
+		isMessageHighlighted: boolean;
+		/**
+		 * Is there an active poll
+		 */
+		hasActivePoll: boolean;
+		/**
+		 * Is there an active prediction
+		 */
+		hasActivePrediction: boolean;
+		/**
+		 * Is there an active bingo
+		 */
+		hasActiveBingo: boolean;
+		/**
+		 * Is there an active raffle
+		 */
+		hasActiveRaffle: boolean;
+		/**
+		 * Is there an active raffle with at least one entry
+		 */
+		hasActiveRaffleWithEntries: boolean;
+		/**
+		 * Chat columns configurations
+		 */
+		chatColConfs: {
+			paused: boolean;
+		}[];
 	};
 
 	/**

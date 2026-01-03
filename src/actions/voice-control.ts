@@ -1,4 +1,5 @@
-import { action, KeyDownEvent } from '@elgato/streamdeck';
+import { action, DialAction, KeyAction, KeyDownEvent } from '@elgato/streamdeck';
+import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
 import { AbstractAction } from './AbstractActions';
 
@@ -7,18 +8,25 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.voice-control' })
 export class VoiceControl extends AbstractAction<Settings> {
-	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		const settings = ev.payload.settings;
-		settings.enabled = !settings.enabled;
-		ev.action.setSettings(settings);
-		TwitchatSocket.instance.broadcast('SET_VOICE_CONTROL_STATE', {
-			enabled: settings.enabled,
-		});
-		if (settings.enabled) {
-			ev.action.setImage('imgs/actions/voice-control/icon.svg');
+	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
+		if (this._forceOfflineState) return;
+
+		TwitchatSocket.instance.broadcast('SET_VOICE_CONTROL_STATE', {});
+	}
+
+	protected override onGlobalStatesUpdate(
+		data: TwitchatEventMap['ON_GLOBAL_STATES'] | undefined,
+		_settings: Settings,
+		action: DialAction<{}> | KeyAction<{}>,
+	): void {
+		if (this._forceOfflineState) return;
+
+		if (data?.voiceControlEnabled) {
+			this.updateImage(action, 'imgs/actions/voice-control/icon.svg');
+			this.setEnabledState(action);
 		} else {
-			ev.action.setImage('imgs/actions/voice-control/disabled.svg');
-			// this.fadeIcon(ev.action);
+			this.updateImage(action, 'imgs/actions/voice-control/disabled.svg');
+			this.setDisabledState(action);
 		}
 	}
 }
@@ -26,6 +34,4 @@ export class VoiceControl extends AbstractAction<Settings> {
 /**
  * Settings for {@link VoiceControl}.
  */
-type Settings = {
-	enabled: boolean;
-};
+type Settings = {};

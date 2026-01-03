@@ -3,30 +3,39 @@
   <!-- Generator: Adobe Illustrator 30.0.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 123)  -->
   <defs>
     <style>
-      .st0 {
-        opacity: .5;
+      .st0, .st1 {
+        fill: none;
+        stroke: #c7c7c7;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
       }
 
-      .st0, .st1, .st2 {
+      .st1 {
+        stroke-dasharray: 11.01 11.01;
+      }
+
+      .st2, .st3 {
         fill: #c7c7c7;
       }
 
-      .st2 {
+      .st3 {
         opacity: .25;
       }
     </style>
   </defs>
+  <rect class="st3" x="22.26" y="21.72" width="71.3" height="11.16"/>
+  <rect class="st3" x="22.26" y="44.05" width="78.79" height="11.16"/>
   <g>
-    <polygon class="st1" points="21.92 93.33 9.17 93.33 9.17 80.58 14.84 80.58 14.84 87.66 21.92 87.66 21.92 93.33"/>
-    <polygon class="st1" points="14.84 63.42 9.17 63.42 9.17 50.67 21.92 50.67 21.92 56.33 14.84 56.33 14.84 63.42"/>
-    <path class="st1" d="M104.31,56.33h-23.43v-5.67h23.43v5.67ZM63.11,56.33h-23.43v-5.67h23.43v5.67Z"/>
-    <polygon class="st1" points="134.83 63.42 129.16 63.42 129.16 56.33 122.07 56.33 122.07 50.67 134.83 50.67 134.83 63.42"/>
-    <polygon class="st1" points="134.83 93.33 122.07 93.33 122.07 87.66 129.16 87.66 129.16 80.58 134.83 80.58 134.83 93.33"/>
-    <path class="st1" d="M104.31,93.33h-23.43v-5.67h23.43v5.67ZM63.11,93.33h-23.43v-5.67h23.43v5.67Z"/>
+    <polyline class="st0" points="21.26 84.62 15.26 84.62 15.26 78.63"/>
+    <polyline class="st0" points="15.26 65.46 15.26 59.46 21.26 59.46"/>
+    <line class="st1" x1="32.28" y1="59.46" x2="92.84" y2="59.46"/>
+    <polyline class="st0" points="98.34 59.46 104.34 59.46 104.34 65.46"/>
+    <polyline class="st0" points="104.34 78.63 104.34 84.62 98.34 84.62"/>
+    <line class="st1" x1="87.33" y1="84.62" x2="26.77" y2="84.62"/>
   </g>
-  <rect class="st1" x="22.01" y="64.5" width="99.99" height="15"/>
-  <rect class="st0" x="22.01" y="31.15" width="99.99" height="8"/>
-  <rect class="st2" x="22.01" y="13.31" width="99.99" height="5"/>
-  <rect class="st0" x="22" y="104.85" width="99.99" height="8"/>
-  <rect class="st2" x="22" y="125.69" width="99.99" height="5"/>
+  <rect class="st2" x="22.26" y="66.47" width="73.99" height="11.16"/>
+  <rect class="st3" x="65.87" y="66.42" width="100.57" height="11.16" transform="translate(44.16 188.16) rotate(-90)"/>
+  <rect class="st3" x="22.26" y="88.8" width="69.6" height="11.16"/>
+  <rect class="st3" x="22.26" y="111.12" width="55.3" height="11.16"/>
+  <rect class="st2" x="88.51" y="89.05" width="55.3" height="11.16" rx="5.58" ry="5.58" transform="translate(21.52 210.79) rotate(-90)"/>
 </svg>

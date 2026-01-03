@@ -6,7 +6,6 @@ import { AutomodAccept } from './actions/automod-accept';
 import { AutomodReject } from './actions/automod-reject';
 import { BingoToggle } from './actions/bingo-toggle';
 import { CensorDeletedMessagesToggle } from './actions/censor-deleted-messages-toggle';
-import { ChatFeedPause } from './actions/chat-feed-pause';
 import { ChatFeedRead } from './actions/chat-feed-read';
 import { ChatFeedReadAll } from './actions/chat-feed-read-all';
 import { ChatFeedReadEncoder } from './actions/chat-feed-read-encoder';
@@ -14,7 +13,6 @@ import { ChatFeedScroll } from './actions/chat-feed-scroll';
 import { ChatFeedScrollDown } from './actions/chat-feed-scroll-down';
 import { ChatFeedScrollUp } from './actions/chat-feed-scroll-up';
 import { ChatFeedSelect } from './actions/chat-feed-select';
-import { ChatFeedUnpause } from './actions/chat-feed-unpause';
 import { ClearChatHighlight } from './actions/clear-chat-highlight';
 import { CountdownAdd } from './actions/countdown-add';
 import { CounterAdd } from './actions/counter-add';
@@ -38,6 +36,7 @@ import { TimerAdd } from './actions/timer-add';
 import { ToggleTrigger } from './actions/toggle-trigger';
 import { ViewersCountToggle } from './actions/viewers-count-toggle';
 import { VoiceControl } from './actions/voice-control';
+import { ChatFeedPause } from './actions/chat-feed-pause';
 
 // We can enable "trace" logging so that all messages between the Stream Deck, and the plugin are recorded. When storing sensitive information
 streamDeck.logger.setLevel('debug');
@@ -47,7 +46,6 @@ streamDeck.actions.registerAction(new AutomodAccept());
 streamDeck.actions.registerAction(new AutomodReject());
 streamDeck.actions.registerAction(new BingoToggle());
 streamDeck.actions.registerAction(new CensorDeletedMessagesToggle());
-streamDeck.actions.registerAction(new ChatFeedPause());
 streamDeck.actions.registerAction(new ChatFeedRead());
 streamDeck.actions.registerAction(new ChatFeedReadAll());
 streamDeck.actions.registerAction(new ChatFeedReadEncoder());
@@ -55,7 +53,6 @@ streamDeck.actions.registerAction(new ChatFeedScroll());
 streamDeck.actions.registerAction(new ChatFeedScrollDown());
 streamDeck.actions.registerAction(new ChatFeedScrollUp());
 streamDeck.actions.registerAction(new ChatFeedSelect());
-streamDeck.actions.registerAction(new ChatFeedUnpause());
 streamDeck.actions.registerAction(new ClearChatHighlight());
 streamDeck.actions.registerAction(new CountdownAdd());
 streamDeck.actions.registerAction(new CounterAdd());
@@ -79,8 +76,10 @@ streamDeck.actions.registerAction(new TimerAdd());
 streamDeck.actions.registerAction(new ToggleTrigger());
 streamDeck.actions.registerAction(new ViewersCountToggle());
 streamDeck.actions.registerAction(new VoiceControl());
+streamDeck.actions.registerAction(new ChatFeedPause());
 
 // Finally, connect to the Stream Deck.
+streamDeck.settings.useExperimentalMessageIdentifiers = true;
 streamDeck.connect().then(() => {
 	streamDeck.settings.setGlobalSettings<GlobalSettings>({
 		clientCount: 0,

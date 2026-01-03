@@ -25,13 +25,13 @@ export class ToggleTrigger extends AbstractAction<Settings> {
 	}
 
 	protected override onTriggerListUpdate(
-		data: TwitchatEventMap['ON_TRIGGER_LIST'],
+		data: TwitchatEventMap['ON_TRIGGER_LIST'] | undefined,
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
-		const trigger = data.triggerList.find((t) => t.id === settings.triggerId);
+		const trigger = data?.triggerList.find((t) => t.id === settings.triggerId);
 		if (trigger?.disabled) this.setDisabledState(action);
-		else this.setEnabled(action);
+		else this.setEnabledState(action);
 	}
 }
 

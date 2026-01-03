@@ -1,4 +1,5 @@
-import { action, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import { action, DialAction, KeyAction, KeyDownEvent, WillAppearEvent } from '@elgato/streamdeck';
+import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
 import { AbstractAction } from './AbstractActions';
 
@@ -23,12 +24,34 @@ export class CounterAdd extends AbstractAction<Settings> {
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		const settings = ev.payload.settings;
-		TwitchatSocket.instance.broadcast('SET_COUNTER_ADD', {
-			id: settings.counterId,
-			value: settings.countAdd,
-			action: settings.counterAction,
-		});
+		if (this.getActionState(ev.action) === 'error') {
+			ev.action.showAlert();
+		} else {
+			const settings = ev.payload.settings;
+			TwitchatSocket.instance.broadcast('SET_COUNTER_ADD', {
+				id: settings.counterId,
+				value: settings.countAdd,
+				action: settings.counterAction,
+			});
+		}
+	}
+
+	protected override onGlobalStatesUpdate(
+		data: TwitchatEventMap['ON_GLOBAL_STATES'] | undefined,
+		_settings: Settings,
+		action: DialAction<{}> | KeyAction<{}>,
+	): void {
+		if (this._forceOfflineState) return;
+
+		const counter = data?.counterValues.find((c) => c.id === _settings.counterId);
+		if (!counter) {
+			this.setText(action, 'Missing Counter');
+			this.setErrorState(action);
+			return;
+		} else {
+			this.setText(action, counter.value.toString());
+			this.setEnabledState(action);
+		}
 	}
 }
 

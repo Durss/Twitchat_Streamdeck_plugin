@@ -1,5 +1,6 @@
 import streamDeck, {
 	DialAction,
+	DidReceiveSettingsEvent,
 	KeyAction,
 	PropertyInspectorDidAppearEvent,
 	SingletonAction,
@@ -11,13 +12,18 @@ import { readFileSync } from 'fs';
 import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
 import { GlobalSettings } from '../plugin';
+import { setInterval, clearInterval } from 'timers';
 
 /**
  * Abstract action class.
  */
 export class AbstractAction<Settings extends JsonObject = JsonObject> extends SingletonAction<Settings> {
 	private _actionStateCache: Map<string, 'default' | 'disabled' | 'error'> = new Map();
-	private _forceOfflineState = true;
+	private _actionStateTitleCache: Map<string, string> = new Map();
+	private _actionStateImageCache: Map<string, string> = new Map();
+
+	protected _actionToRefreshInterval: Map<string, ReturnType<typeof setInterval>> = new Map();
+	protected _forceOfflineState = false;
 
 	override onWillAppear(ev: WillAppearEvent<Settings>): Promise<void> | void {
 		TwitchatSocket.instance.on('ON_COUNTER_LIST', ev.action.id, async (data) =>
@@ -35,7 +41,10 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		TwitchatSocket.instance.on('ON_QNA_SESSION_LIST', ev.action.id, async (data) =>
 			this.onQnaSessionListUpdate(data, await ev.action.getSettings(), ev.action),
 		);
-
+		TwitchatSocket.instance.on('ON_GLOBAL_STATES', ev.action.id, async (data) =>
+			this.onGlobalStatesUpdate(data, await ev.action.getSettings(), ev.action),
+		);
+		this._forceOfflineState = !TwitchatSocket.instance.isMainAppConnected;
 		TwitchatSocket.instance.subscribeTwitchatConnection(ev.action.id, async (isConnected) => {
 			this.onConnectionStateChange(ev.action, isConnected);
 		});
@@ -51,6 +60,12 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		TwitchatSocket.instance.off('ON_TRIGGER_LIST', ev.action.id);
 		TwitchatSocket.instance.off('ON_TIMER_LIST', ev.action.id);
 		TwitchatSocket.instance.off('ON_QNA_SESSION_LIST', ev.action.id);
+		TwitchatSocket.instance.off('ON_GLOBAL_STATES', ev.action.id);
+		if (this._actionToRefreshInterval.has(ev.action.id)) {
+			clearInterval(this._actionToRefreshInterval.get(ev.action.id));
+			this._actionToRefreshInterval.delete(ev.action.id);
+		}
+		TwitchatSocket.instance.unsubscribeTwitchatConnection(ev.action.id);
 	}
 
 	/**
@@ -62,6 +77,11 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		TwitchatSocket.instance.broadcast('GET_TRIGGER_LIST');
 		TwitchatSocket.instance.broadcast('GET_TIMER_LIST');
 		TwitchatSocket.instance.broadcast('GET_QNA_SESSION_LIST');
+		TwitchatSocket.instance.broadcast('GET_GLOBAL_STATES');
+	}
+
+	override onDidReceiveSettings(_ev: DidReceiveSettingsEvent<Settings>): Promise<void> | void {
+		TwitchatSocket.instance.broadcastCachedEvents();
 	}
 
 	protected getActionState(action: DialAction<{}> | KeyAction<{}>): typeof this._actionStateCache extends Map<string, infer U> ? U : never {
@@ -73,13 +93,23 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		this.applyState(action);
 	}
 
-	protected setEnabled(action: DialAction<{}> | KeyAction<{}>): void {
+	protected setEnabledState(action: DialAction<{}> | KeyAction<{}>): void {
 		this._actionStateCache.set(action.id, 'default');
 		this.applyState(action);
 	}
 
 	protected setDisabledState(action: DialAction<{}> | KeyAction<{}>): void {
 		this._actionStateCache.set(action.id, 'disabled');
+		this.applyState(action);
+	}
+
+	protected setText(action: DialAction<{}> | KeyAction<{}>, text: string): void {
+		this._actionStateTitleCache.set(action.id, text);
+		this.applyState(action);
+	}
+
+	protected updateImage(action: DialAction<{}> | KeyAction<{}>, imagePath: string): void {
+		this._actionStateImageCache.set(action.id, imagePath);
 		this.applyState(action);
 	}
 
@@ -91,10 +121,22 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	private applyState(action: DialAction<{}> | KeyAction<{}>): void {
 		let state = this._actionStateCache.get(action.id);
 		const actionId = action.manifestId.split('.').pop();
-		let svg = readFileSync('imgs/actions/' + actionId + '/icon.svg', 'utf-8');
+		let svg = '';
+		if (this._actionStateImageCache.has(action.id)) {
+			const imagePath = this._actionStateImageCache.get(action.id)!;
+			svg = readFileSync(imagePath, 'utf-8');
+		} else {
+			svg = readFileSync('imgs/actions/' + actionId + '/icon.svg', 'utf-8');
+		}
 
 		if (this._forceOfflineState) {
-			svg = svg.replace(/(fill: ?#.*;)/gi, `fill: #0000ff; fill-opacity: .5;`);
+			svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .35;`).replace(
+				'</svg>',
+				`
+			<path style="fill: white; stroke: #000; stroke-miterlimit: 10; stroke-width: 5px;" d="M68.61,91.79c-.55.34-4.49,10.06-5.61,11.71-2.7,4-7.81,1.13-6.78-2.72l27.88-58.58c2.43-3.28,7.24-1.35,6.6,2.85l-5.56,12.13,3.91,5.18c19.7-3.2,25.2,24.74,5.74,29.23l-26.18.19Z"/>
+			<path style="fill: white; stroke: #000; stroke-miterlimit: 10; stroke-width: 5px;" d="M72.31,51.48l-18.88,39.95c-5.49,1.24-11.61-.73-14.58-5.72-5.46-9.16,1.77-20.32,12.25-19.07,2.4-9.4,11.46-16.3,21.21-15.17Z"/>
+			</svg>`,
+			);
 		} else {
 			switch (state) {
 				case 'disabled':
@@ -103,6 +145,10 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 				case 'error':
 					svg = svg.replace(/(fill: ?#.*;)/gi, `fill: #ff3333; fill-opacity: .8;`);
 					break;
+			}
+			const label = this._actionStateTitleCache.get(action.id);
+			if (label) {
+				svg = this.injectText(svg, label, state === 'error');
 			}
 		}
 
@@ -115,8 +161,41 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		return svg.replace(
 			'</svg>',
 			`
-			<path style="fill: white; fill-opacity:.5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M123.48,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
-			<path style="fill: white; fill-opacity:.5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M138.33,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
+				<path style="fill: white; fill-opacity:.5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M123.48,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
+				<path style="fill: white; fill-opacity:.5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M138.33,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
+			</svg>`,
+		);
+	}
+
+	private injectText(svg: string, text: string, isError: boolean): string {
+		const color = isError ? '#ff0000' : '#008667';
+		const lines = text.split('\n');
+		const svgLines: string[] = [];
+		lines.forEach((line, index) => {
+			const py = 20 + index * 20;
+			svgLines.push(`
+			<text
+				x="74px"
+				y="${py + 2 * (index + 1)}px"
+				text-anchor="middle"
+				font-family="sans-serif"
+				font-size="20"
+				fill="black"
+			>${line}</text>
+			<text
+				x="72px"
+				y="${py}px"
+				text-anchor="middle"
+				font-family="sans-serif"
+				font-size="20"
+				fill="white"
+			>${line}</text>`);
+		});
+		return svg.replace(
+			'</svg>',
+			`
+				<rect x="0" y="0" width="144px" height="${svgLines.length * 20 + 10}px" rx="12px" ry="12px" style="fill: ${color}; fill-opacity: .7; stroke: #000000; stroke-opacity: .7; stroke-miterlimit: 10; stroke-width: 3px;"/>
+				${svgLines.join('\n')}
 			</svg>`,
 		);
 	}
@@ -124,28 +203,48 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	/**
 	 * @override
 	 */
-	protected onTriggerListUpdate(_data: TwitchatEventMap['ON_TRIGGER_LIST'], _settings: Settings, _action: DialAction<{}> | KeyAction<{}>): void {}
-	/**
-	 * @override
-	 */
-	protected onCounterListUpdate(_data: TwitchatEventMap['ON_COUNTER_LIST'], _settings: Settings, _action: DialAction<{}> | KeyAction<{}>): void {}
-	/**
-	 * @override
-	 */
-	protected onChatColumnsListUpdate(
-		_data: TwitchatEventMap['ON_CHAT_COLUMNS_COUNT'],
+	protected onTriggerListUpdate(
+		_data: TwitchatEventMap['ON_TRIGGER_LIST'] | undefined,
 		_settings: Settings,
 		_action: DialAction<{}> | KeyAction<{}>,
 	): void {}
 	/**
 	 * @override
 	 */
-	protected onTimerListUpdate(_data: TwitchatEventMap['ON_TIMER_LIST'], _settings: Settings, _action: DialAction<{}> | KeyAction<{}>): void {}
+	protected onCounterListUpdate(
+		_data: TwitchatEventMap['ON_COUNTER_LIST'] | undefined,
+		_settings: Settings,
+		_action: DialAction<{}> | KeyAction<{}>,
+	): void {}
+	/**
+	 * @override
+	 */
+	protected onChatColumnsListUpdate(
+		_data: TwitchatEventMap['ON_CHAT_COLUMNS_COUNT'] | undefined,
+		_settings: Settings,
+		_action: DialAction<{}> | KeyAction<{}>,
+	): void {}
+	/**
+	 * @override
+	 */
+	protected onTimerListUpdate(
+		_data: TwitchatEventMap['ON_TIMER_LIST'] | undefined,
+		_settings: Settings,
+		_action: DialAction<{}> | KeyAction<{}>,
+	): void {}
 	/**
 	 * @override
 	 */
 	protected onQnaSessionListUpdate(
-		_data: TwitchatEventMap['ON_QNA_SESSION_LIST'],
+		_data: TwitchatEventMap['ON_QNA_SESSION_LIST'] | undefined,
+		_settings: Settings,
+		_action: DialAction<{}> | KeyAction<{}>,
+	): void {}
+	/**
+	 * @override
+	 */
+	protected onGlobalStatesUpdate(
+		_data: TwitchatEventMap['ON_GLOBAL_STATES'] | undefined,
 		_settings: Settings,
 		_action: DialAction<{}> | KeyAction<{}>,
 	): void {}

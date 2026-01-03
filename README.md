@@ -45,7 +45,7 @@ Final package will be `./fr.twitchat.streamDeckPlugin`
 Action creation has been made easier thanks to a custom script.  
 Run the following command and follow the prompts:
 ```
-node generate-actions.js
+npm run add-action
 ```
 
 The script will prompt you for:

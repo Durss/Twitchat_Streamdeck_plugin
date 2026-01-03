@@ -4,11 +4,13 @@
         "build": "npm run validate && rollup -c && sd pack fr.twitchat.sdPlugin --force",
         "dev": "npm run watch",
         "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart fr.twitchat\"",
+        "link": "sd link fr.twitchat.sdPlugin",
         "logs": "node -e \"const { spawn } = require('child_process'); const isWin = process.platform === 'win32'; const cmd = isWin ? 'powershell' : 'tail'; const args = isWin ? ['-Command', 'Get-Content \\\"fr.twitchat.sdPlugin\\\\logs\\\\fr.twitchat.0.log\\\" -Wait'] : ['-F', 'fr.twitchat.sdPlugin/logs/fr.twitchat.0.log']; spawn(cmd, args, { stdio: 'inherit' });\"",
         "lint": "eslint src",
         "lint:fix": "eslint src --fix",
         "format": "prettier --write \"src/**/*.ts\"",
-        "format:check": "prettier --check \"src/**/*.ts\""
+        "format:check": "prettier --check \"src/**/*.ts\"",
+        "add-action": "node add-action.js"
     },
     "type": "module",
     "devDependencies": {

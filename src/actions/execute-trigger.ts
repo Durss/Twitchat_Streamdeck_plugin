@@ -9,17 +9,28 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.execute-trigger' })
 export class ExecuteTrigger extends AbstractAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('SET_EXECUTE_TRIGGER', { id: ev.payload.settings.triggerId });
+		if (this.getActionState(ev.action) === 'error' || this.getActionState(ev.action) === 'disabled') {
+			ev.action.showAlert();
+		} else {
+			TwitchatSocket.instance.broadcast('SET_EXECUTE_TRIGGER', { id: ev.payload.settings.triggerId });
+		}
 	}
 
 	protected override onTriggerListUpdate(
-		data: TwitchatEventMap['ON_TRIGGER_LIST'],
+		data: TwitchatEventMap['ON_TRIGGER_LIST'] | undefined,
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
-		const trigger = data.triggerList.find((t) => t.id === settings.triggerId);
-		if (trigger?.disabled) this.setDisabledState(action);
-		else this.setEnabled(action);
+		const trigger = data?.triggerList.find((t) => t.id === settings.triggerId);
+		this.setText(action, '');
+		if (trigger?.disabled) {
+			this.setDisabledState(action);
+		} else if (!trigger) {
+			this.setText(action, 'Missing Trigger');
+			this.setErrorState(action);
+		} else {
+			this.setEnabledState(action);
+		}
 	}
 }
 

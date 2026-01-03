@@ -15,13 +15,8 @@ export default class TwitchatSocket {
 	private _httpServerSSL: https.Server | null = null;
 	private _connexions: { type: 'main' | 'other'; ws: WebSocket }[] = [];
 	private _callbackListeners: { [key: string]: { [actionId: string]: (data: TwitchatEventMap[keyof TwitchatEventMap]) => void } } = {};
+	private _lastEventDataCache: Partial<{ [key in keyof TwitchatEventMap]?: TwitchatEventMap[key] }> = {};
 	private _twitchatConnectionHandlers: { [actionId: string]: (connected: boolean) => void } = {};
-
-	public timerList: TwitchatEventMap['ON_TIMER_LIST']['timerList'] = [];
-	public triggerList: TwitchatEventMap['ON_TRIGGER_LIST']['triggerList'] = [];
-	public counterList: TwitchatEventMap['ON_COUNTER_LIST']['counterList'] = [];
-	public chatColCount: TwitchatEventMap['ON_CHAT_COLUMNS_COUNT']['count'] = 0;
-	public qnaList: TwitchatEventMap['ON_QNA_SESSION_LIST']['sessionList'] = [];
 
 	constructor() {}
 
@@ -33,6 +28,10 @@ export default class TwitchatSocket {
 			TwitchatSocket._instance = new TwitchatSocket();
 		}
 		return TwitchatSocket._instance;
+	}
+
+	public get isMainAppConnected(): boolean {
+		return this._connexions.some((c) => c.type === 'main');
 	}
 
 	/******************
@@ -183,23 +182,7 @@ export default class TwitchatSocket {
 		}
 		const castedListener = listener as (data: TwitchatEventMap[keyof TwitchatEventMap]) => void;
 		this._callbackListeners[event][actionId] = castedListener;
-		switch (event) {
-			case 'ON_COUNTER_LIST':
-				castedListener({ counterList: this.counterList });
-				break;
-			case 'ON_CHAT_COLUMNS_COUNT':
-				castedListener({ count: this.chatColCount });
-				break;
-			case 'ON_TRIGGER_LIST':
-				castedListener({ triggerList: this.triggerList });
-				break;
-			case 'ON_TIMER_LIST':
-				castedListener({ timerList: this.timerList });
-				break;
-			case 'ON_QNA_SESSION_LIST':
-				castedListener({ sessionList: this.qnaList });
-				break;
-		}
+		castedListener(this._lastEventDataCache[event]);
 	}
 
 	public off(event: keyof TwitchatEventMap, actionId: string): void {
@@ -216,6 +199,13 @@ export default class TwitchatSocket {
 		delete this._twitchatConnectionHandlers[actionId];
 	}
 
+	public broadcastCachedEvents(): void {
+		for (const event in this._lastEventDataCache) {
+			const data = this._lastEventDataCache[event as keyof TwitchatEventMap];
+			Object.values(this._callbackListeners[event] || {}).forEach((callback) => callback(data!));
+		}
+	}
+
 	/*******************
 	 * PRIVATE METHODS *
 	 *******************/
@@ -230,6 +220,7 @@ export default class TwitchatSocket {
 		ws.on('message', (eventSource) => {
 			const event = json2Event(eventSource.toString());
 			Object.values(this._callbackListeners[event.type] || {}).forEach((callback) => callback(event.data));
+			(this._lastEventDataCache as Record<keyof TwitchatEventMap, TwitchatEventMap[keyof TwitchatEventMap]>)[event.type] = event.data;
 			switch (event.type) {
 				case 'ON_FLAG_MAIN_APP': {
 					const connexion = this._connexions.find((c) => c.ws === ws);
@@ -242,26 +233,6 @@ export default class TwitchatSocket {
 					this.broadcast('GET_TRIGGER_LIST');
 					this.broadcast('GET_TIMER_LIST');
 					this.broadcast('GET_QNA_SESSION_LIST');
-					break;
-				}
-				case 'ON_TIMER_LIST': {
-					this.timerList = event.data.timerList || [];
-					break;
-				}
-				case 'ON_TRIGGER_LIST': {
-					this.triggerList = event.data.triggerList || [];
-					break;
-				}
-				case 'ON_COUNTER_LIST': {
-					this.counterList = event.data.counterList || [];
-					break;
-				}
-				case 'ON_CHAT_COLUMNS_COUNT': {
-					this.chatColCount = event.data.count || 1;
-					break;
-				}
-				case 'ON_QNA_SESSION_LIST': {
-					this.qnaList = event.data.sessionList || [];
 					break;
 				}
 			}
@@ -321,10 +292,10 @@ export default class TwitchatSocket {
 	}
 
 	private reduceCounterList() {
-		let items = TwitchatSocket.instance.counterList
+		let items = this._lastEventDataCache['ON_COUNTER_LIST']?.counterList
 			.filter((c) => c.perUser === false)
 			.map((counter): SelectItem => ({ value: counter.id, label: counter.name }));
-		if (items.length === 0) {
+		if (!items || items.length === 0) {
 			items = [
 				{
 					value: '',
@@ -342,21 +313,22 @@ export default class TwitchatSocket {
 
 	private reduceColumnCount() {
 		const items: SelectItem<number>[] = [];
-		for (let i = 0; i < TwitchatSocket.instance.chatColCount; i++) {
+		const count = this._lastEventDataCache['ON_CHAT_COLUMNS_COUNT']?.count ?? 1;
+		for (let i = 0; i < count; i++) {
 			items.push({ value: i, label: (i + 1).toString() });
 		}
 		return items;
 	}
 
 	private reduceTriggerList() {
-		let items = TwitchatSocket.instance.triggerList.map(
+		let items = this._lastEventDataCache['ON_TRIGGER_LIST']?.triggerList.map(
 			(trigger): SelectItem => ({
 				value: trigger.id,
 				label: trigger.disabled ? `🔴 ${trigger.name}` : `🟢 ${trigger.name}`,
 				// disabled: trigger.disabled === true,
 			}),
 		);
-		if (items.length === 0) {
+		if (!items || items.length === 0) {
 			items = [{ value: '', label: streamDeck.i18n.translate('no-trigger'), disabled: true }];
 		}
 		items.unshift({
@@ -367,7 +339,7 @@ export default class TwitchatSocket {
 	}
 
 	private reduceTimerList() {
-		let items = TwitchatSocket.instance.timerList
+		let items = this._lastEventDataCache['ON_TIMER_LIST']?.timerList
 			.filter((timer) => timer.type === 'timer')
 			.map(
 				(timer): SelectItem => ({
@@ -380,7 +352,7 @@ export default class TwitchatSocket {
 	}
 
 	private reduceCountdownList() {
-		let items = TwitchatSocket.instance.timerList
+		let items = this._lastEventDataCache['ON_TIMER_LIST']?.timerList
 			.filter((timer) => timer.type === 'countdown')
 			.map(
 				(timer): SelectItem => ({
@@ -393,14 +365,14 @@ export default class TwitchatSocket {
 	}
 
 	private reduceQnaList() {
-		let items = TwitchatSocket.instance.qnaList.map(
+		let items = this._lastEventDataCache['ON_QNA_SESSION_LIST']?.sessionList?.map(
 			(qna): SelectItem => ({
 				value: qna.id,
 				label: qna.command,
 				disabled: !qna.open,
 			}),
 		);
-		if (items.length === 0) {
+		if (!items || items.length === 0) {
 			items = [
 				{
 					value: '',

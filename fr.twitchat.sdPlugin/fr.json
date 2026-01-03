@@ -6,7 +6,9 @@
 		"no-timer": "Aucun minuteur disponible.",
 		"no-qna-session": "Aucune session Q&A disponible.",
 		"error-loading-data": "Erreur lors du chargement des données.",
-		"select-placeholder": "sélectionner..."
+		"select-placeholder": "sélectionner...",
+		"chat-feed-select-select": "Sélectionner un message",
+		"chat-feed-select-action": "Action"
 	},
 	"fr.twitchat.action.automod-accept": {
 		"Name": "",
@@ -25,7 +27,7 @@
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-pause": {
-		"Name": "",
+		"Name": "Arrêter/Reprendre le défilement auto du tchat",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.chat-feed-read": {
@@ -62,10 +64,6 @@
 			}
 		}
 	},
-	"fr.twitchat.action.chat-feed-unpause": {
-		"Name": "",
-		"Tooltip": ""
-	},
 	"fr.twitchat.action.clear-chat-highlight": {
 		"Name": "",
 		"Tooltip": ""
@@ -75,14 +73,6 @@
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.counter-add": {
-		"Name": "",
-		"Tooltip": ""
-	},
-	"fr.twitchat.action.disable-stt": {
-		"Name": "",
-		"Tooltip": ""
-	},
-	"fr.twitchat.action.enable-stt": {
 		"Name": "",
 		"Tooltip": ""
 	},

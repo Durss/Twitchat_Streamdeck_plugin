@@ -1,11 +1,13 @@
 {
-	"Localization":{
-		"loading-counters":"Loading counter list...",
-		"no-counter":"No counters available.",
-		"no-trigger":"No triggers available.",
-		"no-timer":"No timers available.",
-		"no-qna-session":"No Q&A sessions available.",
-		"error-loading-data":"Error loading data.",
-		"select-placeholder":"select..."
+	"Localization": {
+		"loading-counters": "Loading counter list...",
+		"no-counter": "No counters available.",
+		"no-trigger": "No triggers available.",
+		"no-timer": "No timers available.",
+		"no-qna-session": "No Q&A sessions available.",
+		"error-loading-data": "Error loading data.",
+		"select-placeholder": "select...",
+		"chat-feed-select-select": "Select a message",
+		"chat-feed-select-action": "Action"
 	}
 }

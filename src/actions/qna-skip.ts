@@ -29,13 +29,18 @@ export class QnaSkip extends AbstractAction<Settings> {
 	}
 
 	protected override onQnaSessionListUpdate(
-		data: TwitchatEventMap['ON_QNA_SESSION_LIST'],
+		data: TwitchatEventMap['ON_QNA_SESSION_LIST'] | undefined,
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
-		const qnaSession = data.sessionList.find((q) => q.id === settings.qnaId);
-		if (!qnaSession) this.setErrorState(action);
-		else this.setEnabled(action);
+		const qnaSession = data?.sessionList.find((q) => q.id === settings.qnaId);
+		if (!qnaSession) {
+			this.setText(action, 'Missing Q&amp;A\nsession');
+			this.setErrorState(action);
+		} else {
+			this.setText(action, qnaSession.command.replace(/&/, '&amp;'));
+			this.setEnabledState(action);
+		}
 	}
 }
 

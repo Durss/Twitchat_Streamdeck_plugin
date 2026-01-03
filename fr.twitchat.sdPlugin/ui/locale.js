@@ -25,7 +25,6 @@ SDPIComponents.i18n.locales = {
 			},
 		},
 		'chat-feed-select': {},
-		'chat-feed-unpause': {},
 		'clear-chat-highlight': {},
 		'countdown-add': {
 			'loading-countdowns': 'Loading countdowns...',
@@ -47,8 +46,6 @@ SDPIComponents.i18n.locales = {
 				SET: 'Set counter value',
 			},
 		},
-		'disable-stt': {},
-		'enable-stt': {},
 		'execute-trigger': {
 			'loading-triggers': 'Loading trigger list...',
 			fields: {
@@ -149,7 +146,6 @@ SDPIComponents.i18n.locales = {
 			},
 		},
 		'chat-feed-select': {},
-		'chat-feed-unpause': {},
 		'clear-chat-highlight': {},
 		'countdown-add': {
 			'loading-countdowns': 'Chargement des compte à rebours...',
@@ -171,8 +167,6 @@ SDPIComponents.i18n.locales = {
 				SET: 'Définir la valeur du compteur',
 			},
 		},
-		'disable-stt': {},
-		'enable-stt': {},
 		'execute-trigger': {
 			'loading-triggers': 'Chargement des triggers...',
 			fields: {
