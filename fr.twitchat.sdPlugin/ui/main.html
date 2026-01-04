@@ -7,16 +7,70 @@
 		<script type="module" src="./common.js"></script>
 		<script src="./locale.js"></script>
 		<link rel="stylesheet" href="./styles.css" />
+		<style>
+			.ctas {
+				display: flex;
+				gap: 10px;
+				justify-content: space-between;
+			}
+			.ctas > * {
+				flex-grow: 1;
+			}
+			#secretField {
+				/* filter: blur(3px); */
+				color: transparent !important;
+				transition: filter 0.3s ease;
+			}
+			#secretField:hover {
+				color: unset;
+				filter: blur(0);
+			}
+		</style>
+		<script type="text/javascript">
+			function copyKey() {
+				const keyField = document.querySelector('#secretField');
+				navigator.clipboard.writeText(keyField.value);
+
+				const copyBt = document.querySelector('#copyBt');
+				const copySuccess = document.querySelector('#copySuccess');
+				copyBt.style.display = 'none';
+				copySuccess.style.display = 'block';
+				setTimeout(() => {
+					copyBt.style.display = 'block';
+					copySuccess.style.display = 'none';
+				}, 1000);
+			}
+			function resetKey() {
+				SDPIComponents.streamDeckClient.send('sendToPlugin', {
+					action: 'resetSecretKey',
+				});
+			}
+			document.addEventListener('DOMContentLoaded', async () => {
+				const globalSettings = await SDPIComponents.streamDeckClient.getConnectionInfo();
+			});
+		</script>
 	</head>
 
 	<body>
-		<sdpi-item id="offline" style="display: none">
-			<sdpi-i18n key="main.offline">
-				<slot name="twitchat"><a href="https://twitchat.fr" target="_blank">Twitchat.fr</a></slot>
-				<slot name="discord"><a href="https://discord.gg/fmqD2xUYvP" target="_blank">Discord</a></slot>
-			</sdpi-i18n>
-		</sdpi-item>
-		<br />
+		<div id="offline" style="display: none">
+			<sdpi-item label="__MSG_main.secret-key__">
+				<sdpi-textfield id="secretField" global setting="secretKey" disabled></sdpi-textfield>
+				<div class="ctas">
+					<sdpi-button id="resetBt" onclick="resetKey()"><sdpi-i18n key="main.reset-key"></sdpi-i18n> </sdpi-button>
+					<sdpi-button id="copyBt" onclick="copyKey()"><sdpi-i18n key="main.copy"></sdpi-i18n> </sdpi-button>
+					<sdpi-button id="copySuccess" style="display: none" disabled>
+						<sdpi-i18n key="main.copy-success"></sdpi-i18n>
+					</sdpi-button>
+				</div>
+			</sdpi-item>
+			<sdpi-item>
+				<sdpi-i18n key="main.offline">
+					<slot name="twitchat"><a href="https://twitchat.fr" target="_blank">Twitchat.fr</a></slot>
+					<slot name="discord"><a href="https://discord.gg/fmqD2xUYvP" target="_blank">Discord</a></slot>
+				</sdpi-i18n>
+			</sdpi-item>
+		</div>
+
 		<sdpi-item id="multiple-instances" style="display: none">
 			<sdpi-i18n key="main.multiple-instances"></sdpi-i18n>
 		</sdpi-item>

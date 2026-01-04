@@ -71,8 +71,12 @@ SDPIComponents.i18n.locales = {
 			info: 'For more details, in Twitchat, head over settings => chat features => Enable chat alert.',
 		},
 		main: {
+			'secret-key': '🔑 Secret key',
+			copy: '📋Copy secret key',
+			'copy-success': '✔️Key copied !',
+			'reset-key': '🔃Reset secret key',
 			offline:
-				'⚠️ Twitchat not detected.\nPlease make sure (ex: {TWITCHAT}) is opened at least once.\n\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
+				'⚠️ Twitchat not detected.\nPlease make sure {TWITCHAT} is opened at least once.\n\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
 			'multiple-instances':
 				'⚠️ More than 1 Twitchat instance detected. This may cause issues.\n\nPlease close all other instances except one.',
 		},
@@ -208,8 +212,12 @@ SDPIComponents.i18n.locales = {
 			info: "Pour plus d'info, rendez-vous dans Twitchat dans paramètres => fonctionnalités de tchat => Activer la fenêtre d'alerte.",
 		},
 		main: {
+			'secret-key': '🔑 Clé secrète',
+			copy: '📋Copier la clé',
+			'copy-success': '✔️Clé copiée !',
+			'reset-key': '🔃Réinitialiser la clé',
 			offline:
-				"⚠️ Twitchat non détecté.\nAssurez-vous que (ex: {TWITCHAT}) soit ouvert au moins une fois.\n\nSi vous rencontrez des problèmes pour connecter Twitchat avec Stream Deck, venez chercher de l'aide sur {DISCORD}.",
+				"⚠️ Twitchat non détecté.\nAssurez-vous que {TWITCHAT} soit ouvert au moins une fois.\n\nSi vous rencontrez des problèmes pour connecter Twitchat avec Stream Deck, venez chercher de l'aide sur {DISCORD}.",
 			'multiple-instances':
 				"⚠️ Twitchat est lancé plus d'une fois.\nCeci peut causer des problèmes.\n\nVeuillez fermer toutes les instances sauf une.",
 		},

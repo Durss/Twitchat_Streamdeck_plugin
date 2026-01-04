@@ -1,4 +1,4 @@
-import streamDeck from '@elgato/streamdeck';
+import streamDeck, { SendToPluginEvent } from '@elgato/streamdeck';
 
 import TwitchatSocket from './TwitchatSocket';
 
@@ -39,6 +39,7 @@ import { VoiceControl } from './actions/voice-control';
 import { ChatFeedPause } from './actions/chat-feed-pause';
 import { SetAnimatedText } from './actions/set-animated-text';
 import { ShowBingoGrid } from './actions/show-bingo-grid';
+import { generateSecret } from './Utils';
 
 // We can enable "trace" logging so that all messages between the Stream Deck, and the plugin are recorded. When storing sensitive information
 streamDeck.logger.setLevel('debug');
@@ -84,10 +85,24 @@ streamDeck.actions.registerAction(new ShowBingoGrid());
 
 // Finally, connect to the Stream Deck.
 streamDeck.settings.useExperimentalMessageIdentifiers = true;
-streamDeck.connect().then(() => {
-	streamDeck.settings.setGlobalSettings<GlobalSettings>({
+streamDeck.connect().then(async () => {
+	const globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
+	if (!globalSettings.secretKey) globalSettings.secretKey = generateSecret();
+	await streamDeck.settings.setGlobalSettings<GlobalSettings>({
+		...globalSettings,
 		clientCount: 0,
 		mainAppCount: 0,
+	});
+
+	streamDeck.ui.onSendToPlugin((e: SendToPluginEvent<{ action: 'resetSecretKey' }, {}>) => {
+		switch (e.payload.action) {
+			case 'resetSecretKey':
+				(async () => {
+					const globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
+					globalSettings.secretKey = generateSecret();
+					await streamDeck.settings.setGlobalSettings<GlobalSettings>(globalSettings);
+				})();
+		}
 	});
 });
 
@@ -102,4 +117,8 @@ export type GlobalSettings = {
 	 * Number of connected main applications
 	 */
 	mainAppCount: number;
+	/**
+	 * Secret key to connect to socket
+	 */
+	secretKey: string;
 };

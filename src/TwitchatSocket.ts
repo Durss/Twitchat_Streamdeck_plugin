@@ -13,7 +13,7 @@ export default class TwitchatSocket {
 	private _socketServer: WebSocketServer | null = null;
 	private _socketServerSSL: WebSocketServer | null = null;
 	private _httpServerSSL: https.Server | null = null;
-	private _connexions: { type: 'main' | 'other'; ws: WebSocket }[] = [];
+	private _connexions: { type: 'main' | 'other'; ws: WebSocket; authenticated: boolean }[] = [];
 	private _callbackListeners: {
 		[key: string]: { [actionId: string]: (data: TwitchatEventMap[keyof TwitchatEventMap]) => void };
 	} = {};
@@ -42,23 +42,24 @@ export default class TwitchatSocket {
 	public async broadcast<Event extends keyof TwitchatEventMap>(
 		action: Event,
 		...args: TwitchatEventMap[Event] extends undefined
-			? [ws?: WebSocket, attempts?: number]
-			: [data: TwitchatEventMap[Event], ws?: WebSocket, attempts?: number]
+			? [ws?: WebSocket, noAuthCheck?: boolean]
+			: [data: TwitchatEventMap[Event], ws?: WebSocket, noAuthCheck?: boolean]
 	): Promise<void> {
-		const [data, ws, attempts = 0] =
+		const [data, ws, rejectIfNoAuth = true] =
 			args.length && typeof args[0] === 'object'
-				? [args[0] as TwitchatEventMap[Event], args[1] as WebSocket, args[2] ?? 0]
-				: [undefined, args[0] as WebSocket, args[1] as number];
+				? [args[0] as TwitchatEventMap[Event], args[1] as WebSocket, args[2] ?? true]
+				: [undefined, args[0] as WebSocket, args[1] ?? true];
 
-		if (this._connexions.length === 0 && !ws) {
-			if (attempts >= 10) return;
-			//Wait for a connexion and retry
+		const connexion = this._connexions.find((c) => c.ws === ws);
+		if (rejectIfNoAuth && connexion && !connexion.authenticated) {
+			// Client not authenticated, close connexion
+			this.broadcast('ON_STREAMDECK_AUTHENTICATION_RESULT', { success: false }, connexion.ws, false);
 			setTimeout(() => {
-				// @ts-expect-error couldn't find a way to make ts happy here
-				this.broadcast(action, data, ws, attempts + 1);
+				connexion.ws.close(1002, 'Not authenticated');
 			}, 500);
 			return;
 		}
+		if (this._connexions.length === 0 && !ws) return;
 		const json = JSON.stringify({ action, data });
 		if (ws) {
 			ws.send(json);
@@ -220,18 +221,33 @@ export default class TwitchatSocket {
 	 * Handles a new WebSocket connection (shared between WS and WSS)
 	 */
 	private handleConnection(ws: WebSocket): void {
-		this._connexions.push({ type: 'other', ws });
+		this._connexions.push({ type: 'other', ws, authenticated: false });
 		this.updateConnexionCount();
 
-		ws.on('message', (eventSource) => {
+		ws.on('message', async (eventSource) => {
 			const event = json2Event(eventSource.toString());
 			Object.values(this._callbackListeners[event.type] || {}).forEach((callback) => callback(event.data));
 			(this._lastEventDataCache as Record<keyof TwitchatEventMap, TwitchatEventMap[keyof TwitchatEventMap]>)[event.type] =
 				event.data;
+			const connexion = this._connexions.find((c) => c.ws === ws);
+			if (!connexion) {
+				ws.close(1002, 'Connexion not found');
+				return;
+			}
 			switch (event.type) {
-				case 'ON_FLAG_MAIN_APP': {
-					const connexion = this._connexions.find((c) => c.ws === ws);
-					if (connexion) {
+				case 'SET_STREAMDECK_AUTHENTICATE': {
+					const globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
+					if (event.data.secretKey !== globalSettings.secretKey) {
+						// Invalid secret key, close the connexion
+						this.broadcast('ON_STREAMDECK_AUTHENTICATION_RESULT', { success: false }, ws, false);
+						setTimeout(() => {
+							ws.close(1002, 'Invalid secret key');
+						}, 500);
+						return;
+					}
+
+					connexion.authenticated = true;
+					if (event.data.isMainApp) {
 						connexion.type = 'main';
 					}
 					this.updateConnexionCount();
@@ -240,8 +256,18 @@ export default class TwitchatSocket {
 					this.broadcast('GET_TRIGGER_LIST');
 					this.broadcast('GET_TIMER_LIST');
 					this.broadcast('GET_QNA_SESSION_LIST');
+					this.broadcast('ON_STREAMDECK_AUTHENTICATION_RESULT', { success: true }, ws, false);
 					break;
 				}
+				default:
+					if (!connexion?.authenticated) {
+						// Client not authenticated, close connexion
+						this.broadcast('ON_STREAMDECK_AUTHENTICATION_RESULT', { success: false }, ws, false);
+						setTimeout(() => {
+							connexion?.ws.close(1002, 'Missing authentication');
+						}, 500);
+						return;
+					}
 			}
 			this.populatePropertInspector();
 		});
@@ -296,7 +322,9 @@ export default class TwitchatSocket {
 	}
 
 	private async updateConnexionCount(): Promise<void> {
+		const globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 		await streamDeck.settings.setGlobalSettings<GlobalSettings>({
+			...globalSettings,
 			clientCount: this._connexions.length,
 			mainAppCount: this._connexions.filter((v) => v.type === 'main').length,
 		});

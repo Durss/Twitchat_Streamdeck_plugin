@@ -1,4 +1,5 @@
 import { evaluate as MathEval } from 'mathjs';
+import { randomBytes } from 'crypto';
 
 export function formatDuration(millis: number, forceMinutes: boolean = false): string {
 	const d_ms = 24 * 3600 * 1000;
@@ -52,4 +53,13 @@ export function UUID(): string {
 		}
 	}
 	return uuid;
+}
+
+/**
+ * Generates a URL-safe base64 secret key
+ * @param bytes
+ * @returns
+ */
+export function generateSecret(bytes: number = 32): string {
+	return randomBytes(bytes).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
