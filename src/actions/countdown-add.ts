@@ -65,6 +65,9 @@ export class CountdownAdd extends AbstractAction<Settings> {
 			this.setErrorState(action);
 		} else {
 			const renderTimer = () => {
+				if (this.getActionState(action) === 'disabled' || this.getActionState(action) === 'error') {
+					return;
+				}
 				if (timer.type == 'countdown' && timer.startAt_ms) {
 					let elapsed = 0;
 					if (timer.paused) {

@@ -1,4 +1,4 @@
-import streamDeck, {
+import {
 	DialAction,
 	DidReceiveSettingsEvent,
 	KeyAction,
@@ -9,10 +9,9 @@ import streamDeck, {
 } from '@elgato/streamdeck';
 import type { JsonObject } from '@elgato/utils';
 import { readFileSync } from 'fs';
+import { clearInterval, setInterval } from 'timers';
 import { TwitchatEventMap } from '../TwitchatEventMap';
 import TwitchatSocket from '../TwitchatSocket';
-import { GlobalSettings } from '../plugin';
-import { setInterval, clearInterval } from 'timers';
 
 /**
  * Abstract action class.
@@ -26,6 +25,10 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	protected _forceOfflineState = false;
 
 	override onWillAppear(ev: WillAppearEvent<Settings>): Promise<void> | void {
+		this._forceOfflineState = !TwitchatSocket.instance.isMainAppConnected;
+		TwitchatSocket.instance.subscribeTwitchatConnection(ev.action.id, async (isConnected) => {
+			this.onConnectionStateChange(ev.action, isConnected);
+		});
 		TwitchatSocket.instance.on('ON_COUNTER_LIST', ev.action.id, async (data) =>
 			this.onCounterListUpdate(data, await ev.action.getSettings(), ev.action),
 		);
@@ -44,13 +47,6 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		TwitchatSocket.instance.on('ON_GLOBAL_STATES', ev.action.id, async (data) =>
 			this.onGlobalStatesUpdate(data, await ev.action.getSettings(), ev.action),
 		);
-		this._forceOfflineState = !TwitchatSocket.instance.isMainAppConnected;
-		TwitchatSocket.instance.subscribeTwitchatConnection(ev.action.id, async (isConnected) => {
-			this.onConnectionStateChange(ev.action, isConnected);
-		});
-		streamDeck.settings.getGlobalSettings<GlobalSettings>().then(async (globalSettings) => {
-			this.onConnectionStateChange(ev.action, globalSettings.mainAppCount > 0);
-		});
 		this.applyState(ev.action);
 	}
 

@@ -33,18 +33,18 @@ export default class TwitchatSocket {
 	}
 
 	public get isMainAppConnected(): boolean {
-		return this._connexions.some((c) => c.type === 'main');
+		return this._connexions.some((c) => c.type === 'main' && c.authenticated);
 	}
 
 	/******************
 	 * PUBLIC METHODS *
 	 ******************/
-	public async broadcast<Event extends keyof TwitchatEventMap>(
+	public broadcast<Event extends keyof TwitchatEventMap>(
 		action: Event,
 		...args: TwitchatEventMap[Event] extends undefined
 			? [ws?: WebSocket, noAuthCheck?: boolean]
 			: [data: TwitchatEventMap[Event], ws?: WebSocket, noAuthCheck?: boolean]
-	): Promise<void> {
+	): void {
 		const [data, ws, rejectIfNoAuth = true] =
 			args.length && typeof args[0] === 'object'
 				? [args[0] as TwitchatEventMap[Event], args[1] as WebSocket, args[2] ?? true]
@@ -251,12 +251,12 @@ export default class TwitchatSocket {
 						connexion.type = 'main';
 					}
 					this.updateConnexionCount();
+					this.broadcast('ON_STREAMDECK_AUTHENTICATION_RESULT', { success: true }, ws, false);
 					this.broadcast('GET_ALL_COUNTERS');
 					this.broadcast('GET_CHAT_COLUMNS_COUNT');
 					this.broadcast('GET_TRIGGER_LIST');
 					this.broadcast('GET_TIMER_LIST');
 					this.broadcast('GET_QNA_SESSION_LIST');
-					this.broadcast('ON_STREAMDECK_AUTHENTICATION_RESULT', { success: true }, ws, false);
 					break;
 				}
 				default:
@@ -325,12 +325,12 @@ export default class TwitchatSocket {
 		const globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 		await streamDeck.settings.setGlobalSettings<GlobalSettings>({
 			...globalSettings,
-			clientCount: this._connexions.length,
-			mainAppCount: this._connexions.filter((v) => v.type === 'main').length,
+			clientCount: this._connexions.filter((v) => v.authenticated).length,
+			mainAppCount: this._connexions.filter((v) => v.type === 'main' && v.authenticated).length,
 		});
 		for (const key in this._twitchatConnectionHandlers) {
 			if (!Object.hasOwn(this._twitchatConnectionHandlers, key)) continue;
-			this._twitchatConnectionHandlers[key](this._connexions.some((c) => c.type === 'main'));
+			this._twitchatConnectionHandlers[key](this.isMainAppConnected);
 		}
 	}
 

@@ -68,15 +68,16 @@ SDPIComponents.i18n.locales = {
 		},
 		'greet-feed-read-all': {},
 		'hide-alert': {
-			info: 'For more details, in Twitchat, head over settings => chat features => Enable chat alert.',
+			info: 'For more details, in Twitchat, head over settings 🠞 chat features 🠞 Enable chat alert.',
 		},
 		main: {
 			'secret-key': '🔑 Secret key',
 			copy: '📋Copy secret key',
 			'copy-success': '✔️Key copied !',
 			'reset-key': '🔃Reset secret key',
+			'key-instructions': 'ℹ️Set this key in Twitchat under settings 🠞 connections 🠞 Stream Deck',
 			offline:
-				'⚠️ Twitchat not detected.\nPlease make sure {TWITCHAT} is opened at least once.\n\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
+				'⚠️ {TWITCHAT} not detected.\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
 			'multiple-instances':
 				'⚠️ More than 1 Twitchat instance detected. This may cause issues.\n\nPlease close all other instances except one.',
 		},
@@ -99,7 +100,7 @@ SDPIComponents.i18n.locales = {
 		'raffle-pick-winner': {},
 		'raffle-toggle': {},
 		'send-message': {
-			info: 'You can use any Twitch command (ex: {TWITCH}), any Twitchat command (ex: {TWITCHAT}) or any of your custom /command created on the triggers.',
+			info: 'ℹ️ You can use any Twitch command (ex: {TWITCH}), any Twitchat command (ex: {TWITCHAT}) or any of your custom /command created on the triggers.',
 			fields: {
 				message: 'Message',
 			},
@@ -209,15 +210,16 @@ SDPIComponents.i18n.locales = {
 		},
 		'greet-feed-read-all': {},
 		'hide-alert': {
-			info: "Pour plus d'info, rendez-vous dans Twitchat dans paramètres => fonctionnalités de tchat => Activer la fenêtre d'alerte.",
+			info: "Pour plus d'info, rendez-vous dans Twitchat dans paramètres 🠞 fonctionnalités de tchat 🠞 Activer la fenêtre d'alerte.",
 		},
 		main: {
 			'secret-key': '🔑 Clé secrète',
 			copy: '📋Copier la clé',
 			'copy-success': '✔️Clé copiée !',
 			'reset-key': '🔃Réinitialiser la clé',
+			'key-instructions': 'ℹ️Renseignez cette clé dans Twitchat dans paramètres 🠞 connexions 🠞 Stream Deck dans Twitchat',
 			offline:
-				"⚠️ Twitchat non détecté.\nAssurez-vous que {TWITCHAT} soit ouvert au moins une fois.\n\nSi vous rencontrez des problèmes pour connecter Twitchat avec Stream Deck, venez chercher de l'aide sur {DISCORD}.",
+				"⚠️ {TWITCHAT} non détecté.\nSi vous rencontrez des problèmes rendez-vous sur {DISCORD} pour demander de l'aide.",
 			'multiple-instances':
 				"⚠️ Twitchat est lancé plus d'une fois.\nCeci peut causer des problèmes.\n\nVeuillez fermer toutes les instances sauf une.",
 		},
@@ -240,7 +242,7 @@ SDPIComponents.i18n.locales = {
 		'raffle-pick-winner': {},
 		'raffle-toggle': {},
 		'send-message': {
-			info: "Vous pouvez utiliser n'importe quelle commande Twitch (ex: {TWITCH}), n'importe quelle commande Twitchat (ex: {TWITCHAT}) ou n'importe laquelle de vos /commande personnalisées créées dans les triggers.",
+			info: "ℹ️ Vous pouvez utiliser n'importe quelle commande Twitch (ex: {TWITCH}), n'importe quelle commande Twitchat (ex: {TWITCHAT}) ou n'importe laquelle de vos /commande personnalisées créées dans les triggers.",
 			fields: {
 				message: 'Message',
 			},
