@@ -9,7 +9,7 @@ import { AbstractAction } from './AbstractActions';
 @action({ UUID: 'fr.twitchat.action.chat-feed-pause' })
 export class ChatFeedPause extends AbstractAction<Settings> {
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_PAUSE', { colIndex: ev.payload.settings.colIndex || 0 });
+		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_PAUSE_STATE', { colIndex: ev.payload.settings.colIndex || 0 });
 	}
 
 	protected override onGlobalStatesUpdate(

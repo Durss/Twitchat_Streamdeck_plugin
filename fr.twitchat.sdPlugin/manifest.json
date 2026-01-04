@@ -224,7 +224,8 @@
 			"Tooltip": "",
 			"PropertyInspectorPath": "ui/chat-feed-scroll.html",
 			"Controllers": [
-				"Encoder"
+				"Encoder",
+				"Keypad"
 			],
 			"States": [
 				{
@@ -238,38 +239,6 @@
 					"Rotate": "Scroll chat"
 				}
 			}
-		},
-		{
-			"Name": "Scroll a chat column down",
-			"UUID": "fr.twitchat.action.chat-feed-scroll-down",
-			"Icon": "imgs/actions/chat-feed-scroll-down/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-scroll-down.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/chat-feed-scroll-down/icon",
-					"TitleAlignment": "bottom"
-				}
-			]
-		},
-		{
-			"Name": "Scroll a chat column up",
-			"UUID": "fr.twitchat.action.chat-feed-scroll-up",
-			"Icon": "imgs/actions/chat-feed-scroll-up/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-scroll-up.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/chat-feed-scroll-up/icon",
-					"TitleAlignment": "bottom"
-				}
-			]
 		},
 		{
 			"Name": "Select and perform action on a message",
@@ -609,6 +578,91 @@
 			"States": [
 				{
 					"Image": "imgs/actions/show-bingo-grid/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Scroll a chat column down",
+			"UUID": "fr.twitchat.action.chat-feed-scroll-down",
+			"Icon": "imgs/actions/chat-feed-scroll-down/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-scroll-down.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-scroll-down/icon",
+					"TitleAlignment": "bottom"
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Scroll a chat column up",
+			"UUID": "fr.twitchat.action.chat-feed-scroll-up",
+			"Icon": "imgs/actions/chat-feed-scroll-up/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-scroll-up.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-scroll-down/icon",
+					"TitleAlignment": "bottom"
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Enable voice control",
+			"UUID": "fr.twitchat.action.enable-stt",
+			"Icon": "imgs/actions/enable-stt/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/enable-stt.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/enable-stt/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Disable voice control",
+			"UUID": "fr.twitchat.action.disable-stt",
+			"Icon": "imgs/actions/disable-stt/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/disable-stt.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/disable-stt/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Resume paused chat",
+			"UUID": "fr.twitchat.action.chat-feed-unpause",
+			"Icon": "imgs/actions/chat-feed-unpause/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-unpause.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-unpause/icon",
 					"TitleAlignment": "middle"
 				}
 			]

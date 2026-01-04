@@ -12,7 +12,16 @@
 
 	<body>
 		<sdpi-item label="__MSG_global.col-index__">
-			<sdpi-select setting="colIndex" datasource="getColumns" loading="__MSG_global.loading-columns__" hot-reload> </sdpi-select>
+			<sdpi-select setting="colIndex" datasource="getColumns" loading="__MSG_global.loading-columns__" hot-reload>
+			</sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item class="rangeWithValue" label="__MSG_chat-feed-scroll.fields.amount__">
+			<sdpi-range setting="scrollAmount" min="-1000" max="1000" step="50" default="1" showlabels>
+				<span slot="min">🡹</span>
+				<span slot="max">🡻</span>
+			</sdpi-range>
+			<span class="rangeValue" data-suffix="px">0</span>
 		</sdpi-item>
 	</body>
 </html>

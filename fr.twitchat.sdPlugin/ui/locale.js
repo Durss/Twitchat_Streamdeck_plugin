@@ -13,18 +13,27 @@ SDPIComponents.i18n.locales = {
 		},
 		'chat-feed-read-all': {},
 		'chat-feed-read-encoder': {},
-		'chat-feed-scroll': {},
+		'chat-feed-scroll': {
+			fields: {
+				amount: 'Scroll amount',
+			},
+		},
 		'chat-feed-scroll-down': {
+			deprecated: '⚠️ This action is deprecated. Please use the new action "Scroll a chat column" instead.',
 			fields: {
 				amount: 'Scroll amount',
 			},
 		},
 		'chat-feed-scroll-up': {
+			deprecated: '⚠️ This action is deprecated. Please use the new action "Scroll a chat column" instead.',
 			fields: {
 				amount: 'Scroll amount',
 			},
 		},
 		'chat-feed-select': {},
+		'chat-feed-unpause': {
+			deprecated: '⚠️ This action is deprecated. Please use the new action "Pause/Unpause chat feed" instead.',
+		},
 		'clear-chat-highlight': {},
 		'countdown-add': {
 			'loading-countdowns': 'Loading countdowns...',
@@ -45,6 +54,12 @@ SDPIComponents.i18n.locales = {
 				DEL: 'Remove value from counter',
 				SET: 'Set counter value',
 			},
+		},
+		'disable-stt': {
+			deprecated: '⚠️ This action is deprecated. Please use the new action "Enable/Disable voice control" instead.',
+		},
+		'enable-stt': {
+			deprecated: '⚠️ This action is deprecated. Please use the new action "Enable/Disable voice control" instead.',
 		},
 		'execute-trigger': {
 			'loading-triggers': 'Loading trigger list...',
@@ -157,18 +172,28 @@ SDPIComponents.i18n.locales = {
 		},
 		'chat-feed-read-all': {},
 		'chat-feed-read-encoder': {},
-		'chat-feed-scroll': {},
+		'chat-feed-scroll': {
+			fields: {
+				amount: 'Distance',
+			},
+		},
 		'chat-feed-scroll-down': {
+			deprecated: '⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Faire défiler le chat" à la place.',
 			fields: {
 				amount: 'Distance',
 			},
 		},
 		'chat-feed-scroll-up': {
+			deprecated: '⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Faire défiler le chat" à la place.',
 			fields: {
 				amount: 'Distance',
 			},
 		},
 		'chat-feed-select': {},
+		'chat-feed-unpause': {
+			deprecated:
+				'⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Arrêter/Reprendre le défilement auto du tchat" à la place.',
+		},
 		'clear-chat-highlight': {},
 		'countdown-add': {
 			'loading-countdowns': 'Chargement des compte à rebours...',
@@ -189,6 +214,14 @@ SDPIComponents.i18n.locales = {
 				DEL: 'Retirer une valeur du compteur',
 				SET: 'Définir la valeur du compteur',
 			},
+		},
+		'disable-stt': {
+			deprecated:
+				'⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Activer/Désactiver le contrôle vocal" à la place.',
+		},
+		'enable-stt': {
+			deprecated:
+				'⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Activer/Désactiver le contrôle vocal" à la place.',
 		},
 		'execute-trigger': {
 			'loading-triggers': 'Chargement des triggers...',

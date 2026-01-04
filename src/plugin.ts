@@ -1,4 +1,7 @@
 import streamDeck, { SendToPluginEvent } from '@elgato/streamdeck';
+import { EnableStt } from "./actions/enable-stt";
+import { DisableStt } from "./actions/disable-stt";
+import { ChatFeedUnpause } from "./actions/chat-feed-unpause";
 
 import TwitchatSocket from './TwitchatSocket';
 
@@ -82,6 +85,9 @@ streamDeck.actions.registerAction(new VoiceControl());
 streamDeck.actions.registerAction(new ChatFeedPause());
 streamDeck.actions.registerAction(new SetAnimatedText());
 streamDeck.actions.registerAction(new ShowBingoGrid());
+streamDeck.actions.registerAction(new EnableStt());
+streamDeck.actions.registerAction(new DisableStt());
+streamDeck.actions.registerAction(new ChatFeedUnpause());
 
 // Finally, connect to the Stream Deck.
 streamDeck.settings.useExperimentalMessageIdentifiers = true;

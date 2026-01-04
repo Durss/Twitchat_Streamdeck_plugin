@@ -18,12 +18,14 @@ export class ChatFeedScrollUp extends AbstractAction<Settings> {
 				scrollAmount: 50,
 			});
 		}
+		this.setDeprecatedState(ev.action);
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
-		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_SCROLL_UP', {
-			scrollBy: ev.payload.settings.scrollAmount || 50,
+		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_SCROLL', {
+			scrollBy: -(ev.payload.settings.scrollAmount || 50),
 			colIndex: ev.payload.settings.colIndex || 0,
+			mode: 'pixels',
 		});
 	}
 }

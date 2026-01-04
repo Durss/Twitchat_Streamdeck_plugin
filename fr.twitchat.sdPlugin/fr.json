@@ -74,6 +74,10 @@
 			}
 		}
 	},
+	"fr.twitchat.action.chat-feed-unpause": {
+		"Name": "Reprendre le défilement auto du tchat",
+		"Tooltip": ""
+	},
 	"fr.twitchat.action.clear-chat-highlight": {
 		"Name": "Masquer le message actuellement mis en avant",
 		"Tooltip": ""
@@ -84,6 +88,14 @@
 	},
 	"fr.twitchat.action.counter-add": {
 		"Name": "Ajouter une valeur à un compteur",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.disable-stt": {
+		"Name": "Désactiver le contrôle vocal",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.enable-stt": {
+		"Name": "Activer le contrôle vocal",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.execute-trigger": {

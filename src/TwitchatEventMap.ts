@@ -62,33 +62,6 @@ export type TwitchatEventMap = {
 		enabled: boolean;
 	};
 	/**
-	/**
-	 * Scroll a chat feed up
-	 */
-	SET_CHAT_FEED_SCROLL_UP: {
-		/**
-		 * Number of pixels to scroll by
-		 */
-		scrollBy: number;
-		/**
-		 * Column index
-		 */
-		colIndex: number;
-	};
-	/**
-	 * Scroll a chat feed down
-	 */
-	SET_CHAT_FEED_SCROLL_DOWN: {
-		/**
-		 * Number of pixels to scroll by
-		 */
-		scrollBy: number;
-		/**
-		 * Column index
-		 */
-		colIndex: number;
-	};
-	/**
 	 * Scroll a chat feed by a specific amount
 	 */
 	SET_CHAT_FEED_SCROLL: {
@@ -101,6 +74,11 @@ export type TwitchatEventMap = {
 		 * Column index
 		 */
 		colIndex: number;
+		/**
+		 * Scroll mode.
+		 * Scroll by messages or by pixels.
+		 */
+		mode: 'messages' | 'pixels';
 	};
 	/**
 	 * Move read marker in chat feed
@@ -127,20 +105,16 @@ export type TwitchatEventMap = {
 	/**
 	 * Pause auto-scrolling in a chat feed
 	 */
-	SET_CHAT_FEED_PAUSE: {
+	SET_CHAT_FEED_PAUSE_STATE: {
 		/**
 		 * Column index
 		 */
 		colIndex: number;
-	};
-	/**
-	 * Resume auto-scrolling in a chat feed
-	 */
-	SET_CHAT_FEED_UNPAUSE: {
 		/**
-		 * Column index
+		 * Force paused state
+		 * Omit to toggle current state
 		 */
-		colIndex: number;
+		pause?: boolean;
 	};
 	/**
 	 * Scroll a chat feed to the bottom
@@ -500,6 +474,7 @@ export type TwitchatEventMap = {
 		id: string;
 		/**
 		 * Show or hide the bingo grid
+		 * Omit to toggle current visibility
 		 */
 		show?: boolean;
 	};
