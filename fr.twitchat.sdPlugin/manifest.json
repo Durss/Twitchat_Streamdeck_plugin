@@ -584,6 +584,7 @@
 		},
 		{
 			"VisibleInActionsList": false,
+			"UserTitleEnabled": false,
 			"Name": "Scroll a chat column down",
 			"UUID": "fr.twitchat.action.chat-feed-scroll-down",
 			"Icon": "imgs/actions/chat-feed-scroll-down/icon",
@@ -601,6 +602,7 @@
 		},
 		{
 			"VisibleInActionsList": false,
+			"UserTitleEnabled": false,
 			"Name": "Scroll a chat column up",
 			"UUID": "fr.twitchat.action.chat-feed-scroll-up",
 			"Icon": "imgs/actions/chat-feed-scroll-up/icon",
@@ -618,6 +620,7 @@
 		},
 		{
 			"VisibleInActionsList": false,
+			"UserTitleEnabled": false,
 			"Name": "Enable voice control",
 			"UUID": "fr.twitchat.action.enable-stt",
 			"Icon": "imgs/actions/enable-stt/icon",
@@ -635,6 +638,7 @@
 		},
 		{
 			"VisibleInActionsList": false,
+			"UserTitleEnabled": false,
 			"Name": "Disable voice control",
 			"UUID": "fr.twitchat.action.disable-stt",
 			"Icon": "imgs/actions/disable-stt/icon",
@@ -652,6 +656,7 @@
 		},
 		{
 			"VisibleInActionsList": false,
+			"UserTitleEnabled": false,
 			"Name": "Resume paused chat",
 			"UUID": "fr.twitchat.action.chat-feed-unpause",
 			"Icon": "imgs/actions/chat-feed-unpause/icon",
