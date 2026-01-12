@@ -75,7 +75,7 @@ export class TimerAdd extends AbstractAction<Settings> {
 					} else {
 						elapsed = Math.floor((Date.now() - timer.startAt_ms + timer.offset_ms) / 1000) * 1000;
 					}
-					this.setText(action, formatDuration(elapsed, false));
+					this.setText(action, formatDuration(elapsed, false, streamDeck.i18n.translate('day-unit')));
 					this.setEnabledState(action);
 				} else {
 					this.setText(action, '');

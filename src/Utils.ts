@@ -1,7 +1,7 @@
 import { evaluate as MathEval } from 'mathjs';
 import { randomBytes } from 'crypto';
 
-export function formatDuration(millis: number, forceMinutes: boolean = false): string {
+export function formatDuration(millis: number, forceMinutes: boolean = false, dayUnit: string = 'd'): string {
 	const d_ms = 24 * 3600 * 1000;
 	const h_ms = 3600 * 1000;
 	const m_ms = 60 * 1000;
@@ -12,7 +12,7 @@ export function formatDuration(millis: number, forceMinutes: boolean = false): s
 	let res = toDigits(s);
 	if (m > 0 || h > 0 || forceMinutes) res = toDigits(m) + ':' + res;
 	if (h > 0 || d > 0) res = toDigits(h) + ':' + res;
-	if (d > 0) res = d + '-' + ' ' + res;
+	if (d > 0) res = d + dayUnit + ' ' + res;
 	return res;
 }
 

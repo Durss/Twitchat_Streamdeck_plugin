@@ -18,6 +18,7 @@
 		"missing-counter": "missing counter",
 		"missing-qna-session": "missing Q&A\nsession",
 		"missing-overlay": "missing overlay",
-		"missing-trigger": "missing trigger"
+		"missing-trigger": "missing trigger",
+		"day-unit": "d"
 	}
 }

@@ -18,7 +18,8 @@
 		"missing-counter": "compteur\nmanquant",
 		"missing-qna-session": "session Q&R\nmanquante",
 		"missing-overlay": "overlay\nmanquant",
-		"missing-trigger": "trigger\nmanquant"
+		"missing-trigger": "trigger\nmanquant",
+		"day-unit": "j"
 	},
 	"fr.twitchat.action.automod-accept": {
 		"Name": "Accepter le dernier message retenu par l'automod",
