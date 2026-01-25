@@ -2218,7 +2218,7 @@ export type TwitchatEventMap = {
 	 * directly connected to it.
 	 * @private
 	 */
-	SET_BINGO_GRID_CONFIGS_VISIBILITY_FROM_SD: TwitchatEventMap['SET_BINGO_GRID_CONFIGS_VISIBILITY'];
+	SET_BINGO_GRID_VISIBILITY_FROM_SD: TwitchatEventMap['SET_BINGO_GRID_CONFIGS_VISIBILITY'];
 };
 
 type StreamSummaryData = {
