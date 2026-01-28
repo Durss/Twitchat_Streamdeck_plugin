@@ -22,10 +22,10 @@ export class VoiceControl extends AbstractAction<Settings> {
 		if (this._forceOfflineState) return;
 
 		if (data?.voiceControlEnabled) {
-			this.updateImage(action, 'imgs/actions/voice-control/icon.svg');
+			this.setImage(action, 'imgs/actions/voice-control/icon.svg');
 			this.setEnabledState(action);
 		} else {
-			this.updateImage(action, 'imgs/actions/voice-control/disabled.svg');
+			this.setImage(action, 'imgs/actions/voice-control/disabled.svg');
 			this.setDisabledState(action);
 		}
 	}

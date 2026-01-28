@@ -23,7 +23,7 @@ export class ExecuteTrigger extends AbstractAction<Settings> {
 	): void {
 		const trigger = data?.triggerList.find((t) => t.id === settings.triggerId);
 
-		this.setText(action, '');
+		this.setText(action, trigger?.name ?? '???');
 
 		if (trigger?.disabled) {
 			this.setDisabledState(action);

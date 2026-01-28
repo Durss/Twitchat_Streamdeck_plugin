@@ -14,11 +14,11 @@
 		"chat-feed-scroll": "Défiler chat",
 		"chat-feed-read": "Marqueur lu",
 		"invalid-value": "Valeur invalide",
-		"missing-timer": "minuteur\nmanquant",
-		"missing-counter": "compteur\nmanquant",
-		"missing-qna-session": "session Q&R\nmanquante",
-		"missing-overlay": "overlay\nmanquant",
-		"missing-trigger": "trigger\nmanquant",
+		"missing-timer": "minuteur manquant",
+		"missing-counter": "compteur manquant",
+		"missing-qna-session": "session Q&R manquante",
+		"missing-overlay": "overlay manquant",
+		"missing-trigger": "trigger manquant",
 		"day-unit": "j"
 	},
 	"fr.twitchat.action.automod-accept": {

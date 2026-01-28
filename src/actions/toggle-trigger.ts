@@ -31,14 +31,16 @@ export class ToggleTrigger extends AbstractAction<Settings> {
 	): void {
 		const trigger = data?.triggerList.find((t) => t.id === settings.triggerId);
 
-		this.setText(action, '');
+		this.setText(action, trigger?.name ?? '???');
 
 		if (trigger?.disabled) {
+			this.setImage(action, 'imgs/actions/toggle-trigger/off.svg');
 			this.setDisabledState(action);
 		} else if (!trigger) {
 			this.setText(action, streamDeck.i18n.translate('missing-trigger'));
 			this.setErrorState(action);
 		} else {
+			this.setImage(action, 'imgs/actions/toggle-trigger/icon.svg');
 			this.setEnabledState(action);
 		}
 	}

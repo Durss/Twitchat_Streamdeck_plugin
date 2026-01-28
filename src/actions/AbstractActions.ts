@@ -107,11 +107,11 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	}
 
 	protected setText(action: DialAction<{}> | KeyAction<{}>, text: string): void {
-		this._actionStateTitleCache.set(action.id, text.replace(/&/, '&amp;'));
+		this._actionStateTitleCache.set(action.id, text);
 		this.applyState(action);
 	}
 
-	protected updateImage(action: DialAction<{}> | KeyAction<{}>, imagePath: string): void {
+	protected setImage(action: DialAction<{}> | KeyAction<{}>, imagePath: string): void {
 		this._actionStateImageCache.set(action.id, imagePath);
 		this.applyState(action);
 	}
@@ -203,9 +203,10 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 
 	private injectText(svg: string, text: string, isError: boolean): string {
 		const color = isError ? '#ff0000' : '#008667';
-		const lines = text.split('\n');
+		const lines = this.wrapText(text, 15);
 		const svgLines: string[] = [];
 		lines.forEach((line, index) => {
+			line = line.replace(/&/, '&amp;');
 			const py = 20 + index * 20;
 			svgLines.push(`
 			<text
@@ -282,4 +283,65 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		_settings: Settings,
 		_action: DialAction<{}> | KeyAction<{}>,
 	): void {}
+
+	/**
+	 * Wraps text to a maximum line length, prioritizing breaks at spaces.
+	 * Words longer than maxLength are split mid-word.
+	 * [generated with copilot]
+	 */
+	private wrapText(text: string, maxLength: number): string[] {
+		const words = text.split(' ');
+		const lines: string[] = [];
+		let currentLine = '';
+
+		for (const word of words) {
+			if (word.length > maxLength) {
+				// Word is longer than maxLength, need to split it
+				if (currentLine) {
+					// First, check if we can fit part of the word on current line
+					const spaceLeft = maxLength - currentLine.length - 1; // -1 for space
+					if (spaceLeft > 0) {
+						lines.push(currentLine + ' ' + word.slice(0, spaceLeft));
+						let remaining = word.slice(spaceLeft);
+						while (remaining.length > maxLength) {
+							lines.push(remaining.slice(0, maxLength));
+							remaining = remaining.slice(maxLength);
+						}
+						currentLine = remaining;
+					} else {
+						lines.push(currentLine);
+						let remaining = word;
+						while (remaining.length > maxLength) {
+							lines.push(remaining.slice(0, maxLength));
+							remaining = remaining.slice(maxLength);
+						}
+						currentLine = remaining;
+					}
+				} else {
+					// No current line, just split the word
+					let remaining = word;
+					while (remaining.length > maxLength) {
+						lines.push(remaining.slice(0, maxLength));
+						remaining = remaining.slice(maxLength);
+					}
+					currentLine = remaining;
+				}
+			} else if (currentLine.length + 1 + word.length <= maxLength) {
+				// Word fits on current line
+				currentLine = currentLine ? currentLine + ' ' + word : word;
+			} else {
+				// Word doesn't fit, start new line
+				if (currentLine) {
+					lines.push(currentLine);
+				}
+				currentLine = word;
+			}
+		}
+
+		if (currentLine) {
+			lines.push(currentLine);
+		}
+
+		return lines.length > 0 ? lines : [''];
+	}
 }

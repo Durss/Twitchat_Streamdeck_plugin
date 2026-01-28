@@ -21,9 +21,9 @@ export class ChatFeedPause extends AbstractAction<Settings> {
 
 		const colIndex = _settings.colIndex || 0;
 		if (data?.chatColConfs?.[colIndex]?.paused) {
-			this.updateImage(action, 'imgs/actions/chat-feed-pause/unpause.svg');
+			this.setImage(action, 'imgs/actions/chat-feed-pause/unpause.svg');
 		} else {
-			this.updateImage(action, 'imgs/actions/chat-feed-pause/icon.svg');
+			this.setImage(action, 'imgs/actions/chat-feed-pause/icon.svg');
 		}
 	}
 }

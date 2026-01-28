@@ -69,9 +69,9 @@ export class ChatFeedScroll extends AbstractAction<Settings> {
 
 	private updateIcon(action: DialAction<{}> | KeyAction<{}>, settings: Settings): Promise<void> | void {
 		if (settings.scrollAmount > 0) {
-			this.updateImage(action, 'imgs/actions/chat-feed-scroll/down.svg');
+			this.setImage(action, 'imgs/actions/chat-feed-scroll/down.svg');
 		} else {
-			this.updateImage(action, 'imgs/actions/chat-feed-scroll/up.svg');
+			this.setImage(action, 'imgs/actions/chat-feed-scroll/up.svg');
 		}
 		streamDeck.logger.debug(`[ChatFeedScroll] New settings received: ${JSON.stringify(settings)}`);
 	}
