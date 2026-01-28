@@ -22,14 +22,8 @@ export class SendMessage extends AbstractAction<Settings> {
 	}
 
 	private setLabel(action: DialAction<{}> | KeyAction<{}>, label?: string) {
-		const originalLabel = label || '';
-		const maxLength = Math.floor(15 * 2.5);
-		let message = originalLabel.substring(0, maxLength);
-		if (message.length != originalLabel.length) {
-			message = message.substring(0, maxLength - 1) + '…';
-		}
-		if (message) {
-			this.setText(action, message);
+		if (label) {
+			this.setText(action, label);
 			this.setEnabledState(action);
 		} else {
 			this.setErrorState(action);

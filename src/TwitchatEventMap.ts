@@ -1507,6 +1507,27 @@ export type TwitchatEventMap = {
 	 */
 	SET_AUTOMOD_REJECT: undefined;
 	/**
+	 * Triggered when a message is held by automod
+	 */
+	ON_AUTOMOD_MESSAGE_HELD: {
+		/**
+		 * Channel ID where the message was sent
+		 */
+		channel: string;
+		/**
+		 * Message content
+		 */
+		message: string;
+		/**
+		 * User info
+		 */
+		user: {
+			id: string;
+			login: string;
+			displayName: string;
+		};
+	} | null;
+	/**
 	 * Toggle merge feature
 	 * See settings => chat features => Merge consecutive messages of a user
 	 */
@@ -1992,6 +2013,24 @@ export type TwitchatEventMap = {
 			 */
 			enabled: boolean;
 		}[];
+		pendingAutomodMessage: {
+			/**
+			 * Channel ID where the message was sent
+			 */
+			channel: string;
+			/**
+			 * Message content
+			 */
+			message: string;
+			/**
+			 * User info
+			 */
+			user: {
+				id: string;
+				login: string;
+				displayName: string;
+			};
+		} | null;
 	};
 
 	/**

@@ -203,7 +203,11 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 
 	private injectText(svg: string, text: string, isError: boolean): string {
 		const color = isError ? '#ff0000' : '#008667';
-		const lines = this.wrapText(text, 15);
+		let lines = this.wrapText(text, 15);
+		if (lines.length > 4) {
+			lines = lines.slice(0, 4);
+			lines[3] = lines[3].substring(0, 14) + '…';
+		}
 		const svgLines: string[] = [];
 		lines.forEach((line, index) => {
 			line = line.replace(/&/, '&amp;');
@@ -287,61 +291,71 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	/**
 	 * Wraps text to a maximum line length, prioritizing breaks at spaces.
 	 * Words longer than maxLength are split mid-word.
+	 * Preserves existing line breaks (\n) in the text.
 	 * [generated with copilot]
 	 */
 	private wrapText(text: string, maxLength: number): string[] {
-		const words = text.split(' ');
-		const lines: string[] = [];
-		let currentLine = '';
+		// First split by existing line breaks
+		const paragraphs = text.split('\n');
+		const allLines: string[] = [];
 
-		for (const word of words) {
-			if (word.length > maxLength) {
-				// Word is longer than maxLength, need to split it
-				if (currentLine) {
-					// First, check if we can fit part of the word on current line
-					const spaceLeft = maxLength - currentLine.length - 1; // -1 for space
-					if (spaceLeft > 0) {
-						lines.push(currentLine + ' ' + word.slice(0, spaceLeft));
-						let remaining = word.slice(spaceLeft);
-						while (remaining.length > maxLength) {
-							lines.push(remaining.slice(0, maxLength));
-							remaining = remaining.slice(maxLength);
+		for (const paragraph of paragraphs) {
+			const words = paragraph.split(' ');
+			let currentLine = '';
+
+			for (const word of words) {
+				if (word.length > maxLength) {
+					// Word is longer than maxLength, need to split it
+					if (currentLine) {
+						// First, check if we can fit part of the word on current line
+						const spaceLeft = maxLength - currentLine.length - 1; // -1 for space
+						if (spaceLeft > 0) {
+							allLines.push(currentLine + ' ' + word.slice(0, spaceLeft));
+							let remaining = word.slice(spaceLeft);
+							while (remaining.length > maxLength) {
+								allLines.push(remaining.slice(0, maxLength));
+								remaining = remaining.slice(maxLength);
+							}
+							currentLine = remaining;
+						} else {
+							allLines.push(currentLine);
+							let remaining = word;
+							while (remaining.length > maxLength) {
+								allLines.push(remaining.slice(0, maxLength));
+								remaining = remaining.slice(maxLength);
+							}
+							currentLine = remaining;
 						}
-						currentLine = remaining;
 					} else {
-						lines.push(currentLine);
+						// No current line, just split the word
 						let remaining = word;
 						while (remaining.length > maxLength) {
-							lines.push(remaining.slice(0, maxLength));
+							allLines.push(remaining.slice(0, maxLength));
 							remaining = remaining.slice(maxLength);
 						}
 						currentLine = remaining;
 					}
+				} else if (currentLine.length + 1 + word.length <= maxLength) {
+					// Word fits on current line
+					currentLine = currentLine ? currentLine + ' ' + word : word;
 				} else {
-					// No current line, just split the word
-					let remaining = word;
-					while (remaining.length > maxLength) {
-						lines.push(remaining.slice(0, maxLength));
-						remaining = remaining.slice(maxLength);
+					// Word doesn't fit, start new line
+					if (currentLine) {
+						allLines.push(currentLine);
 					}
-					currentLine = remaining;
+					currentLine = word;
 				}
-			} else if (currentLine.length + 1 + word.length <= maxLength) {
-				// Word fits on current line
-				currentLine = currentLine ? currentLine + ' ' + word : word;
-			} else {
-				// Word doesn't fit, start new line
-				if (currentLine) {
-					lines.push(currentLine);
-				}
-				currentLine = word;
+			}
+
+			// Push remaining content of this paragraph
+			if (currentLine) {
+				allLines.push(currentLine);
+			} else if (paragraph === '') {
+				// Preserve empty lines from original \n\n
+				allLines.push('');
 			}
 		}
 
-		if (currentLine) {
-			lines.push(currentLine);
-		}
-
-		return lines.length > 0 ? lines : [''];
+		return allLines.length > 0 ? allLines : [''];
 	}
 }
