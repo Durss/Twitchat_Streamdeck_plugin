@@ -5,7 +5,7 @@
         "dev": "npm run watch",
         "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart fr.twitchat\"",
         "link": "sd link fr.twitchat.sdPlugin",
-        "logs": "node -e \"const { spawn } = require('child_process'); const isWin = process.platform === 'win32'; const cmd = isWin ? 'powershell' : 'tail'; const args = isWin ? ['-Command', 'Get-Content \\\"fr.twitchat.sdPlugin\\\\logs\\\\fr.twitchat.0.log\\\" -Wait'] : ['-F', 'fr.twitchat.sdPlugin/logs/fr.twitchat.0.log']; spawn(cmd, args, { stdio: 'inherit' });\"",
+        "logs": "node -e \"const fs = require('fs'); const path = 'fr.twitchat.sdPlugin/logs/fr.twitchat.0.log'; let watcher = null; let pos = 0; const watch = () => { if(watcher) { watcher.close(); watcher = null; } if(fs.existsSync(path)) { pos = fs.statSync(path).size; watcher = fs.watch(path, (e) => { if(e === 'change') { try { const fd = fs.openSync(path, 'r'); const buf = Buffer.alloc(fs.statSync(path).size - pos); if(buf.length > 0) { fs.readSync(fd, buf, 0, buf.length, pos); process.stdout.write(buf); } pos += buf.length; fs.closeSync(fd); } catch(err) {} } }); console.log('Watching:', path); } }; watch(); fs.watch(require('path').dirname(path), { persistent: true }, () => { if(!fs.existsSync(path) && watcher) { watcher.close(); watcher = null; console.log('File deleted, waiting...'); } else if(fs.existsSync(path) && !watcher) { watch(); } }); setInterval(() => {}, 1000);\"",
         "lint": "eslint src",
         "lint:fix": "eslint src --fix",
         "format": "prettier --write \"src/**/*.ts\"",
