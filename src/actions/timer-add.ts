@@ -44,6 +44,7 @@ export class TimerAdd extends AbstractAction<Settings> {
 	): void {
 		if (this._forceOfflineState) return;
 
+		// Check value set by the user is valid
 		const parsed = parseTimerValue(settings.timeAdd);
 		if (parsed.isValid && typeof parsed.value === 'number') {
 			action.setTitle(parsed.value < 0 ? `${parsed.value}` : `+${parsed.value}`);
@@ -55,17 +56,20 @@ export class TimerAdd extends AbstractAction<Settings> {
 			return;
 		}
 
+		// Find the timer to display
 		let timer = data?.timerList.find((t) => t.id === settings.timerId);
 		if (!timer && !settings.timerId) {
 			timer = data?.timerList.find((t) => t.isDefault && t.type === 'timer');
 		}
 
 		if (!timer || !timer?.enabled) {
+			// Timer not found or disabled
 			this.setText(action, streamDeck.i18n.translate('missing-timer'));
 			this.setErrorState(action);
 		} else {
+			// Timer found and enabled, schedule value refresh every second
 			const renderTimer = () => {
-				if (this.getActionState(action) === 'disabled' || this.getActionState(action) === 'error') {
+				if (this.getActionState(action) === 'error') {
 					return;
 				}
 				if (timer.type == 'timer' && timer.startAt_ms) {
