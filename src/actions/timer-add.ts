@@ -67,6 +67,7 @@ export class TimerAdd extends AbstractAction<Settings> {
 			this.setText(action, streamDeck.i18n.translate('missing-timer'));
 			this.setErrorState(action);
 		} else {
+			this.setEnabledState(action);
 			// Timer found and enabled, schedule value refresh every second
 			const renderTimer = () => {
 				if (this.getActionState(action) === 'error') {
