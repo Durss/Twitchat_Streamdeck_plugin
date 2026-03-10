@@ -76,9 +76,9 @@ export class TimerAdd extends AbstractAction<Settings> {
 				if (timer.type == 'timer' && timer.startAt_ms) {
 					let elapsed = 0;
 					if (timer.paused) {
-						elapsed = Math.floor((timer.pausedAt_ms! - timer.startAt_ms + timer.offset_ms) / 1000) * 1000;
+						elapsed = timer.pausedAt_ms! - timer.startAt_ms + timer.offset_ms;
 					} else {
-						elapsed = Math.floor((Date.now() - timer.startAt_ms + timer.offset_ms) / 1000) * 1000;
+						elapsed = Date.now() - timer.startAt_ms + timer.offset_ms;
 					}
 					this.setText(action, formatDuration(elapsed, false, streamDeck.i18n.translate('day-unit')));
 					this.setEnabledState(action);

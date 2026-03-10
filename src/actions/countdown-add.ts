@@ -76,8 +76,7 @@ export class CountdownAdd extends AbstractAction<Settings> {
 						elapsed = Date.now() - timer.startAt_ms;
 					}
 					elapsed -= timer.pauseDuration_ms;
-					const remaining = Math.round((timer.duration_ms - elapsed) / 1000) * 1000;
-					this.setText(action, formatDuration(remaining));
+					this.setText(action, formatDuration(timer.duration_ms - elapsed));
 					this.setEnabledState(action);
 				} else {
 					this.setText(action, '');
