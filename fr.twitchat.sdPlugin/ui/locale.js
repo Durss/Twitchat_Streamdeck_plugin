@@ -112,6 +112,9 @@ SDPIComponents.i18n.locales = {
 				qnaId: 'Q&A Session',
 			},
 		},
+		quiz: {
+			info: 'ℹ️ Simply press the button to reveal the answer to the current question or move to the next question. Once the last answer is revealed, pressing the button will display the the leaderboard.',
+		},
 		'raffle-pick-winner': {},
 		'raffle-toggle': {},
 		'send-message': {
@@ -272,6 +275,9 @@ SDPIComponents.i18n.locales = {
 			fields: {
 				qnaId: 'Sessions de Q&R',
 			},
+		},
+		quiz: {
+			info: 'ℹ️ Pressez simplement le bouton pour révéler la réponse de la question en cours ou passer à la question suivante. Une fois la dernière réponse révélée le bouton affichera le classement.',
 		},
 		'raffle-pick-winner': {},
 		'raffle-toggle': {},

@@ -1866,6 +1866,44 @@ export type TwitchatEventMap = {
 	};
 
 	/**
+	 * Request quiz overlay presence
+	 * @answer ON_QUIZ_OVERLAY_PRESENCE
+	 */
+	GET_QUIZ_OVERLAY_PRESENCE: void;
+	/**
+	 * Advertise for quiz overlay presence
+	 */
+	ON_QUIZ_OVERLAY_PRESENCE: void;
+	/**
+	 * Request quiz overlay configuration
+	 * @answer ON_QUIZ_STATE
+	 */
+	GET_QUIZ_CONFIGS: void;
+	/**
+	 * Receive quiz overlay configuration
+	 */
+	ON_QUIZ_STATE: {
+		quiz?: QuizParams;
+		i18n: { mode_classic: string; mode_majority: string; mode_freeAnswer: string };
+	};
+	/**
+	 * Receive quiz overlay leaderboard
+	 */
+	ON_QUIZ_LEADERBOARD: { leaderboard: QuizState['users'] };
+	/**
+	 * Reveals the answer for current quiz question
+	 */
+	SET_QUIZ_REVEAL: void;
+	/**
+	 * Moves to the next question in the current quiz
+	 */
+	SET_QUIZ_NEXT_QUESTION: void;
+	/**
+	 * Toggle quiz leaderboard display
+	 */
+	SET_QUIZ_TOGGLE_LEADERBOARD: void;
+
+	/**
 	 * Requests for global states
 	 * @answer ON_GLOBAL_STATES
 	 */
@@ -2013,6 +2051,42 @@ export type TwitchatEventMap = {
 			 */
 			enabled: boolean;
 		}[];
+		/**
+		 * Contains currently enabled quiz info.
+		 */
+		currentQuiz?: {
+			/**
+			 * Animated text ID
+			 */
+			id: string;
+			/**
+			 * Animated text name
+			 */
+			name: string;
+			/**
+			 * Timer start time, in ISO format
+			 */
+			timerStartedAt: string;
+			/**
+			 * Current question duration in milliseconds
+			 */
+			questionDuration_ms: number;
+			/**
+			 * Is current answer revealed?
+			 */
+			answerRevealed: boolean;
+			/**
+			 * Question index
+			 */
+			questionIndex: number;
+			/**
+			 * Total number of questions
+			 */
+			totalQuestions: number;
+		};
+		/**
+		 * Details about a message pending for automod review.
+		 */
 		pendingAutomodMessage: {
 			/**
 			 * Channel ID where the message was sent
@@ -3612,6 +3686,224 @@ type MessagePredictionDataOutcome = {
 	 * Number of users that voted for this answer
 	 */
 	voters: number;
+};
+
+type QuizParams = {
+	/**
+	 * Quiz ID
+	 */
+	id: string;
+	/**
+	 * Quiz title
+	 */
+	title: string;
+	/**
+	 * Number of seconds to answer
+	 */
+	durationPerQuestion_s: number;
+	/**
+	 * If true, users that answer wrong will loose points
+	 */
+	loosePointsOnFail: boolean;
+	/**
+	 * If true, the faster the answer, the more points earned
+	 */
+	timeBasedScoring: boolean;
+	/**
+	 * Is the quiz enabled ?
+	 * Can be false after user stops being premium and is required to disable
+	 * entries if they have more than the maximum allowed
+	 */
+	enabled: boolean;
+	/**
+	 * UTC date at which the quiz started
+	 */
+	quizStarted_at: string;
+	/**
+	 * UTC date at which the current question started
+	 */
+	questionStarted_at: string;
+	/**
+	 * Current question ID
+	 */
+	currentQuestionId: string;
+	/**
+	 * Is the current question revealed to users?
+	 */
+	currentQuestionRevealed?: boolean;
+	/**
+	 * Contains scores for current question
+	 */
+	currentQuestionScores?: { [uid: string]: number };
+	/**
+	 * Votes for the current question.
+	 */
+	currentQuestionStats?: {
+		// Classic and majority answers
+		[answerId: string]: {
+			/**
+			 * Percentage of votes for this answer compared to all the other answers
+			 */
+			globalPercent: number;
+			/**
+			 * Percentage of votes for this answer compared to the answers with the highest voted answer
+			 */
+			relativePercent: number;
+			/**
+			 * Number of votes for this answer
+			 */
+			voteCount: number;
+		};
+	};
+	/**
+	 * Orthographic tolerance for answer matching in "freeAnswer" mode.
+	 * 0 = exact match
+	 * ...
+	 * 5 = very tolerant
+	 */
+	toleranceLevel?: 0 | 1 | 2 | 3 | 4 | 5;
+	/**
+	 * List of questions
+	 */
+	questionList: ({
+		/**
+		 * Question ID
+		 */
+		id: string;
+		/**
+		 * Question mode.
+		 * classic: earn points by answering questions correctly
+		 */
+		mode: 'classic' | 'majority' | 'freeAnswer';
+		/**
+		 * Number of seconds to answer this question (overrides durationPerQuestion_s)
+		 */
+		duration_s?: number;
+		/**
+		 * Question text
+		 */
+		question: string;
+	} & (
+		| {
+				/**
+				 * Question mode.
+				 * classic: earn points by answering questions correctly
+				 */
+				mode: 'classic';
+				/**
+				 * Possible answers for this question
+				 */
+				answerList: {
+					/**
+					 * Answer ID
+					 */
+					id: string;
+					/**
+					 * Answer text
+					 */
+					title: string;
+					/**
+					 * Is this the answer correct ?
+					 */
+					correct?: boolean;
+				}[];
+		  }
+		| {
+				/**
+				 * Question mode.
+				 * classic: earn points by answering questions correctly
+				 */
+				mode: 'majority';
+				/**
+				 * Possible answers for this question
+				 */
+				answerList: {
+					/**
+					 * Answer ID
+					 */
+					id: string;
+					/**
+					 * Answer text
+					 */
+					title: string;
+				}[];
+		  }
+		| {
+				/**
+				 * Question mode.
+				 * freeAnswer: viewers must type the answer on chat or extension
+				 */
+				mode: 'freeAnswer';
+				/**
+				 * Expected answer
+				 */
+				answer: string;
+				/**
+				 * Orthographic tolerance for answer matching in "freeAnswer" mode.
+				 * Overrides the global quiz tolerance level.
+				 * 0 = exact match
+				 * ...
+				 * 5 = very tolerant
+				 */
+				toleranceLevel?: 0 | 1 | 2 | 3 | 4 | 5;
+		  }
+	))[];
+};
+
+/**
+ * Contains current state for any live quiz
+ * Stores users votes and scores
+ */
+export type QuizState = {
+	quizId: string;
+	/**
+	 * Users list that played this quiz
+	 */
+	users: {
+		[userId: string]: {
+			/**
+			 * Is the user anonymous?
+			 * true when user has chose not to grant access to their user info on extension
+			 */
+			isAnonymous: boolean;
+			/**
+			 * Platform used to play the quiz
+			 */
+			platform: ChatPlatform;
+			/**
+			 * User name
+			 */
+			name: string;
+			/**
+			 * user's avatar URL
+			 */
+			avatarPath?: string;
+			/**
+			 * User score
+			 */
+			score: number;
+		};
+	};
+	/**
+	 * Votes for each questions.
+	 */
+	questionVotes: {
+		[questionId: string]: {
+			/**
+			 * User ID
+			 */
+			uid: string;
+			/**
+			 * Can be either an answer ID or a raw text answer for "freeAnswer" mode
+			 */
+			answer: string;
+			/**
+			 * Date (ISO 8601 string) when the vote was cast.
+			 * Used for time-based scoring on majority questions.
+			 */
+			votedAt?: string;
+		}[];
+	};
 };
 
 type TriggerActionCountDataAction = 'ADD' | 'DEL' | 'SET';

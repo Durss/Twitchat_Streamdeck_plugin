@@ -15,7 +15,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/send-message/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -31,7 +32,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/execute-trigger/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -47,7 +49,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/toggle-trigger/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -63,7 +66,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/stop-tts/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -79,7 +83,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/set-emergency-mode/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -95,7 +100,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/shoutout/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -111,7 +117,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/automod-accept/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -127,7 +134,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/automod-reject/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -143,7 +151,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/censor-deleted-messages-toggle/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -159,7 +168,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-pause/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -175,7 +185,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-read/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -191,7 +202,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-read-all/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -207,7 +219,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-read-encoder/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			],
 			"Encoder": {
@@ -230,7 +243,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-scroll/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			],
 			"Encoder": {
@@ -252,7 +266,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-select/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			],
 			"Encoder": {
@@ -274,7 +289,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/clear-chat-highlight/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -290,7 +306,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/set-animated-text/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -306,7 +323,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/countdown-add/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -322,7 +340,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/timer-add/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -338,7 +357,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/counter-add/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -354,7 +374,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/greet-feed-read/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -370,7 +391,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/greet-feed-read-all/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -386,7 +408,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/hide-alert/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -402,7 +425,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/merge-toggle/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -418,7 +442,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/mod-tools-toggle/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -434,7 +459,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/poll-toggle/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -450,7 +476,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/prediction-toggle/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -466,7 +493,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/bingo-toggle/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -482,7 +510,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/qna-highlight/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -498,7 +527,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/qna-skip/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -514,7 +544,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/raffle-pick-winner/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -530,7 +561,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/raffle-toggle/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -546,7 +578,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/viewers-count-toggle/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -562,7 +595,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/voice-control/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -578,7 +612,25 @@
 			"States": [
 				{
 					"Image": "imgs/actions/show-bingo-grid/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"Name": "Control current quiz",
+			"UUID": "fr.twitchat.action.quiz",
+			"Icon": "imgs/actions/quiz/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/quiz.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/quiz/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -596,7 +648,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-scroll-down/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -614,7 +667,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-scroll-down/icon",
-					"TitleAlignment": "bottom"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -632,7 +686,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/enable-stt/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -650,7 +705,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/disable-stt/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		},
@@ -668,7 +724,8 @@
 			"States": [
 				{
 					"Image": "imgs/actions/chat-feed-unpause/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
 		}

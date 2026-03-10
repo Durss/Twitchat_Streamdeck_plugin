@@ -19,6 +19,7 @@
 		"missing-qna-session": "missing Q&A session",
 		"missing-overlay": "missing overlay",
 		"missing-trigger": "missing trigger",
+		"no-active-quiz": "no active quiz",
 		"day-unit": "d"
 	}
 }

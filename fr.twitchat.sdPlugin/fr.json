@@ -19,6 +19,7 @@
 		"missing-qna-session": "session Q&R manquante",
 		"missing-overlay": "overlay manquant",
 		"missing-trigger": "trigger manquant",
+		"no-active-quiz": "aucun quiz actif",
 		"day-unit": "j"
 	},
 	"fr.twitchat.action.automod-accept": {
@@ -137,6 +138,10 @@
 	},
 	"fr.twitchat.action.qna-skip": {
 		"Name": "Retirer la 1ère question d'une session de Questions/Réponses",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.quiz": {
+		"Name": "Contrôler le quiz courrant",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.raffle-pick-winner": {

@@ -202,7 +202,8 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	}
 
 	private injectText(svg: string, text: string, isError: boolean): string {
-		const color = isError ? '#ff0000' : '#008667';
+		const fillColor = isError ? '#ff0000' : '#444444';
+		const fillOpacity = isError ? '.7' : '.8';
 		let lines = this.wrapText(text, 15);
 		if (lines.length > 4) {
 			lines = lines.slice(0, 4);
@@ -233,7 +234,7 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		return svg.replace(
 			'</svg>',
 			`
-				<rect x="0" y="-20" width="144px" height="${svgLines.length * 20 + 10 + 20}px" rx="12px" ry="12px" style="fill: ${color}; fill-opacity: .7; stroke: #000000; stroke-opacity: .7; stroke-miterlimit: 10; stroke-width: 3px;"/>
+				<rect x="0" y="-20" width="144px" height="${svgLines.length * 20 + 10 + 20}px" rx="12px" ry="12px" style="fill: ${fillColor}; fill-opacity: ${fillOpacity}; stroke: #000000; stroke-opacity: ${fillOpacity}; stroke-miterlimit: 10; stroke-width: 3px;"/>
 				${svgLines.join('\n')}
 			</svg>`,
 		);
