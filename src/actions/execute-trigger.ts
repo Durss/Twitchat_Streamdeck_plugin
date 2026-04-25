@@ -30,7 +30,19 @@ export class ExecuteTrigger extends AbstractAction<Settings> {
 		} else if (!trigger) {
 			this.setText(action, streamDeck.i18n.translate('missing-trigger'));
 			this.setErrorState(action);
+			this.setImageUrl(action, '');
+			this.setImageEmoji(action, '');
 		} else {
+			if (trigger.iconUrl) {
+				this.setImageUrl(action, trigger.iconUrl);
+			} else {
+				this.setImageUrl(action, '');
+			}
+			if (trigger.iconEmoji) {
+				this.setImageEmoji(action, trigger.iconEmoji);
+			} else {
+				this.setImageEmoji(action, '');
+			}
 			this.setEnabledState(action);
 		}
 	}

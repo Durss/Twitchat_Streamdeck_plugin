@@ -1,4 +1,4 @@
-import {
+import streamDeck, {
 	DialAction,
 	DidReceiveSettingsEvent,
 	KeyAction,
@@ -20,6 +20,10 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	private _actionStateCache: Map<string, 'default' | 'disabled' | 'deprecated' | 'error'> = new Map();
 	private _actionStateTitleCache: Map<string, string> = new Map();
 	private _actionStateImageCache: Map<string, string> = new Map();
+	private _actionStateImageURLCache: Map<string, string> = new Map();
+	private _actionStateImageEmojiCache: Map<string, string> = new Map();
+	private _actionStateToggleStateCache: Map<string, boolean> = new Map();
+	private _pendingApply: Map<string, DialAction<{}> | KeyAction<{}>> = new Map();
 
 	protected _actionToRefreshInterval: Map<string, ReturnType<typeof setInterval>> = new Map();
 	protected _forceOfflineState = false;
@@ -61,6 +65,7 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 			clearInterval(this._actionToRefreshInterval.get(ev.action.id));
 			this._actionToRefreshInterval.delete(ev.action.id);
 		}
+		this._pendingApply.delete(ev.action.id);
 		TwitchatSocket.instance.unsubscribeTwitchatConnection(ev.action.id);
 	}
 
@@ -116,12 +121,61 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		this.applyState(action);
 	}
 
+	protected setImageEmoji(action: DialAction<{}> | KeyAction<{}>, emoji: string): void {
+		if (emoji === '') {
+			this._actionStateImageEmojiCache.delete(action.id);
+		} else {
+			this._actionStateImageEmojiCache.set(action.id, emoji);
+		}
+		this.applyState(action);
+	}
+
+	protected setToggleState(action: DialAction<{}> | KeyAction<{}>, toggle: boolean | null): void {
+		if (toggle === null) {
+			this._actionStateToggleStateCache.delete(action.id);
+		} else {
+			this._actionStateToggleStateCache.set(action.id, toggle);
+		}
+		this.applyState(action);
+	}
+
+	protected async setImageUrl(action: DialAction<{}> | KeyAction<{}>, imageUrl: string): Promise<void> {
+		if (!imageUrl) {
+			this._actionStateImageURLCache.delete(action.id);
+			this.applyState(action);
+			return;
+		}
+		const res = await fetch(imageUrl);
+		if (!res.ok) {
+			throw new Error(`Failed to fetch image: ${res.status} ${res.statusText}`);
+		}
+
+		const contentType = res.headers.get('content-type') || 'image/png';
+		const arrayBuffer = await res.arrayBuffer();
+		const buffer = Buffer.from(arrayBuffer);
+
+		const base64 = buffer.toString('base64');
+		const dataUri = `data:${contentType};base64,${base64}`;
+		this._actionStateImageURLCache.set(action.id, dataUri);
+		this.applyState(action);
+	}
+
 	private async onConnectionStateChange(action: DialAction<{}> | KeyAction<{}>, isConnected: boolean): Promise<void> {
 		this._forceOfflineState = isConnected === false;
 		this.applyState(action);
 	}
 
 	private applyState(action: DialAction<{}> | KeyAction<{}>): void {
+		if (this._pendingApply.has(action.id)) return;
+		this._pendingApply.set(action.id, action);
+		queueMicrotask(() => {
+			const pending = this._pendingApply.get(action.id);
+			this._pendingApply.delete(action.id);
+			if (pending) this._applyStateNow(pending);
+		});
+	}
+
+	private _applyStateNow(action: DialAction<{}> | KeyAction<{}>): void {
 		let state = this._actionStateCache.get(action.id);
 		const actionId = action.manifestId.split('.').pop();
 		let svg = '';
@@ -130,6 +184,18 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 			svg = readFileSync(imagePath, 'utf-8');
 		} else {
 			svg = readFileSync('imgs/actions/' + actionId + '/icon.svg', 'utf-8');
+		}
+
+		if (this._actionStateImageURLCache.has(action.id)) {
+			const imageUrl = this._actionStateImageURLCache.get(action.id)!;
+			svg = `<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" version="1.1" viewBox="0 0 144 144">
+  <image href="${imageUrl}" x="20" y="20" width="104" height="104"/>
+</svg>`;
+		} else if (this._actionStateImageEmojiCache.has(action.id)) {
+			const emoji = this._actionStateImageEmojiCache.get(action.id)!;
+			svg = `<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" version="1.1" viewBox="0 0 144 144">
+  <text x="72" y="104" font-size="104" text-anchor="middle">${emoji}</text>
+</svg>`;
 		}
 
 		if (this._forceOfflineState) {
@@ -179,6 +245,10 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 			}
 		}
 
+		if (this._actionStateToggleStateCache.has(action.id)) {
+			svg = this.injectToggleState(svg, this._actionStateToggleStateCache.get(action.id)!);
+		}
+
 		svg = this.injectLogo(svg);
 		// eslint-disable-next-line no-undef
 		const img = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
@@ -195,8 +265,20 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		return svg.replace(
 			'</svg>',
 			`
-				<path style="fill: white; fill-opacity:.5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M123.48,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
-				<path style="fill: white; fill-opacity:.5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M138.33,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
+				<path style="fill: white; fill-opacity: .5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M123.48,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
+				<path style="fill: white; fill-opacity: .5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M138.33,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
+			</svg>`,
+		);
+	}
+
+	private injectToggleState(svg: string, toggle: boolean): string {
+		const circleColor = toggle ? '#000000' : '#999999';
+		const circlePosition = toggle ? 84.2 : 60.2;
+		return svg.replace(
+			'</svg>',
+			`
+				<path style="fill: #ffffff; fill-opacity: .85;" d="M84.82,104.56h-25.64c-8.34,0-15.1,6.76-15.1,15.1h0c0,8.34,6.76,15.1,15.1,15.1h25.64c8.34,0,15.1-6.76,15.1-15.1h0c0-8.34-6.76-15.1-15.1-15.1Z"/>
+				<circle style="fill: ${circleColor};" cx="${circlePosition}" cy="119.66" r="10.6"/>
 			</svg>`,
 		);
 	}

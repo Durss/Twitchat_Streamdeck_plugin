@@ -33,15 +33,27 @@ export class ToggleTrigger extends AbstractAction<Settings> {
 
 		this.setText(action, trigger?.name ?? '???');
 
-		if (trigger?.disabled) {
-			this.setImage(action, 'imgs/actions/toggle-trigger/off.svg');
-			this.setDisabledState(action);
-		} else if (!trigger) {
+		if (!trigger) {
 			this.setText(action, streamDeck.i18n.translate('missing-trigger'));
 			this.setErrorState(action);
+			this.setToggleState(action, null);
 		} else {
-			this.setImage(action, 'imgs/actions/toggle-trigger/icon.svg');
-			this.setEnabledState(action);
+			if (trigger.iconUrl) {
+				this.setImageUrl(action, trigger.iconUrl);
+			} else {
+				this.setImageUrl(action, '');
+			}
+			if (trigger.iconEmoji) {
+				this.setImageEmoji(action, trigger.iconEmoji);
+			} else {
+				this.setImageEmoji(action, '');
+			}
+			if (trigger.disabled) {
+				this.setDisabledState(action);
+			} else {
+				this.setEnabledState(action);
+			}
+			this.setToggleState(action, !trigger.disabled);
 		}
 	}
 }
