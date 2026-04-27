@@ -70,7 +70,7 @@ export class TimerAdd extends AbstractAction<Settings> {
 			this.setEnabledState(action);
 			// Timer found and enabled, schedule value refresh every second
 			const renderTimer = () => {
-				if (this.getActionState(action) === 'error') {
+				if (this.getActionState(action) === 'disabled' || this.getActionState(action) === 'error') {
 					return;
 				}
 				if (timer.type == 'timer' && timer.startAt_ms) {
