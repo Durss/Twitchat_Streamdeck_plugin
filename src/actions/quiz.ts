@@ -40,6 +40,11 @@ export class Quiz extends AbstractAction<Settings> {
 		if (!currentQuiz) {
 			this.setText(action, streamDeck.i18n.translate('no-active-quiz'));
 			this.setErrorState(action);
+			this.setImage(action, 'imgs/actions/quiz/icon.svg');
+		} else if (currentQuiz.totalQuestions == 0) {
+			this.setText(action, streamDeck.i18n.translate('no-quiz-question'));
+			this.setErrorState(action);
+			this.setImage(action, 'imgs/actions/quiz/icon.svg');
 		} else {
 			this.setEnabledState(action);
 			const startedAt = new Date(currentQuiz.timerStartedAt);
@@ -50,6 +55,7 @@ export class Quiz extends AbstractAction<Settings> {
 
 			const renderTimer = () => {
 				if (this.getActionState(action) === 'disabled' || this.getActionState(action) === 'error') {
+					this.setImage(action, 'imgs/actions/quiz/icon.svg');
 					return;
 				}
 

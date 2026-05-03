@@ -20,6 +20,7 @@
 		"missing-overlay": "missing overlay",
 		"missing-trigger": "missing trigger",
 		"no-active-quiz": "no active quiz",
+		"no-quiz-question": "no question",
 		"day-unit": "d"
 	}
 }

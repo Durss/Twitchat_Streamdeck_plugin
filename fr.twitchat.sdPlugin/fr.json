@@ -20,6 +20,7 @@
 		"missing-overlay": "overlay manquant",
 		"missing-trigger": "trigger manquant",
 		"no-active-quiz": "aucun quiz actif",
+		"no-quiz-question": "aucune question",
 		"day-unit": "j"
 	},
 	"fr.twitchat.action.automod-accept": {
