@@ -257,6 +257,7 @@ export default class TwitchatSocket {
 					this.broadcast('GET_TRIGGER_LIST');
 					this.broadcast('GET_TIMER_LIST');
 					this.broadcast('GET_QNA_SESSION_LIST');
+					this.broadcast('GET_GLOBAL_STATES');
 					break;
 				}
 				default:
