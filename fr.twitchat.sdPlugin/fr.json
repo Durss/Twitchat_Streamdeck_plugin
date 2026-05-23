@@ -185,6 +185,10 @@
 		"Name": "Activer/Désactiver un trigger",
 		"Tooltip": ""
 	},
+	"fr.twitchat.action.unpin-twitch-message": {
+		"Name": "Désépingler le message sur Twitch",
+		"Tooltip": ""
+	},
 	"fr.twitchat.action.viewers-count-toggle": {
 		"Name": "Afficher/Masquer le nombre de spectateurices",
 		"Tooltip": ""

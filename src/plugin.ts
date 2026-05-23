@@ -1,4 +1,5 @@
 import streamDeck, { SendToPluginEvent } from '@elgato/streamdeck';
+import { UnpinTwitchMessage } from './actions/unpin-twitch-message';
 import { AutomodAccept } from './actions/automod-accept';
 import { AutomodReject } from './actions/automod-reject';
 import { BingoToggle } from './actions/bingo-toggle';
@@ -88,6 +89,7 @@ streamDeck.actions.registerAction(new EnableStt());
 streamDeck.actions.registerAction(new DisableStt());
 streamDeck.actions.registerAction(new ChatFeedUnpause());
 streamDeck.actions.registerAction(new Quiz());
+streamDeck.actions.registerAction(new UnpinTwitchMessage());
 
 // Finally, connect to the Stream Deck.
 streamDeck.settings.useExperimentalMessageIdentifiers = true;

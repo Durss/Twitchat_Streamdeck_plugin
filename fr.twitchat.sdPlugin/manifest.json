@@ -728,6 +728,22 @@
 					"FontSize": 10
 				}
 			]
+		},
+		{
+			"Name": "Unpin Twitch message",
+			"UUID": "fr.twitchat.action.unpin-twitch-message",
+			"Icon": "imgs/actions/unpin-twitch-message/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/unpin-twitch-message.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/unpin-twitch-message/icon",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "Twitchat",
