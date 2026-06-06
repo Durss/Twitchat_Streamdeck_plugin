@@ -24,25 +24,23 @@ export class ExecuteTrigger extends AbstractAction<Settings> {
 		const trigger = data?.triggerList.find((t) => t.id === settings.triggerId);
 
 		this.setText(action, trigger?.name ?? '???');
+		if (trigger && trigger.iconUrl) {
+			this.setImageUrl(action, trigger.iconUrl);
+			this.setImageEmoji(action, '');
+		} else if (trigger && trigger.iconEmoji) {
+			this.setImageEmoji(action, trigger.iconEmoji);
+			this.setImageUrl(action, '');
+		} else {
+			this.setImageEmoji(action, '');
+			this.setImageUrl(action, '');
+		}
 
 		if (trigger && !trigger.enabled) {
 			this.setDisabledState(action);
 		} else if (!trigger) {
 			this.setText(action, streamDeck.i18n.translate('missing-trigger'));
 			this.setErrorState(action);
-			this.setImageUrl(action, '');
-			this.setImageEmoji(action, '');
 		} else {
-			if (trigger.iconUrl) {
-				this.setImageUrl(action, trigger.iconUrl);
-			} else {
-				this.setImageUrl(action, '');
-			}
-			if (trigger.iconEmoji) {
-				this.setImageEmoji(action, trigger.iconEmoji);
-			} else {
-				this.setImageEmoji(action, '');
-			}
 			this.setEnabledState(action);
 		}
 	}

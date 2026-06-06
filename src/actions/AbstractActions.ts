@@ -206,6 +206,7 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 					svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .35;`);
 					svg = svg.replace(/(stroke: ?#.*;)/gi, `$1 stroke-opacity: .35;`);
 					svg = svg.replace(/<image/gi, `<image style="opacity: .35;"`);
+					svg = svg.replace(/<text/gi, `<text style="opacity: .35;"`);
 					break;
 				}
 				case 'error': {
