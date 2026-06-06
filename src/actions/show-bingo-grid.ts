@@ -22,9 +22,7 @@ export class ShowBingoGrid extends AbstractAction<Settings> {
 		} else {
 			this._pressedAtMap.set(ev.action.id, Date.now());
 
-			TwitchatSocket.instance.broadcast('SET_BINGO_GRID_VISIBILITY_FROM_SD', {
-				id: ev.payload.settings.bingoGridId,
-			});
+			TwitchatSocket.instance.broadcast('SET_BINGO_GRID_VISIBILITY_FROM_SD', {});
 
 			// Force display every second until key up
 			if (this._forceShowIntervaltMap.has(ev.action.id)) clearInterval(this._forceShowIntervaltMap.get(ev.action.id));
@@ -32,7 +30,6 @@ export class ShowBingoGrid extends AbstractAction<Settings> {
 				ev.action.id,
 				setInterval(() => {
 					TwitchatSocket.instance.broadcast('SET_BINGO_GRID_VISIBILITY_FROM_SD', {
-						id: ev.payload.settings.bingoGridId,
 						show: true,
 					});
 				}, 2000),
@@ -46,7 +43,6 @@ export class ShowBingoGrid extends AbstractAction<Settings> {
 		if (pressedAt && Date.now() - pressedAt > 1000) {
 			// Long press: force hide
 			TwitchatSocket.instance.broadcast('SET_BINGO_GRID_VISIBILITY_FROM_SD', {
-				id: ev.payload.settings.bingoGridId,
 				show: false,
 			});
 		}
@@ -64,14 +60,14 @@ export class ShowBingoGrid extends AbstractAction<Settings> {
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
-		const bingoGrid = data?.bingoGridList.find((q) => q.id === settings.bingoGridId);
+		const bingoGrid = data?.bingoGridList.find((q) => q.enabled);
 		if (this._disabledMap.get(action.id)) {
 			this.setDisabledState(action);
 			return;
 		}
 		if (!bingoGrid) {
-			this.setText(action, streamDeck.i18n.translate('missing-bingo-grid'));
-			this.setErrorState(action);
+			this.setText(action, streamDeck.i18n.translate('no-active-bingo-grid'));
+			this.setDisabledState(action);
 		} else {
 			this.setText(action, bingoGrid.name);
 			this.setEnabledState(action);
@@ -82,6 +78,4 @@ export class ShowBingoGrid extends AbstractAction<Settings> {
 /**
  * Settings for {@link ShowBingoGrid}.
  */
-type Settings = {
-	bingoGridId: string;
-};
+type Settings = {};

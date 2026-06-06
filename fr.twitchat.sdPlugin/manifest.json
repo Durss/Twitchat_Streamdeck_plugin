@@ -601,7 +601,7 @@
 			]
 		},
 		{
-			"Name": "Show/Hide a bingo grid overlay",
+			"Name": "Show/Hide the bingo grid overlay",
 			"UUID": "fr.twitchat.action.show-bingo-grid",
 			"Icon": "imgs/actions/show-bingo-grid/icon",
 			"Tooltip": "",

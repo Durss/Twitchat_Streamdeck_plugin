@@ -136,9 +136,7 @@ SDPIComponents.i18n.locales = {
 		'show-bingo-grid': {
 			hint: 'ℹ️ Short press: show for 5 seconds\nℹ️ Long press: show, hide on release',
 			'loading-bingo-grids': 'Loading bingo grids...',
-			fields: {
-				bingoGridId: 'Bingo Grid',
-			},
+			'no-active-bingo-grid': 'no active grid',
 		},
 		'stop-tts': {},
 		'timer-add': {
@@ -301,9 +299,6 @@ SDPIComponents.i18n.locales = {
 		'show-bingo-grid': {
 			hint: 'ℹ️ Pression courte : afficher pendant 5 secondes\nℹ️ Pression longue : afficher, masquer au relâchement',
 			'loading-bingo-grids': 'Chargement des grilles de bingo...',
-			fields: {
-				bingoGridId: 'Grille de bingo',
-			},
 		},
 		'stop-tts': {},
 		'timer-add': {

@@ -38,11 +38,13 @@ export class Quiz extends AbstractAction<Settings> {
 		if (this._forceOfflineState) return;
 		const currentQuiz = data?.currentQuiz;
 		if (!currentQuiz) {
-			this.setText(action, streamDeck.i18n.translate('no-active-quiz'));
-			this.setErrorState(action);
+			// this.setText(action, streamDeck.i18n.translate('no-active-quiz'));
+			action.setTitle('');
+			this.setDisabledState(action);
 			this.setImage(action, 'imgs/actions/quiz/icon.svg');
 		} else if (currentQuiz.totalQuestions == 0) {
-			this.setText(action, streamDeck.i18n.translate('no-quiz-question'));
+			// this.setText(action, streamDeck.i18n.translate('no-quiz-question'));
+			action.setTitle('');
 			this.setErrorState(action);
 			this.setImage(action, 'imgs/actions/quiz/icon.svg');
 		} else {

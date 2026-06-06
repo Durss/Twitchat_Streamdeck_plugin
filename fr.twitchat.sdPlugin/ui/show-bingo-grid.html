@@ -1,26 +1,19 @@
 <!doctype html>
 <html>
-	<head lang="en">
-		<title>Bingo grid toggle</title>
-		<meta charset="utf-8" />
-		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-		<script type="module" src="./common.js"></script>
-		<script src="./locale.js"></script>
-		<link rel="stylesheet" href="./styles.css" />
-	</head>
 
-	<body>
-		<sdpi-item>
-			<sdpi-i18n key="show-bingo-grid.hint"></sdpi-i18n>
-		</sdpi-item>
-		<sdpi-item label="__MSG_show-bingo-grid.fields.bingoGridId__">
-			<sdpi-select
-				setting="bingoGridId"
-				datasource="getBingoGrids"
-				loading="__MSG_show-bingo-grid.loading-bingo-grids__"
-				hot-reload
-			>
-			</sdpi-select>
-		</sdpi-item>
-	</body>
+<head lang="en">
+	<title>Bingo grid toggle</title>
+	<meta charset="utf-8" />
+	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+	<script type="module" src="./common.js"></script>
+	<script src="./locale.js"></script>
+	<link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+	<sdpi-item>
+		<sdpi-i18n key="show-bingo-grid.hint"></sdpi-i18n>
+	</sdpi-item>
+</body>
+
 </html>

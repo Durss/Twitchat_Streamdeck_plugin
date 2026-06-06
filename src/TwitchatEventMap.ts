@@ -469,10 +469,6 @@ export type TwitchatEventMap = {
 	 */
 	SET_BINGO_GRID_CONFIGS_VISIBILITY: {
 		/**
-		 * Bingo grid ID to change visibility of
-		 **/
-		id: string;
-		/**
 		 * Show or hide the bingo grid
 		 * Omit to toggle current visibility
 		 */

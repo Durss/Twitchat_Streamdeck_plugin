@@ -7,6 +7,7 @@
 		"no-qna-session": "No Q&A sessions available.",
 		"no-animated-text": "No animated texts available.",
 		"no-bingo-grid": "No bingo grids available.",
+		"no-active-bingo-grid": "No active grid",
 		"error-loading-data": "Error loading data.",
 		"select-placeholder": "select...",
 		"chat-feed-select-select": "Select mess.",
