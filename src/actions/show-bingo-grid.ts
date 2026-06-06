@@ -38,21 +38,25 @@ export class ShowBingoGrid extends AbstractAction<Settings> {
 	}
 
 	override onKeyUp(ev: KeyUpEvent<Settings>): Promise<void> | void {
-		const pressedAt = this._pressedAtMap.get(ev.action.id);
-		if (this._forceShowIntervaltMap.has(ev.action.id)) clearInterval(this._forceShowIntervaltMap.get(ev.action.id));
-		if (pressedAt && Date.now() - pressedAt > 1000) {
-			// Long press: force hide
-			TwitchatSocket.instance.broadcast('SET_BINGO_GRID_VISIBILITY_FROM_SD', {
-				show: false,
-			});
-		}
+		if (this.getActionState(ev.action) === 'error' || this.getActionState(ev.action) === 'disabled') {
+			ev.action.showAlert();
+		} else {
+			const pressedAt = this._pressedAtMap.get(ev.action.id);
+			if (this._forceShowIntervaltMap.has(ev.action.id)) clearInterval(this._forceShowIntervaltMap.get(ev.action.id));
+			if (pressedAt && Date.now() - pressedAt > 1000) {
+				// Long press: force hide
+				TwitchatSocket.instance.broadcast('SET_BINGO_GRID_VISIBILITY_FROM_SD', {
+					show: false,
+				});
+			}
 
-		this._disabledMap.set(ev.action.id, true);
-		this.setDisabledState(ev.action);
-		setTimeout(() => {
-			this._disabledMap.delete(ev.action.id);
-			this.setEnabledState(ev.action);
-		}, 1500);
+			this._disabledMap.set(ev.action.id, true);
+			this.setDisabledState(ev.action);
+			setTimeout(() => {
+				this._disabledMap.delete(ev.action.id);
+				this.setEnabledState(ev.action);
+			}, 1500);
+		}
 	}
 
 	protected override onGlobalStatesUpdate(

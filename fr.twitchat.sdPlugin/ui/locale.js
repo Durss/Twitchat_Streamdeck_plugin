@@ -134,7 +134,7 @@ SDPIComponents.i18n.locales = {
 		'set-emergency-mode': {},
 		shoutout: {},
 		'show-bingo-grid': {
-			hint: 'ℹ️ Short press: show for 5 seconds\nℹ️ Long press: show, hide on release',
+			hint: 'ℹ️ Short press: show or hide\nℹ️ Long press: show, hide on release',
 			'loading-bingo-grids': 'Loading bingo grids...',
 			'no-active-bingo-grid': 'no active grid',
 		},
@@ -297,7 +297,7 @@ SDPIComponents.i18n.locales = {
 		'set-emergency-mode': {},
 		shoutout: {},
 		'show-bingo-grid': {
-			hint: 'ℹ️ Pression courte : afficher pendant 5 secondes\nℹ️ Pression longue : afficher, masquer au relâchement',
+			hint: 'ℹ️ Pression courte : afficher ou masquer\nℹ️ Pression longue : afficher, masquer au relâchement',
 			'loading-bingo-grids': 'Chargement des grilles de bingo...',
 		},
 		'stop-tts': {},
