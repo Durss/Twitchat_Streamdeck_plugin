@@ -37,8 +37,8 @@ export class TimerAdd extends AbstractAction<Settings> {
 		});
 	}
 
-	protected override onTimerListUpdate(
-		data: TwitchatEventMap['ON_TIMER_LIST'] | undefined,
+	protected override onGlobalStatesUpdate(
+		data: TwitchatEventMap['ON_GLOBAL_STATES'] | undefined,
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
@@ -57,9 +57,9 @@ export class TimerAdd extends AbstractAction<Settings> {
 		}
 
 		// Find the timer to display
-		let timer = data?.timerList.find((t) => t.id === settings.timerId);
+		let timer = data?.timers.find((t) => t.id === settings.timerId);
 		if (!timer && !settings.timerId) {
-			timer = data?.timerList.find((t) => t.isDefault && t.type === 'timer');
+			timer = data?.timers.find((t) => t.isDefault && t.type === 'timer');
 		}
 
 		if (!timer || !timer?.enabled) {

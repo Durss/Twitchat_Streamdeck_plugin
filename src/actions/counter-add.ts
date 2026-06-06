@@ -43,7 +43,7 @@ export class CounterAdd extends AbstractAction<Settings> {
 	): void {
 		if (this._forceOfflineState) return;
 
-		const counter = data?.counterValues.find((c) => c.id === _settings.counterId);
+		const counter = data?.counterList.find((c) => c.id === _settings.counterId);
 		if (!counter) {
 			this.setText(action, streamDeck.i18n.translate('missing-counter'));
 			this.setErrorState(action);

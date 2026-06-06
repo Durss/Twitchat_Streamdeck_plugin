@@ -33,21 +33,6 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		TwitchatSocket.instance.subscribeTwitchatConnection(ev.action.id, async (isConnected) => {
 			this.onConnectionStateChange(ev.action, isConnected);
 		});
-		TwitchatSocket.instance.on('ON_COUNTER_LIST', ev.action.id, async (data) =>
-			this.onCounterListUpdate(data, await ev.action.getSettings(), ev.action),
-		);
-		TwitchatSocket.instance.on('ON_CHAT_COLUMNS_COUNT', ev.action.id, async (data) =>
-			this.onChatColumnsListUpdate(data, await ev.action.getSettings(), ev.action),
-		);
-		TwitchatSocket.instance.on('ON_TRIGGER_LIST', ev.action.id, async (data) =>
-			this.onTriggerListUpdate(data, await ev.action.getSettings(), ev.action),
-		);
-		TwitchatSocket.instance.on('ON_TIMER_LIST', ev.action.id, async (data) =>
-			this.onTimerListUpdate(data, await ev.action.getSettings(), ev.action),
-		);
-		TwitchatSocket.instance.on('ON_QNA_SESSION_LIST', ev.action.id, async (data) =>
-			this.onQnaSessionListUpdate(data, await ev.action.getSettings(), ev.action),
-		);
 		TwitchatSocket.instance.on('ON_GLOBAL_STATES', ev.action.id, async (data) =>
 			this.onGlobalStatesUpdate(data, await ev.action.getSettings(), ev.action),
 		);
@@ -55,11 +40,6 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	}
 
 	override onWillDisappear(ev: WillDisappearEvent<Settings>): Promise<void> | void {
-		TwitchatSocket.instance.off('ON_COUNTER_LIST', ev.action.id);
-		TwitchatSocket.instance.off('ON_CHAT_COLUMNS_COUNT', ev.action.id);
-		TwitchatSocket.instance.off('ON_TRIGGER_LIST', ev.action.id);
-		TwitchatSocket.instance.off('ON_TIMER_LIST', ev.action.id);
-		TwitchatSocket.instance.off('ON_QNA_SESSION_LIST', ev.action.id);
 		TwitchatSocket.instance.off('ON_GLOBAL_STATES', ev.action.id);
 		if (this._actionToRefreshInterval.has(ev.action.id)) {
 			clearInterval(this._actionToRefreshInterval.get(ev.action.id));
@@ -73,11 +53,6 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 	 * Init action
 	 */
 	override onPropertyInspectorDidAppear(_ev: PropertyInspectorDidAppearEvent<Settings>): Promise<void> | void {
-		TwitchatSocket.instance.broadcast('GET_ALL_COUNTERS');
-		TwitchatSocket.instance.broadcast('GET_CHAT_COLUMNS_COUNT');
-		TwitchatSocket.instance.broadcast('GET_TRIGGER_LIST');
-		TwitchatSocket.instance.broadcast('GET_TIMER_LIST');
-		TwitchatSocket.instance.broadcast('GET_QNA_SESSION_LIST');
 		TwitchatSocket.instance.broadcast('GET_GLOBAL_STATES');
 	}
 
@@ -322,46 +297,6 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 		);
 	}
 
-	/**
-	 * @override
-	 */
-	protected onTriggerListUpdate(
-		_data: TwitchatEventMap['ON_TRIGGER_LIST'] | undefined,
-		_settings: Settings,
-		_action: DialAction<{}> | KeyAction<{}>,
-	): void {}
-	/**
-	 * @override
-	 */
-	protected onCounterListUpdate(
-		_data: TwitchatEventMap['ON_COUNTER_LIST'] | undefined,
-		_settings: Settings,
-		_action: DialAction<{}> | KeyAction<{}>,
-	): void {}
-	/**
-	 * @override
-	 */
-	protected onChatColumnsListUpdate(
-		_data: TwitchatEventMap['ON_CHAT_COLUMNS_COUNT'] | undefined,
-		_settings: Settings,
-		_action: DialAction<{}> | KeyAction<{}>,
-	): void {}
-	/**
-	 * @override
-	 */
-	protected onTimerListUpdate(
-		_data: TwitchatEventMap['ON_TIMER_LIST'] | undefined,
-		_settings: Settings,
-		_action: DialAction<{}> | KeyAction<{}>,
-	): void {}
-	/**
-	 * @override
-	 */
-	protected onQnaSessionListUpdate(
-		_data: TwitchatEventMap['ON_QNA_SESSION_LIST'] | undefined,
-		_settings: Settings,
-		_action: DialAction<{}> | KeyAction<{}>,
-	): void {}
 	/**
 	 * @override
 	 */

@@ -24,8 +24,8 @@ export class ToggleTrigger extends AbstractAction<Settings> {
 		});
 	}
 
-	protected override onTriggerListUpdate(
-		data: TwitchatEventMap['ON_TRIGGER_LIST'] | undefined,
+	protected override onGlobalStatesUpdate(
+		data: TwitchatEventMap['ON_GLOBAL_STATES'] | undefined,
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
@@ -48,12 +48,12 @@ export class ToggleTrigger extends AbstractAction<Settings> {
 			} else {
 				this.setImageEmoji(action, '');
 			}
-			if (trigger.disabled) {
-				this.setDisabledState(action);
-			} else {
+			if (trigger.enabled) {
 				this.setEnabledState(action);
+			} else {
+				this.setDisabledState(action);
 			}
-			this.setToggleState(action, !trigger.disabled);
+			this.setToggleState(action, trigger.enabled);
 		}
 	}
 }

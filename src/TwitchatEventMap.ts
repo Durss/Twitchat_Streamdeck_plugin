@@ -1923,9 +1923,9 @@ export type TwitchatEventMap = {
 	 */
 	ON_GLOBAL_STATES: {
 		/**
-		 * List of active timer and their state
+		 * List of timer and their state
 		 */
-		activeTimers: Pick<
+		timers: Pick<
 			TimerData,
 			| 'id'
 			| 'duration_ms'
@@ -1938,11 +1938,12 @@ export type TwitchatEventMap = {
 			| 'pausedAt_ms'
 			| 'startAt_ms'
 			| 'type'
+			| 'title'
 		>[];
 		/**
-		 * List of active countdowns and their state
+		 * List of countdowns and their state
 		 */
-		activeCountdowns: Pick<
+		countdowns: Pick<
 			TimerData,
 			| 'id'
 			| 'duration_ms'
@@ -1955,11 +1956,97 @@ export type TwitchatEventMap = {
 			| 'pausedAt_ms'
 			| 'startAt_ms'
 			| 'type'
+			| 'title'
 		>[];
 		/**
-		 * Current counter values
+		 * Counter list
 		 */
-		counterValues: { id: string; value: number }[];
+		counterList: {
+			/**
+			 * Counter ID
+			 */
+			id: string;
+			/**
+			 * Counter's value
+			 */
+			value: number;
+			/**
+			 * Counter's name
+			 */
+			name: string;
+			/**
+			 * Counter enabled?
+			 */
+			enabled: boolean;
+			/**
+			 * Is per user counter?
+			 */
+			perUser: boolean;
+		}[];
+		/**
+		 * Value list
+		 */
+		valueList: {
+			/**
+			 * Value ID
+			 */
+			id: string;
+			/**
+			 * Value's value
+			 */
+			value: string;
+			/**
+			 * Value's name
+			 */
+			name: string;
+			/**
+			 * Value enabled?
+			 */
+			enabled: boolean;
+			/**
+			 * Is per user value?
+			 */
+			perUser: boolean;
+		}[];
+		/**
+		 * Trigger list
+		 */
+		triggerList: {
+			/**
+			 * Trigger ID
+			 */
+			id: string;
+			/**
+			 * Trigger name
+			 */
+			name: string;
+			/**
+			 * Is the trigger currently enabled
+			 */
+			enabled: boolean;
+			/**
+			 * Custom emoji icon
+			 */
+			iconEmoji?: string;
+			/**
+			 * Custom icon file
+			 */
+			iconUrl?: string;
+		}[];
+		qnaSessionList: {
+			/**
+			 * Session ID
+			 */
+			id: string;
+			/**
+			 * Chat command to use to submit a question
+			 */
+			command: string;
+			/**
+			 * Is session open for new questions?
+			 */
+			open: boolean;
+		}[];
 		/**
 		 * Current emergency mode state
 		 */
@@ -2077,7 +2164,7 @@ export type TwitchatEventMap = {
 			 */
 			timerStartedAt: string;
 			/**
-			 * Current question duration in milliseconds
+			 * Current question duration
 			 */
 			questionDuration_ms: number;
 			/**
@@ -2123,7 +2210,7 @@ export type TwitchatEventMap = {
 			 */
 			login: string;
 			/**
-			 * Content of the message (without emotes)
+			 * Content of the message as pure text
 			 */
 			text: string;
 			/**

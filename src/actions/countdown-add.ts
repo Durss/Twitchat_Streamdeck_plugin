@@ -37,8 +37,8 @@ export class CountdownAdd extends AbstractAction<Settings> {
 		});
 	}
 
-	protected override onTimerListUpdate(
-		data: TwitchatEventMap['ON_TIMER_LIST'] | undefined,
+	protected override onGlobalStatesUpdate(
+		data: TwitchatEventMap['ON_GLOBAL_STATES'] | undefined,
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
@@ -57,9 +57,9 @@ export class CountdownAdd extends AbstractAction<Settings> {
 		}
 
 		// Find the timer to display
-		let timer = data?.timerList.find((t) => t.id === settings.timerId);
+		let timer = data?.countdowns.find((t) => t.id === settings.timerId);
 		if (!timer && !settings.timerId) {
-			timer = data?.timerList.find((t) => t.isDefault && t.type === 'countdown');
+			timer = data?.countdowns.find((t) => t.isDefault && t.type === 'countdown');
 		}
 
 		if (!timer || !timer?.enabled) {

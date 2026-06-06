@@ -252,11 +252,6 @@ export default class TwitchatSocket {
 					}
 					this.updateConnexionCount();
 					this.broadcast('ON_STREAMDECK_AUTHENTICATION_RESULT', { success: true }, ws, false);
-					this.broadcast('GET_ALL_COUNTERS');
-					this.broadcast('GET_CHAT_COLUMNS_COUNT');
-					this.broadcast('GET_TRIGGER_LIST');
-					this.broadcast('GET_TIMER_LIST');
-					this.broadcast('GET_QNA_SESSION_LIST');
 					this.broadcast('GET_GLOBAL_STATES');
 					break;
 				}
@@ -336,7 +331,7 @@ export default class TwitchatSocket {
 	}
 
 	private reduceCounterList() {
-		let items = this._lastEventDataCache['ON_COUNTER_LIST']?.counterList
+		let items = this._lastEventDataCache['ON_GLOBAL_STATES']?.counterList
 			.filter((c) => c.perUser === false)
 			.map((counter): SelectItem => ({ value: counter.id, label: counter.name }));
 		if (!items || items.length === 0) {
@@ -357,7 +352,7 @@ export default class TwitchatSocket {
 
 	private reduceColumnCount() {
 		const items: SelectItem<number>[] = [];
-		const count = this._lastEventDataCache['ON_CHAT_COLUMNS_COUNT']?.count ?? 1;
+		const count = this._lastEventDataCache['ON_GLOBAL_STATES']?.chatColConfs.length ?? 1;
 		for (let i = 0; i < count; i++) {
 			items.push({ value: i, label: (i + 1).toString() });
 		}
@@ -365,10 +360,10 @@ export default class TwitchatSocket {
 	}
 
 	private reduceTriggerList() {
-		let items = this._lastEventDataCache['ON_TRIGGER_LIST']?.triggerList.map(
+		let items = this._lastEventDataCache['ON_GLOBAL_STATES']?.triggerList.map(
 			(trigger): SelectItem => ({
 				value: trigger.id,
-				label: trigger.disabled ? `🔴 ${trigger.name}` : `🟢 ${trigger.name}`,
+				label: trigger.enabled ? `🟢 ${trigger.name}` : `🔴 ${trigger.name}`,
 				// disabled: trigger.disabled === true,
 			}),
 		);
@@ -383,33 +378,56 @@ export default class TwitchatSocket {
 	}
 
 	private reduceTimerList() {
-		let items = this._lastEventDataCache['ON_TIMER_LIST']?.timerList
-			.filter((timer) => timer.type === 'timer')
-			.map(
-				(timer): SelectItem => ({
-					value: timer.id,
-					label: !timer.enabled ? `🔴 ${timer.title}` : `🟢 ${timer.title}`,
-					// disabled: !timer.enabled,
-				}),
-			);
+		let items = this._lastEventDataCache['ON_GLOBAL_STATES']?.timers.map(
+			(timer): SelectItem => ({
+				value: timer.id,
+				label: !timer.enabled ? `🔴 ${timer.title}` : `🟢 ${timer.title}`,
+				// disabled: !timer.enabled,
+			}),
+		);
+		if (!items || items.length === 0) {
+			items = [
+				{
+					value: '',
+					label: streamDeck.i18n.translate('no-timer'),
+					disabled: true,
+				},
+			];
+		}
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
 		return items;
 	}
 
 	private reduceCountdownList() {
-		let items = this._lastEventDataCache['ON_TIMER_LIST']?.timerList
-			.filter((timer) => timer.type === 'countdown')
-			.map(
-				(timer): SelectItem => ({
-					value: timer.id,
-					label: !timer.enabled ? `🔴 ${timer.title}` : `🟢 ${timer.title}`,
-					// disabled: !timer.enabled,
-				}),
-			);
+		let items = this._lastEventDataCache['ON_GLOBAL_STATES']?.countdowns.map(
+			(countdown): SelectItem => ({
+				value: countdown.id,
+				label: !countdown.enabled ? `🔴 ${countdown.title}` : `🟢 ${countdown.title}`,
+				// disabled: !timer.enabled,
+			}),
+		);
+		if (!items || items.length === 0) {
+			items = [
+				{
+					value: '',
+					label: streamDeck.i18n.translate('no-countdown'),
+					disabled: true,
+				},
+			];
+		}
+
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
 		return items;
 	}
 
 	private reduceQnaList() {
-		let items = this._lastEventDataCache['ON_QNA_SESSION_LIST']?.sessionList?.map(
+		let items = this._lastEventDataCache['ON_GLOBAL_STATES']?.qnaSessionList?.map(
 			(qna): SelectItem => ({
 				value: qna.id,
 				label: !qna.open ? `🔴 ${qna.command}` : `🟢 ${qna.command}`,

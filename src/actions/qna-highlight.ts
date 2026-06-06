@@ -28,12 +28,12 @@ export class QnaHighlight extends AbstractAction<Settings> {
 		}
 	}
 
-	protected override onQnaSessionListUpdate(
-		data: TwitchatEventMap['ON_QNA_SESSION_LIST'] | undefined,
+	protected override onGlobalStatesUpdate(
+		data: TwitchatEventMap['ON_GLOBAL_STATES'] | undefined,
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
-		const qnaSession = data?.sessionList.find((q) => q.id === settings.qnaId);
+		const qnaSession = data?.qnaSessionList.find((q) => q.id === settings.qnaId);
 		if (!qnaSession) {
 			this.setText(action, streamDeck.i18n.translate('missing-qna-session'));
 			this.setErrorState(action);

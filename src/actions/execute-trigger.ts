@@ -16,8 +16,8 @@ export class ExecuteTrigger extends AbstractAction<Settings> {
 		}
 	}
 
-	protected override onTriggerListUpdate(
-		data: TwitchatEventMap['ON_TRIGGER_LIST'] | undefined,
+	protected override onGlobalStatesUpdate(
+		data: TwitchatEventMap['ON_GLOBAL_STATES'] | undefined,
 		settings: Settings,
 		action: DialAction<{}> | KeyAction<{}>,
 	): void {
@@ -25,7 +25,7 @@ export class ExecuteTrigger extends AbstractAction<Settings> {
 
 		this.setText(action, trigger?.name ?? '???');
 
-		if (trigger?.disabled) {
+		if (trigger && !trigger.enabled) {
 			this.setDisabledState(action);
 		} else if (!trigger) {
 			this.setText(action, streamDeck.i18n.translate('missing-trigger'));
