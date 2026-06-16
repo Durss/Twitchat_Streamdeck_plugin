@@ -1,4 +1,4 @@
-import { html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
+import { html } from './lit-core.min.js';
 
 document.body.classList.add('hide');
 const loader = document.createElement('sdpi-item');
