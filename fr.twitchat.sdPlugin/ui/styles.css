@@ -30,3 +30,35 @@ body .loader svg {
 	width: 2em;
 	padding-left: 100px;
 }
+
+/* Shared status overlay (offline / multiple-instances), injected by common.js.
+   Hidden by default; shown — and the action's own content hidden — when the
+   body carries the "show-status" class. */
+#status-overlay {
+	display: none;
+}
+body.show-status #status-overlay {
+	display: block;
+}
+body.show-status > :not(#status-overlay):not(.loader) {
+	display: none;
+}
+
+/* Secret-key controls (moved here from main.html). */
+.ctas {
+	display: flex;
+	gap: 10px;
+	justify-content: space-between;
+}
+.ctas > * {
+	flex-grow: 1;
+}
+#secretField {
+	filter: blur(3px);
+	color: transparent !important;
+	transition: filter 0.3s ease;
+}
+#secretField:hover {
+	color: unset;
+	filter: blur(0);
+}

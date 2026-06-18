@@ -1,6 +1,6 @@
 {
 	"Name": "Twitchat",
-	"Version": "3.0.0.1",
+	"Version": "3.0.0.2",
 	"Author": "Durss",
 	"Actions": [
 		{
@@ -350,7 +350,7 @@
 			"UUID": "fr.twitchat.action.counter-add",
 			"Icon": "imgs/actions/counter-add/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/main.html",
+			"PropertyInspectorPath": "ui/counter-add.html",
 			"Controllers": [
 				"Keypad"
 			],
