@@ -315,6 +315,10 @@ export default class TwitchatSocket {
 			event: 'getBingoGrids',
 			items: this.reduceBingoList(),
 		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getClickableAreas',
+			items: this.reduceClickableAreas(),
+		});
 	}
 
 	private async updateConnexionCount(): Promise<void> {
@@ -497,10 +501,55 @@ export default class TwitchatSocket {
 		});
 		return items;
 	}
+
+	private reduceClickableAreas() {
+		// Group areas by the screen they belong to.
+		const items: (SelectItem | SelectGroup)[] = (this._lastEventDataCache['ON_GLOBAL_STATES']?.clickableAreas ?? [])
+			.map((screen, screenIndex): SelectGroup => {
+				const areas = screen.areas.map(
+					(area, areaIndex): SelectItem => ({
+						value: area.id,
+						label:
+							area.enabled === false
+								? `🔴 ${area.title || `${streamDeck.i18n.translate('unnamed-area')} #${areaIndex + 1}`}`
+								: `🟢 ${area.title || `${streamDeck.i18n.translate('unnamed-area')} #${areaIndex + 1}`}`,
+					}),
+				);
+				areas.forEach((a) => {
+					const MAX_LENGTH = 40;
+					if (a.label.length > MAX_LENGTH) {
+						a.label = a.label.substring(0, MAX_LENGTH) + '…';
+					}
+				});
+				return {
+					label: screen.title || `${streamDeck.i18n.translate('screen')} #${screenIndex + 1}`,
+					children: areas,
+				};
+			})
+			.filter((group) => group.children.length > 0);
+
+		if (items.length === 0) {
+			items.push({
+				value: '',
+				label: streamDeck.i18n.translate('no-clickable-area'),
+				disabled: true,
+			});
+		}
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
+		return items;
+	}
 }
 
 type SelectItem<V = string> = {
 	value: V;
 	label: string;
 	disabled?: boolean;
+};
+
+type SelectGroup<V = string> = {
+	label: string;
+	children: SelectItem<V>[];
 };

@@ -91,10 +91,8 @@ SDPIComponents.i18n.locales = {
 			'copy-success': '✔️Key copied !',
 			'reset-key': '🔃Reset secret key',
 			'key-instructions': 'ℹ️Set this key in Twitchat under settings 🠞 connections 🠞 Stream Deck',
-			offline:
-				'⚠️ {TWITCHAT} not detected.\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
-			'multiple-instances':
-				'⚠️ More than 1 Twitchat instance detected. This may cause issues.\n\nPlease close all other instances except one.',
+			offline: '⚠️ {TWITCHAT} not detected.\nIf you have issues connecting Twitchat with Stream Deck, come seek help on {DISCORD}.',
+			'multiple-instances': '⚠️ More than 1 Twitchat instance detected. This may cause issues.\n\nPlease close all other instances except one.',
 		},
 		'merge-toggle': {},
 		'mod-tools-toggle': {},
@@ -146,6 +144,18 @@ SDPIComponents.i18n.locales = {
 				duration: 'Duration',
 			},
 		},
+		'toggle-area': {
+			'loading-areas': 'Loading clickable areas...',
+			fields: {
+				areaId: 'Clickable area',
+				state: 'Action',
+			},
+			state: {
+				ENABLE: 'Enable',
+				DISABLE: 'Disable',
+				TOGGLE: 'Toggle',
+			},
+		},
 		'toggle-trigger': {
 			'loading-triggers': 'Loading trigger list...',
 			fields: {
@@ -160,7 +170,7 @@ SDPIComponents.i18n.locales = {
 		},
 		'unpin-twitch-message': {},
 		'viewers-count-toggle': {},
-		'voice-control': {},
+		'voice-control': {}
 	},
 	fr: {
 		'automod-accept': {},
@@ -194,8 +204,7 @@ SDPIComponents.i18n.locales = {
 		},
 		'chat-feed-select': {},
 		'chat-feed-unpause': {
-			deprecated:
-				'⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Arrêter/Reprendre le défilement auto du tchat" à la place.',
+			deprecated: '⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Arrêter/Reprendre le défilement auto du tchat" à la place.',
 		},
 		'clear-chat-highlight': {},
 		'countdown-add': {
@@ -219,12 +228,10 @@ SDPIComponents.i18n.locales = {
 			},
 		},
 		'disable-stt': {
-			deprecated:
-				'⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Activer/Désactiver le contrôle vocal" à la place.',
+			deprecated: '⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Activer/Désactiver le contrôle vocal" à la place.',
 		},
 		'enable-stt': {
-			deprecated:
-				'⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Activer/Désactiver le contrôle vocal" à la place.',
+			deprecated: '⚠️ Cette action est obsolète. Veuillez utiliser la nouvelle action "Activer/Désactiver le contrôle vocal" à la place.',
 		},
 		'execute-trigger': {
 			'loading-triggers': 'Chargement des triggers...',
@@ -246,7 +253,7 @@ SDPIComponents.i18n.locales = {
 		},
 		'greet-feed-read-all': {},
 		'hide-alert': {
-			info: "Pour plus d'info, rendez-vous dans Twitchat dans paramètres 🠞 fonctionnalités de tchat 🠞 Activer la fenêtre d'alerte.",
+			info: 'Pour plus d\'info, rendez-vous dans Twitchat dans paramètres 🠞 fonctionnalités de tchat 🠞 Activer la fenêtre d\'alerte.',
 		},
 		main: {
 			'secret-key': '🔑 Clé secrète',
@@ -254,10 +261,8 @@ SDPIComponents.i18n.locales = {
 			'copy-success': '✔️Clé copiée !',
 			'reset-key': '🔃Réinitialiser la clé',
 			'key-instructions': 'ℹ️Renseignez cette clé dans Twitchat dans paramètres 🠞 connexions 🠞 Stream Deck dans Twitchat',
-			offline:
-				"⚠️ {TWITCHAT} non détecté.\nSi vous rencontrez des problèmes rendez-vous sur {DISCORD} pour demander de l'aide.",
-			'multiple-instances':
-				"⚠️ Twitchat est lancé plus d'une fois.\nCeci peut causer des problèmes.\n\nVeuillez fermer toutes les instances sauf une.",
+			offline: '⚠️ {TWITCHAT} non détecté.\nSi vous rencontrez des problèmes rendez-vous sur {DISCORD} pour demander de l\'aide.',
+			'multiple-instances': '⚠️ Twitchat est lancé plus d\'une fois.\nCeci peut causer des problèmes.\n\nVeuillez fermer toutes les instances sauf une.',
 		},
 		'merge-toggle': {},
 		'mod-tools-toggle': {},
@@ -281,7 +286,7 @@ SDPIComponents.i18n.locales = {
 		'raffle-pick-winner': {},
 		'raffle-toggle': {},
 		'send-message': {
-			info: "ℹ️ Vous pouvez utiliser n'importe quelle commande Twitch (ex: {TWITCH}), n'importe quelle commande Twitchat (ex: {TWITCHAT}) ou n'importe laquelle de vos /commande personnalisées créées dans les triggers.",
+			info: 'ℹ️ Vous pouvez utiliser n\'importe quelle commande Twitch (ex: {TWITCH}), n\'importe quelle commande Twitchat (ex: {TWITCHAT}) ou n\'importe laquelle de vos /commande personnalisées créées dans les triggers.',
 			fields: {
 				message: 'Message',
 			},
@@ -291,7 +296,7 @@ SDPIComponents.i18n.locales = {
 			fields: {
 				animatedTextId: 'Overlay',
 				message: 'Message',
-				autoHide: "Masquer automatiquement le texte après l'animation",
+				autoHide: 'Masquer automatiquement le texte après l\'animation',
 			},
 		},
 		'set-emergency-mode': {},
@@ -308,6 +313,18 @@ SDPIComponents.i18n.locales = {
 				duration: 'Durée',
 			},
 		},
+		'toggle-area': {
+			'loading-areas': 'Chargement des zones cliquables...',
+			fields: {
+				areaId: 'Zone cliquable',
+				state: 'Action',
+			},
+			state: {
+				ENABLE: 'Activer',
+				DISABLE: 'Désactiver',
+				TOGGLE: 'Basculer',
+			},
+		},
 		'toggle-trigger': {
 			'loading-triggers': 'Chargement des triggers...',
 			fields: {
@@ -322,6 +339,6 @@ SDPIComponents.i18n.locales = {
 		},
 		'unpin-twitch-message': {},
 		'viewers-count-toggle': {},
-		'voice-control': {},
+		'voice-control': {}
 	},
 };

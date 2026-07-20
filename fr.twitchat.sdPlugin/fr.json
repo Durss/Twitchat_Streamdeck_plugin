@@ -9,6 +9,9 @@
 		"no-animated-text": "Aucun texte animé disponible.",
 		"no-bingo-grid": "Aucune grille de bingo disponible.",
 		"no-active-bingo-grid": "Aucune grille active",
+		"no-clickable-area": "Aucune zone cliquable disponible.",
+		"unnamed-area": "Zone sans nom",
+		"screen": "Écran",
 		"error-loading-data": "Erreur lors du chargement des données.",
 		"select-placeholder": "sélectionner...",
 		"chat-feed-select-select": "Select° mess.",
@@ -181,6 +184,10 @@
 	},
 	"fr.twitchat.action.timer-add": {
 		"Name": "Ajouter ou retirer du temps à un minuteur",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.toggle-area": {
+		"Name": "Permutter une zone clickable",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.toggle-trigger": {

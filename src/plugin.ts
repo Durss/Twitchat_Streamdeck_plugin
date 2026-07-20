@@ -1,4 +1,5 @@
 import streamDeck, { SendToPluginEvent } from '@elgato/streamdeck';
+import { ToggleArea } from './actions/toggle-area';
 import { UnpinTwitchMessage } from './actions/unpin-twitch-message';
 import { AutomodAccept } from './actions/automod-accept';
 import { AutomodReject } from './actions/automod-reject';
@@ -90,6 +91,7 @@ streamDeck.actions.registerAction(new DisableStt());
 streamDeck.actions.registerAction(new ChatFeedUnpause());
 streamDeck.actions.registerAction(new Quiz());
 streamDeck.actions.registerAction(new UnpinTwitchMessage());
+streamDeck.actions.registerAction(new ToggleArea());
 
 // Finally, connect to the Stream Deck.
 streamDeck.settings.useExperimentalMessageIdentifiers = true;

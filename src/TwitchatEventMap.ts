@@ -1913,6 +1913,20 @@ export type TwitchatEventMap = {
 	SET_UNPIN_TWITCH_MESSAGE: void;
 
 	/**
+	 * Request to unpin currently pinned message on Twitch
+	 */
+	SET_CLICKABLE_AREA_STATE: {
+		/**
+		 * Area ID
+		 */
+		id: string;
+		/**
+		 * New area state
+		 */
+		state: true | false | 'toggle';
+	};
+
+	/**
 	 * Requests for global states
 	 * @answer ON_GLOBAL_STATES
 	 */
@@ -2218,6 +2232,23 @@ export type TwitchatEventMap = {
 			 */
 			id: string;
 		} | null;
+		/**
+		 * Get available clickable areas
+		 */
+		clickableAreas: {
+			/**
+			 * Screen ID
+			 */
+			id: string;
+			/**
+			 * Screen Title
+			 */
+			title: string;
+			/**
+			 * Screen Areas
+			 */
+			areas: Pick<HeatArea, 'id' | 'enabled' | 'points' | 'title'>[];
+		}[];
 	};
 
 	/**
@@ -4078,4 +4109,39 @@ type MessageSubscriptionData = {
 	 * Sub tier
 	 */
 	tier: 1 | 2 | 3 | 'prime';
+};
+
+type HeatArea = {
+	id: string;
+	/**
+	 * Is area enabled?
+	 */
+	enabled?: boolean;
+	/**
+	 * Area title, shown on twitchat companion
+	 */
+	title?: string;
+	/**
+	 * Show this area on the extension?
+	 * (only for twitchat companion)
+	 */
+	showAreaOnExtension?: boolean;
+	/**
+	 * Cooldown in seconds
+	 * Areas will be disabled
+	 */
+	cooldown_s?: number;
+	/**
+	 * Areas points
+	 */
+	points: {
+		/**
+		 * X position in percent
+		 */
+		x: number;
+		/**
+		 * Y position in percent
+		 */
+		y: number;
+	}[];
 };

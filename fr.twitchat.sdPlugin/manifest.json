@@ -1,6 +1,6 @@
 {
 	"Name": "Twitchat",
-	"Version": "3.0.0.2",
+	"Version": "3.0.0.3",
 	"Author": "Durss",
 	"Actions": [
 		{
@@ -741,6 +741,22 @@
 			"States": [
 				{
 					"Image": "imgs/actions/unpin-twitch-message/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle Clickable Area",
+			"UUID": "fr.twitchat.action.toggle-area",
+			"Icon": "imgs/actions/toggle-area/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/toggle-area.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/toggle-area/icon",
 					"TitleAlignment": "middle"
 				}
 			]
