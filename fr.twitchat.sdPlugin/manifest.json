@@ -601,6 +601,22 @@
 			]
 		},
 		{
+			"Name": "Enable/Disable a bingo grid",
+			"UUID": "fr.twitchat.action.toggle-bingo-grid",
+			"Icon": "imgs/actions/toggle-bingo-grid/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/toggle-bingo-grid.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/toggle-bingo-grid/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
 			"Name": "Show/Hide the bingo grid overlay",
 			"UUID": "fr.twitchat.action.show-bingo-grid",
 			"Icon": "imgs/actions/show-bingo-grid/icon",

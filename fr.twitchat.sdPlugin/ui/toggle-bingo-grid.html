@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+
+<head lang="en">
+	<title>Toggle bingo grid</title>
+	<meta charset="utf-8" />
+	<script src="./sdpi-components.js"></script>
+	<script type="module" src="./common.js"></script>
+	<script src="./locale.js"></script>
+	<link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+	<sdpi-item label="__MSG_toggle-bingo-grid.fields.gridId__">
+		<sdpi-select setting="gridId" datasource="getBingoGrids" loading="__MSG_toggle-bingo-grid.loading-grids__"
+			hot-reload> </sdpi-select>
+	</sdpi-item>
+	<sdpi-item label="__MSG_toggle-bingo-grid.fields.gridAction__">
+		<sdpi-select setting="gridAction">
+			<option value="ENABLE">__MSG_toggle-bingo-grid.action.ENABLE__</option>
+			<option value="DISABLE">__MSG_toggle-bingo-grid.action.DISABLE__</option>
+			<option value="TOGGLE">__MSG_toggle-bingo-grid.action.TOGGLE__</option>
+		</sdpi-select>
+	</sdpi-item>
+</body>
+
+</html>

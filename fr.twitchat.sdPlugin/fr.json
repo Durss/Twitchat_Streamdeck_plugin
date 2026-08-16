@@ -24,6 +24,7 @@
 		"missing-qna-session": "session Q&R manquante",
 		"missing-overlay": "overlay manquant",
 		"missing-trigger": "trigger manquant",
+		"missing-grid": "grille manquante",
 		"no-active-quiz": "aucun quiz actif",
 		"no-quiz-question": "aucune question",
 		"day-unit": "j"
@@ -34,6 +35,10 @@
 	},
 	"fr.twitchat.action.automod-reject": {
 		"Name": "Rejeter le dernier message retenu par l'automod",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.toggle-bingo-grid": {
+		"Name": "Activer/Désactiver une grille de bingo",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.bingo-toggle": {

@@ -2,6 +2,18 @@ SDPIComponents.i18n.locales = {
 	en: {
 		'automod-accept': {},
 		'automod-reject': {},
+		'toggle-bingo-grid': {
+			'loading-grids': 'Loading grid list...',
+			fields: {
+				gridId: 'Grid',
+				gridAction: 'Action',
+			},
+			action: {
+				ENABLE: 'Enable',
+				DISABLE: 'Disable',
+				TOGGLE: 'Toggle',
+			},
+		},
 		'bingo-toggle': {},
 		'censor-deleted-messages-toggle': {},
 		'chat-feed-pause': {},
@@ -175,6 +187,18 @@ SDPIComponents.i18n.locales = {
 	fr: {
 		'automod-accept': {},
 		'automod-reject': {},
+		'toggle-bingo-grid': {
+			'loading-grids': 'Chargement des grilles...',
+			fields: {
+				gridId: 'Grille',
+				gridAction: 'Action',
+			},
+			action: {
+				ENABLE: 'Activer',
+				DISABLE: 'Désactiver',
+				TOGGLE: 'Basculer',
+			},
+		},
 		'bingo-toggle': {},
 		'censor-deleted-messages-toggle': {},
 		'chat-feed-pause': {},
