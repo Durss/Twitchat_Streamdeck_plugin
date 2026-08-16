@@ -1,6 +1,7 @@
 import streamDeck, {
 	action,
 	DialAction,
+	DialDownEvent,
 	DialRotateEvent,
 	DidReceiveSettingsEvent,
 	KeyAction,
@@ -49,6 +50,11 @@ export class ChatFeedScroll extends AbstractAction<Settings> {
 	}
 
 	override onTouchTap(ev: TouchTapEvent<Settings>): Promise<void> | void {
+		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_SCROLL_BOTTOM', {
+			colIndex: ev.payload.settings.colIndex || 0,
+		});
+	}
+	override onDialDown?(ev: DialDownEvent<Settings>): Promise<void> | void {
 		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_SCROLL_BOTTOM', {
 			colIndex: ev.payload.settings.colIndex || 0,
 		});
