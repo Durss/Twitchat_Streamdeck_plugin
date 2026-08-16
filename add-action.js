@@ -300,7 +300,7 @@ function createHtmlFile(id, name) {
 	const content = `<!doctype html>
 <html>
 	<head lang="en">
-		<title>Chat feed select Settings</title>
+		<title>${name}</title>
 		<meta charset="utf-8" />
 		<script src="./sdpi-components.js"></script>
 		<script type="module" src="./common.js"></script>
