@@ -313,6 +313,11 @@ export type TwitchatEventMap = {
 	 * Send a message to the chat highlight overlay
 	 */
 	SET_CHAT_HIGHLIGHT_OVERLAY_MESSAGE: ChatHighlightInfo | undefined;
+	/**
+	 * Sent by chat highlight overlay when a clip completes playing to
+	 * request main app to close the highlight
+	 */
+	ON_CHAT_HIGHLIGHT_OVERLAY_CLOSE: undefined;
 
 	/**
 	 * Triggered when a message is marked or unmarked as read
@@ -422,20 +427,11 @@ export type TwitchatEventMap = {
 	 * Request bingo grid configuration
 	 * @answer ON_BINGO_GRID_CONFIGS
 	 */
-	GET_BINGO_GRID_CONFIGS: {
-		/**
-		 * Bingo grid ID to get parameters for
-		 */
-		id: string;
-	};
+	GET_BINGO_GRID_CONFIGS: void;
 	/**
 	 * Receive a bingo grid configuration
 	 */
 	ON_BINGO_GRID_CONFIGS: {
-		/**
-		 * Bingo grid ID
-		 */
-		id: string;
 		/**
 		 * Bingo configs
 		 */
@@ -458,16 +454,11 @@ export type TwitchatEventMap = {
 	/**
 	 * Advertise bingo grid overlay presence
 	 */
-	SET_BINGO_GRID_OVERLAY_PRESENCE: {
-		/**
-		 * Bingo grid ID to advertise presence of
-		 */
-		id: string;
-	};
+	SET_BINGO_GRID_OVERLAY_PRESENCE: void;
 	/**
 	 * Set bingo grid visibility
 	 */
-	SET_BINGO_GRID_CONFIGS_VISIBILITY: {
+	SET_BINGO_GRID_VISIBILITY: {
 		/**
 		 * Show or hide the bingo grid
 		 * Omit to toggle current visibility
@@ -475,30 +466,26 @@ export type TwitchatEventMap = {
 		show?: boolean;
 	};
 	/**
-	 * Triggered when a heat click occurs on a bingo grid cell
+	 * Enable or disable a specific bingo grid
 	 */
-	ON_BINGO_GRID_HEAT_CLICK: {
+	SET_BINGO_GRID_STATE: {
 		/**
-		 * Bingo grid ID to get parameters for
+		 * Grid ID to change state of
 		 */
 		id: string;
 		/**
-		 * Cell entry ID that was clicked
+		 * Force grid state:
+		 * - true: enable it
+		 * - false: disable it
+		 *
+		 * Omit this field to toggle current state
 		 */
-		entryId: string;
-		/**
-		 * Heat click data
-		 */
-		click: HeatClickData;
+		forcedState?: boolean;
 	};
 	/**
 	 * Triggered when a viewer completes a bingo
 	 */
 	ON_BINGO_GRID_VIEWER_EVENT: {
-		/**
-		 * Bingo grid ID
-		 */
-		id: string;
 		/**
 		 * User info
 		 */
@@ -517,16 +504,13 @@ export type TwitchatEventMap = {
 	 */
 	ON_BINGO_GRID_LEADER_BOARD: {
 		/**
-		 * Bingo grid ID
-		 */
-		id: string;
-		/**
 		 * Scoreboard entries
 		 * Set to undefined to hide the leaderboard
 		 */
 		scores?: {
 			user_name: string;
 			user_pic: string | undefined;
+			isAnon: boolean;
 			score: number;
 			pos: number;
 		}[];
@@ -906,7 +890,7 @@ export type TwitchatEventMap = {
 	/**
 	 * Triggered when wheel overlay animation starts
 	 */
-	ON_WHEEL_OVERLAY_START: WheelData;
+	SET_WHEEL_OVERLAY_START: WheelData;
 	/**
 	 * Triggered when wheel overlay animation completes
 	 */
@@ -989,6 +973,85 @@ export type TwitchatEventMap = {
 	 * Triggered when chat poll progress updates
 	 */
 	ON_CHAT_POLL_PROGRESS: { poll: ChatPollData } | undefined;
+	/**
+	 * Start a chat poll
+	 */
+	SET_CHAT_POLL_START: {
+		/**
+		 * Poll title
+		 */
+		title: string;
+		/**
+		 * List of poll choices
+		 */
+		choices: string[];
+		/**
+		 * Duration of the poll in seconds
+		 */
+		duration: number;
+		/**
+		 * Maximum answers a user can vote for
+		 */
+		maxVotePerUser: number;
+	};
+	/**
+	 * Triggerd when a chat poll ends
+	 */
+	SET_CHAT_POLL_STOP: undefined;
+	/**
+	 * Triggerd when a chat poll ends
+	 */
+	ON_CHAT_POLL_RESULT: {
+		/**
+		 * Poll title
+		 */
+		title: string;
+		/**
+		 * List of poll choices with their number of votes
+		 */
+		choices: {
+			/**
+			 * Choice title
+			 */
+			title: string;
+			/**
+			 * Number of votes for this choice
+			 */
+			votes: number;
+		}[];
+	};
+	/**
+	 * Request for current chat poll info
+	 * @answer ON_CHAT_POLL_INFO
+	 */
+	GET_CHAT_POLL_INFO: undefined;
+	/**
+	 * Receive current chat poll info.
+	 * Call GET_CHAT_POLL_INFO to get this data
+	 */
+	ON_CHAT_POLL_INFO: {
+		/**
+		 * Poll title
+		 */
+		title: string;
+		/**
+		 * List of poll choices with their number of votes
+		 */
+		choices: {
+			/**
+			 * Choice title
+			 */
+			title: string;
+			/**
+			 * Number of votes for this choice
+			 */
+			votes: number;
+		}[];
+		/**
+		 * Duration of the poll in seconds
+		 */
+		duration: number;
+	};
 
 	/**
 	 * A chat message has been deleted
@@ -1361,6 +1424,13 @@ export type TwitchatEventMap = {
 		 * False if label mode is "placeholder" but related placeholder doesn't exist
 		 */
 		isValid?: boolean;
+		/**
+		 * i18n configs needed to render ordinals (1st, 2nd, 3rd,..)
+		 */
+		i18n: {
+			locale: string;
+			ordinals: OrdinalLabels;
+		};
 	};
 
 	/**
@@ -1497,7 +1567,7 @@ export type TwitchatEventMap = {
 		 */
 		params: string;
 		/**
-		 * Volume from 0 to 1
+		 * Volume from 0 to 100
 		 */
 		volume: number;
 	};
@@ -1868,6 +1938,11 @@ export type TwitchatEventMap = {
 			theme?: 'default' | 'primary' | 'secondary' | 'alert';
 		}[];
 	};
+	/**
+	 * Just here for retro compatibility
+	 * @private
+	 */
+	CUSTOM_CHAT_MESSAGE: TwitchatEventMap['SET_SEND_CUSTOM_CHAT_MESSAGE'];
 
 	/**
 	 * Request quiz overlay presence
@@ -1893,7 +1968,7 @@ export type TwitchatEventMap = {
 	/**
 	 * Receive quiz overlay leaderboard
 	 */
-	ON_QUIZ_LEADERBOARD: { leaderboard: QuizState['users'] };
+	ON_QUIZ_LEADERBOARD: QuizLeaderboard;
 	/**
 	 * Reveals the answer for current quiz question
 	 */
@@ -1913,7 +1988,7 @@ export type TwitchatEventMap = {
 	SET_UNPIN_TWITCH_MESSAGE: void;
 
 	/**
-	 * Request to unpin currently pinned message on Twitch
+	 * Change the enabled state of a clickable area
 	 */
 	SET_CLICKABLE_AREA_STATE: {
 		/**
@@ -1931,13 +2006,12 @@ export type TwitchatEventMap = {
 	 * @answer ON_GLOBAL_STATES
 	 */
 	GET_GLOBAL_STATES: undefined;
-
 	/**
 	 * Response to GET_GLOBAL_STATES
 	 */
 	ON_GLOBAL_STATES: {
 		/**
-		 * List of timer and their state
+		 * List of timers and their state
 		 */
 		timers: Pick<
 			TimerData,
@@ -1989,7 +2063,7 @@ export type TwitchatEventMap = {
 			 */
 			name: string;
 			/**
-			 * Counter enabled?
+			 * Counter enabled ?
 			 */
 			enabled: boolean;
 			/**
@@ -2186,6 +2260,11 @@ export type TwitchatEventMap = {
 			 */
 			answerRevealed: boolean;
 			/**
+			 * If true, the question countdown was forced to stop early
+			 * (e.g. max answers reached). timerStartedAt is left untouched.
+			 */
+			forceCountdownStop: boolean;
+			/**
 			 * Question index
 			 */
 			questionIndex: number;
@@ -2233,7 +2312,7 @@ export type TwitchatEventMap = {
 			id: string;
 		} | null;
 		/**
-		 * Get available clickable areas
+		 * Available clickable areas grouped by screens
 		 */
 		clickableAreas: {
 			/**
@@ -2243,7 +2322,7 @@ export type TwitchatEventMap = {
 			/**
 			 * Screen Title
 			 */
-			title: string;
+			title?: string;
 			/**
 			 * Screen Areas
 			 */
@@ -2469,13 +2548,13 @@ export type TwitchatEventMap = {
 	 */
 	SET_ANIMATED_TEXT_CONTENT_FROM_SD: TwitchatEventMap['SET_ANIMATED_TEXT_CONTENT'];
 	/**
-	 * Alias of SET_BINGO_GRID_CONFIGS_VISIBILITY but that's listend by Twitchat.
-	 * Twitchat will then broadcast SET_BINGO_GRID_CONFIGS_VISIBILITY to the overlay.
+	 * Alias of SET_BINGO_GRID_VISIBILITY but that's listend by Twitchat.
+	 * Twitchat will then broadcast SET_BINGO_GRID_VISIBILITY to the overlay.
 	 * This way SD can change bingo grid visibility even though it's not
 	 * directly connected to it.
 	 * @private
 	 */
-	SET_BINGO_GRID_VISIBILITY_FROM_SD: TwitchatEventMap['SET_BINGO_GRID_CONFIGS_VISIBILITY'];
+	SET_BINGO_GRID_VISIBILITY_FROM_SD: TwitchatEventMap['SET_BINGO_GRID_VISIBILITY'];
 };
 
 type StreamSummaryData = {
@@ -3876,9 +3955,49 @@ type QuizParams = {
 	 */
 	currentQuestionRevealed?: boolean;
 	/**
+	 * If true, forces the question's countdown to stop on overlays and extension
+	 * without altering questionStarted_at (which is needed for time-based scoring).
+	 * Used to close answering early, e.g. when the max answers count is reached.
+	 */
+	forceCountdownStop?: boolean;
+	/**
 	 * Contains scores for current question
 	 */
 	currentQuestionScores?: { [uid: string]: number };
+	/**
+	 * Contains scores for current question
+	 */
+	currentQuestionVotes?: { [uid: string]: { answer: string; voted_at: string } };
+	/**
+	 * Contains cumulated scores for all questions
+	 */
+	leaderboard: {
+		[uid: string]: {
+			/**
+			 * Is the user anonymous?
+			 * true when user has chose not to grant access to their user info on extension
+			 */
+			anon: boolean;
+			/**
+			 * Platform used to play the quiz
+			 * empty for twitch users to reduce data storage, it can be retrieved from Twitch API using the user ID if needed
+			 */
+			platform?: ChatPlatform;
+			/**
+			 * User name
+			 * empty for twitch users to reduce data storage, it can be retrieved from Twitch API using the user ID if needed
+			 */
+			name?: string;
+			/**
+			 * User's avatar URL
+			 */
+			avatarPath?: string;
+			/**
+			 * User score
+			 */
+			score: number;
+		};
+	};
 	/**
 	 * Votes for the current question.
 	 */
@@ -3907,6 +4026,19 @@ type QuizParams = {
 	 */
 	toleranceLevel?: 0 | 1 | 2 | 3 | 4 | 5;
 	/**
+	 * Maximum number of users allowed to answer each question.
+	 * Only the first X users to answer are accepted.
+	 * 0 or undefined = unlimited.
+	 */
+	maxAnswers?: number;
+	/**
+	 * If true, answers are displayed in a random order on the overlay.
+	 * Only applies to "classic" and "majority" modes.
+	 * undefined = enabled (default for retro compatibility).
+	 * Can be overridden per question.
+	 */
+	shuffleAnswers?: boolean;
+	/**
 	 * List of questions
 	 */
 	questionList: ({
@@ -3916,13 +4048,22 @@ type QuizParams = {
 		id: string;
 		/**
 		 * Question mode.
-		 * classic: earn points by answering questions correctly
 		 */
 		mode: 'classic' | 'majority' | 'freeAnswer';
 		/**
 		 * Number of seconds to answer this question (overrides durationPerQuestion_s)
 		 */
 		duration_s?: number;
+		/**
+		 * Maximum number of users allowed to answer this question.
+		 * Only the first X users to answer are accepted (overrides quiz's maxAnswers).
+		 */
+		maxAnswers?: number;
+		/**
+		 * If true, answers are displayed in a random order on the overlay
+		 * (overrides quiz's shuffleAnswers).
+		 */
+		shuffleAnswers?: boolean;
 		/**
 		 * Question text
 		 */
@@ -3955,7 +4096,7 @@ type QuizParams = {
 		| {
 				/**
 				 * Question mode.
-				 * classic: earn points by answering questions correctly
+				 * majority: earn points by being part of the most popular answer
 				 */
 				mode: 'majority';
 				/**
@@ -3993,6 +4134,8 @@ type QuizParams = {
 		  }
 	))[];
 };
+
+export type QuizLeaderboard = Record<string, Required<QuizParams['leaderboard'][string]>>;
 
 /**
  * Contains current state for any live quiz
@@ -4145,3 +4288,5 @@ type HeatArea = {
 		y: number;
 	}[];
 };
+
+type OrdinalLabels = Partial<Record<Intl.LDMLPluralRule, string>>;
