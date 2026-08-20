@@ -2252,6 +2252,10 @@ export type TwitchatEventMap = {
 			 */
 			timerStartedAt: string;
 			/**
+			 * Has current question been revealed
+			 */
+			currentQuestionRevealed: boolean;
+			/**
 			 * Current question duration
 			 */
 			questionDuration_ms: number;

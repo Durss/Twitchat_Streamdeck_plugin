@@ -37,6 +37,7 @@ export class Quiz extends AbstractAction<Settings> {
 	): void {
 		if (this._forceOfflineState) return;
 		const currentQuiz = data?.currentQuiz;
+
 		if (!currentQuiz) {
 			// this.setText(action, streamDeck.i18n.translate('no-active-quiz'));
 			action.setTitle('');
@@ -64,7 +65,7 @@ export class Quiz extends AbstractAction<Settings> {
 				const duration = currentQuiz.questionDuration_ms;
 				const elapsed = Date.now() - startedAt.getTime();
 
-				if (quizStarted && duration > 0 && elapsed < duration) {
+				if (quizStarted && duration > 0 && elapsed < duration && !currentQuiz.currentQuestionRevealed) {
 					this.setText(action, formatDuration(duration - elapsed));
 					this.setEnabledState(action);
 					this._actionToState.set(action.id, 'reveal');
@@ -94,7 +95,7 @@ export class Quiz extends AbstractAction<Settings> {
 			}
 			const interval = setInterval(() => {
 				renderTimer();
-			}, 100);
+			}, 200);
 			renderTimer();
 			this._actionToRefreshInterval.set(action.id, interval);
 		}
