@@ -776,6 +776,38 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Validate a prompt window",
+			"UUID": "fr.twitchat.action.prompt-accept",
+			"Icon": "imgs/actions/prompt-accept/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/prompt-accept.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/prompt-accept/icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Reject a prompt window",
+			"UUID": "fr.twitchat.action.prompt-reject",
+			"Icon": "imgs/actions/prompt-reject/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/prompt-reject.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/prompt-reject/icon",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "Twitchat",

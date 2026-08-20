@@ -37,10 +37,6 @@
 		"Name": "Rejeter le dernier message retenu par l'automod",
 		"Tooltip": ""
 	},
-	"fr.twitchat.action.toggle-bingo-grid": {
-		"Name": "Activer/Désactiver une grille de bingo",
-		"Tooltip": ""
-	},
 	"fr.twitchat.action.bingo-toggle": {
 		"Name": "Afficher/Masquer le bingo en cours",
 		"Tooltip": ""
@@ -143,6 +139,14 @@
 		"Name": "Afficher/Masquer la prédiction en cours",
 		"Tooltip": ""
 	},
+	"fr.twitchat.action.prompt-accept": {
+		"Name": "Valider une demande de paramètres",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.prompt-reject": {
+		"Name": "Refuser une demande de paramètres",
+		"Tooltip": ""
+	},
 	"fr.twitchat.action.qna-highlight": {
 		"Name": "Mettre en avant la 1ère question d'une session de Questions/Réponses",
 		"Tooltip": ""
@@ -193,6 +197,10 @@
 	},
 	"fr.twitchat.action.toggle-area": {
 		"Name": "Permutter une zone clickable",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.toggle-bingo-grid": {
+		"Name": "Activer/Désactiver une grille de bingo",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.toggle-trigger": {

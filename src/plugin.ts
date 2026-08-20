@@ -1,4 +1,6 @@
 import streamDeck, { SendToPluginEvent } from '@elgato/streamdeck';
+import { PromptAccept } from "./actions/prompt-accept";
+import { PromptReject } from "./actions/prompt-reject";
 import { ToggleBingoGrid } from './actions/toggle-bingo-grid';
 import { ToggleArea } from './actions/toggle-area';
 import { UnpinTwitchMessage } from './actions/unpin-twitch-message';
@@ -94,6 +96,8 @@ streamDeck.actions.registerAction(new Quiz());
 streamDeck.actions.registerAction(new UnpinTwitchMessage());
 streamDeck.actions.registerAction(new ToggleArea());
 streamDeck.actions.registerAction(new ToggleBingoGrid());
+streamDeck.actions.registerAction(new PromptAccept());
+streamDeck.actions.registerAction(new PromptReject());
 
 // Finally, connect to the Stream Deck.
 streamDeck.settings.useExperimentalMessageIdentifiers = true;
