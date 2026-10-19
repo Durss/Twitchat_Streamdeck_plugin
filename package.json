@@ -1,7 +1,7 @@
 {
 	"scripts": {
-		"validate": "sd validate fr.twitchat.sdPlugin",
-		"build": "npm run validate && rollup -c && sd pack fr.twitchat.sdPlugin --force",
+		"validate": "sd validate fr.twitchat.sdPlugin --force-update-check",
+		"build": "npm run validate && rollup -c && sd pack fr.twitchat.sdPlugin --force --force-update-check",
 		"dev": "npm run watch",
 		"watch": "rollup -c -w --watch.onEnd=\"streamdeck restart fr.twitchat\"",
 		"link": "sd link fr.twitchat.sdPlugin",
@@ -14,7 +14,7 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@elgato/cli": "^1.6.0",
+		"@elgato/cli": "^1.10.3",
 		"@rollup/plugin-commonjs": "^28.0.9",
 		"@rollup/plugin-node-resolve": "^15.3.1",
 		"@rollup/plugin-terser": "^1.0.0",

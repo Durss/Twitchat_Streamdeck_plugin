@@ -1,6 +1,6 @@
 {
 	"Name": "Twitchat",
-	"Version": "3.0.0.5",
+	"Version": "3.0.1.0",
 	"Author": "Durss",
 	"Actions": [
 		{
@@ -830,7 +830,7 @@
 		}
 	],
 	"Nodejs": {
-		"Version": "20",
+		"Version": "26",
 		"Debug": "enabled"
 	},
 	"UUID": "fr.twitchat"
