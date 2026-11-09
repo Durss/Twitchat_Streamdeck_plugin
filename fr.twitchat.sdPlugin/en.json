@@ -25,8 +25,16 @@
 		"missing-overlay": "missing overlay",
 		"missing-trigger": "missing trigger",
 		"missing-grid": "missing grid",
+		"missing-bidwar": "missing bid war",
 		"no-active-quiz": "no active quiz",
 		"no-quiz-question": "no question",
-		"day-unit": "d"
+		"day-unit": "d",
+		"no-bidwar": "No bid wars available.",
+		"bid-war-enable": "Enable",
+		"bid-war-disable": "Disable",
+		"bid-war-toggle": "Toggle",
+		"bid-war-reset": "Reset",
+		"bid-war-add": "Add to side \"{NAME}\"",
+		"bid-war-set": "Set side \"{NAME}\" value"
 	}
 }

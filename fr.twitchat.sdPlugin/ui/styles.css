@@ -13,6 +13,12 @@ mark {
 	border-radius: 3px;
 }
 
+/* Used by data-show-if (see common.js). Needed because sdpi components set
+   their own "display" which would override the browser's [hidden] style. */
+[hidden] {
+	display: none !important;
+}
+
 body.hide sdpi-item:not(.loader) {
 	display: none;
 }

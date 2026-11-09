@@ -172,3 +172,25 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 });
+
+/**
+ * Conditional fields (sdpi-components has no built-in way to do this).
+ * Add one of these attributes on an element, typically an <sdpi-item>:
+ *   data-show-if="bidwarId"            → shown only if the "bidwarId" setting is not empty
+ *   data-show-if="bidwarAction=add1,set1" → shown only if "bidwarAction" is one of these values
+ */
+document.querySelectorAll('[data-show-if]').forEach((element) => {
+	const [setting, values] = element.dataset.showIf.split('=');
+	const source = document.querySelector(`[setting="${setting}"]`);
+	if (!source) {
+		console.error(`[COMMON.JS] data-show-if: no field with setting="${setting}"`);
+		return;
+	}
+	const update = () => {
+		const value = source.value?.toString() ?? '';
+		element.hidden = values ? !values.split(',').includes(value) : value === '';
+	};
+	// Fired when the user changes the value and when saved settings are loaded
+	source.addEventListener('valuechange', update);
+	update();
+});

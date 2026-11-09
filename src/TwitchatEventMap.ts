@@ -2349,6 +2349,36 @@ export type TwitchatEventMap = {
 			 */
 			areas: Pick<HeatArea, 'id' | 'enabled' | 'points' | 'title'>[];
 		}[];
+		/**
+		 * Available bidwar list
+		 */
+		bidwars: {
+			/**
+			 * Bid war ID
+			 */
+			id: string;
+			/**
+			 * Bid war title
+			 */
+			title: string;
+			/**
+			 * Bid war enabled?
+			 */
+			enabled: boolean;
+			/**
+			 * Sides users can vote for
+			 */
+			sides: {
+				/**
+				 * Side title
+				 */
+				title: string;
+				/**
+				 * Current side amount
+				 */
+				amount: number;
+			}[];
+		}[];
 	};
 
 	/**
@@ -2359,6 +2389,27 @@ export type TwitchatEventMap = {
 	 * Reject current prompt window
 	 */
 	SET_PROMPT_PARAMS_REJECT: void;
+
+	/**
+	 * Updates given bid war
+	 */
+	BID_WAR_UPDATE: {
+		/**
+		 * Bid war ID to edit
+		 */
+		id: string;
+		/**
+		 * Action to perform
+		 */
+		action: 'enable' | 'disable' | 'toggle' | 'reset' | 'add1' | 'add2' | 'set1' | 'set2';
+		/**
+		 * Action's value.
+		 * Must be a boolean for "enable" and "disable" actions.
+		 * Must be a number for "add1", "add2", "set1" and "set2" actions.
+		 * Not needed for "toggle" and "reset" actions.
+		 */
+		value?: boolean | number;
+	};
 
 	/**
 	 * @private

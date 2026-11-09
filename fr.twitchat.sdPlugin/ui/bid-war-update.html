@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+
+<head lang="en">
+	<title>Bid War update</title>
+	<meta charset="utf-8" />
+	<script src="./sdpi-components.js"></script>
+	<script type="module" src="./common.js"></script>
+	<script src="./locale.js"></script>
+	<link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+	<sdpi-item label="__MSG_bid-war-update.fields.id__">
+		<sdpi-select setting="bidwarId" datasource="getBidwars" loading="__MSG_bid-war-update.loading-bidwars__"
+			hot-reload> </sdpi-select>
+	</sdpi-item>
+	<div data-show-if="bidwarId">
+		<sdpi-item label="__MSG_bid-war-update.fields.action__">
+			<sdpi-select setting="bidwarAction" datasource="getBidwarActions" loading="__MSG_global.loading-data__"
+				hot-reload> </sdpi-select>
+		</sdpi-item>
+		<sdpi-item label="__MSG_bid-war-update.fields.value__" data-show-if="bidwarAction=add1,add2,set1,set2">
+			<sdpi-textfield setting="bidwarValue" pattern="-?[0-9]+([.,][0-9]+)?" placeholder="0" required>
+			</sdpi-textfield>
+		</sdpi-item>
+	</div>
+</body>
+
+</html>

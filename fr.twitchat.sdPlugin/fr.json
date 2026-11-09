@@ -25,9 +25,17 @@
 		"missing-overlay": "overlay manquant",
 		"missing-trigger": "trigger manquant",
 		"missing-grid": "grille manquante",
+		"missing-bidwar": "bid war manquante",
 		"no-active-quiz": "aucun quiz actif",
 		"no-quiz-question": "aucune question",
-		"day-unit": "j"
+		"day-unit": "j",
+		"no-bidwar": "Aucune bid war disponible.",
+		"bid-war-enable": "Activer",
+		"bid-war-disable": "Désactiver",
+		"bid-war-toggle": "Basculer",
+		"bid-war-reset": "Réinitialiser",
+		"bid-war-add": "Ajouter au côté \"{NAME}\"",
+		"bid-war-set": "Changer la valeur du côté \"{NAME}\""
 	},
 	"fr.twitchat.action.automod-accept": {
 		"Name": "Accepter le dernier message retenu par l'automod",
@@ -35,6 +43,10 @@
 	},
 	"fr.twitchat.action.automod-reject": {
 		"Name": "Rejeter le dernier message retenu par l'automod",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.bid-war-update": {
+		"Name": "Bid War",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.bingo-toggle": {

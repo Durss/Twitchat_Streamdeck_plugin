@@ -319,6 +319,10 @@ export default class TwitchatSocket {
 			event: 'getClickableAreas',
 			items: this.reduceClickableAreas(),
 		});
+		streamDeck.ui.sendToPropertyInspector({
+			event: 'getBidwars',
+			items: this.reduceBidwarList(),
+		});
 	}
 
 	private async updateConnexionCount(): Promise<void> {
@@ -491,6 +495,29 @@ export default class TwitchatSocket {
 				{
 					value: '',
 					label: streamDeck.i18n.translate('no-bingo-grid'),
+					disabled: true,
+				},
+			];
+		}
+		items.unshift({
+			value: '',
+			label: streamDeck.i18n.translate('select-placeholder'),
+		});
+		return items;
+	}
+
+	private reduceBidwarList() {
+		let items = this._lastEventDataCache['ON_GLOBAL_STATES']?.bidwars?.map(
+			(bidwar): SelectItem => ({
+				value: bidwar.id,
+				label: bidwar.enabled === false ? `🔴 ${bidwar.title}` : `🟢 ${bidwar.title}`,
+			}),
+		);
+		if (!items || items.length === 0) {
+			items = [
+				{
+					value: '',
+					label: streamDeck.i18n.translate('no-bidwar'),
 					disabled: true,
 				},
 			];

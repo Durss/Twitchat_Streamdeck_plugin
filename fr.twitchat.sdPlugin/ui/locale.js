@@ -2,6 +2,14 @@ SDPIComponents.i18n.locales = {
 	en: {
 		'automod-accept': {},
 		'automod-reject': {},
+		'bid-war-update': {
+			'loading-bidwars': 'Loading bid wars...',
+			fields: {
+				id: 'Bid war',
+				action: 'Action',
+				value: 'Value',
+			},
+		},
 		'bingo-toggle': {},
 		'censor-deleted-messages-toggle': {},
 		'chat-feed-pause': {},
@@ -195,6 +203,14 @@ SDPIComponents.i18n.locales = {
 	fr: {
 		'automod-accept': {},
 		'automod-reject': {},
+		'bid-war-update': {
+			'loading-bidwars': 'Chargement des bid wars...',
+			fields: {
+				id: 'Bid war',
+				action: 'Action',
+				value: 'Valeur',
+			},
+		},
 		'bingo-toggle': {},
 		'censor-deleted-messages-toggle': {},
 		'chat-feed-pause': {},

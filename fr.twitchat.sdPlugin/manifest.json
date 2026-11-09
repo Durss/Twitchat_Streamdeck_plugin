@@ -808,6 +808,22 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Bid War update",
+			"UUID": "fr.twitchat.action.bid-war-update",
+			"Icon": "imgs/actions/bid-war-update/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/bid-war-update.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/bid-war-update/icon",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "Twitchat",
