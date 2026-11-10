@@ -1,7 +1,7 @@
 import streamDeck, { SendToPluginEvent } from '@elgato/streamdeck';
-import { PromptAccept } from "./actions/prompt-accept";
-import { PromptReject } from "./actions/prompt-reject";
-import { BidWarUpdate } from "./actions/bid-war-update";
+import { PromptAccept } from './actions/prompt-accept';
+import { PromptReject } from './actions/prompt-reject';
+import { BidWarUpdate } from './actions/bid-war-update';
 import { ToggleBingoGrid } from './actions/toggle-bingo-grid';
 import { ToggleArea } from './actions/toggle-area';
 import { UnpinTwitchMessage } from './actions/unpin-twitch-message';

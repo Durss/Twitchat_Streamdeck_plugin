@@ -1,6 +1,6 @@
 {
 	"Name": "Twitchat",
-	"Version": "3.0.1.0",
+	"Version": "3.0.2.0",
 	"Author": "Durss",
 	"Actions": [
 		{
@@ -612,7 +612,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/toggle-bingo-grid/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -757,7 +757,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/unpin-twitch-message/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -773,7 +773,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/toggle-area/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -789,7 +789,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/prompt-accept/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -805,7 +805,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/prompt-reject/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -821,7 +821,7 @@
 			"States": [
 				{
 					"Image": "imgs/actions/bid-war-update/icon",
-					"TitleAlignment": "middle"
+					"TitleAlignment": "bottom"
 				}
 			]
 		}

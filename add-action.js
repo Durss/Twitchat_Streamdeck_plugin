@@ -82,7 +82,7 @@ function createManifestEntry(id, name) {
 		States: [
 			{
 				Image: `imgs/actions/${id}/icon`,
-				TitleAlignment: 'middle',
+				TitleAlignment: 'bottom',
 			},
 		],
 	};
@@ -368,11 +368,11 @@ function updatePluginFile(id) {
 	let content = fs.readFileSync(pluginPath, 'utf8');
 
 	const className = toCamelCase(id);
-	const newImport = `import { ${className} } from "./actions/${id}";`;
+	const newImport = `import { ${className} } from './actions/${id}';`;
 	const newRegistration = `streamDeck.actions.registerAction(new ${className}());`;
 
 	// Check if import already exists
-	const importPattern = new RegExp(`import \\{ ${className} \\} from "\\.\\/actions\\/${id}";`, 'g');
+	const importPattern = new RegExp(`import \\{ ${className} \\} from ['"]\\.\\/actions\\/${id}['"];`, 'g');
 	const hasImport = importPattern.test(content);
 
 	// Check if registration already exists
@@ -387,14 +387,14 @@ function updatePluginFile(id) {
 	// Add import if not exists
 	if (!hasImport) {
 		// Find where to insert imports (after TwitchatSocket import, before any code)
-		const twitchatImportMatch = content.match(/import TwitchatSocket from ["']\.\/TwitchatSocket["'];?\n/);
+		const twitchatImportMatch = content.match(/import TwitchatSocket from ['"]\.\/TwitchatSocket['"];?\n/);
 		let importInsertIndex;
 
 		if (twitchatImportMatch) {
 			importInsertIndex = content.indexOf(twitchatImportMatch[0]) + twitchatImportMatch[0].length;
 		} else {
 			// Fallback: insert after the last import statement
-			const importRegex = /import.*from.*["'];?\n/g;
+			const importRegex = /import.*from.*['"];?\n/g;
 			const imports = content.match(importRegex);
 			if (imports && imports.length > 0) {
 				importInsertIndex = content.lastIndexOf(imports[imports.length - 1]) + imports[imports.length - 1].length;

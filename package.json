@@ -10,6 +10,7 @@
 		"lint:fix": "eslint src --fix",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"format:check": "prettier --check \"src/**/*.ts\"",
+		"typecheck": "tsc --noEmit",
 		"add-action": "node add-action.js"
 	},
 	"type": "module",

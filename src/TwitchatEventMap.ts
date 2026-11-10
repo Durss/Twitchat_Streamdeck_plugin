@@ -33,7 +33,14 @@ export type TwitchatEventMap = {
 	/**
 	 * Twitchat completed initialization and is ready.
 	 */
-	ON_TWITCHAT_READY: undefined;
+	ON_TWITCHAT_READY: {
+		/**
+		 * Twitchat version (ex: "17.0.0").
+		 * Overlays reload if this version has a higher major version than
+		 * what the overlay has.
+		 */
+		appVersion: string;
+	};
 	/**
 	 * OBS Websocket connection established
 	 */
@@ -363,6 +370,20 @@ export type TwitchatEventMap = {
 	 * Receive animated text overlay configuration
 	 */
 	ON_ANIMATED_TEXT_CONFIGS: AnimatedTextData;
+	/**
+	 * Request bid war overlay configuration
+	 * @answer ON_BID_WAR_CONFIGS
+	 */
+	GET_BID_WAR_CONFIGS: {
+		/**
+		 * Bid war overlay ID
+		 */
+		id: string;
+	};
+	/**
+	 * Receive bid war overlay configuration and amounts
+	 */
+	ON_BID_WAR_CONFIGS: { bidwar: BidWarData; daysLabel: string };
 	/**
 	 * Set text content for an animated text overlay
 	 */
@@ -2393,7 +2414,7 @@ export type TwitchatEventMap = {
 	/**
 	 * Updates given bid war
 	 */
-	BID_WAR_UPDATE: {
+	ON_BID_WAR_UPDATE: {
 		/**
 		 * Bid war ID to edit
 		 */
@@ -4373,3 +4394,77 @@ type HeatArea = {
 type OrdinalLabels = Partial<Record<Intl.LDMLPluralRule, string>>;
 
 type AutocompletableString = string & {};
+
+interface BidWarData {
+	id: string;
+	enabled: boolean;
+	/**
+	 * Bid war's title
+	 */
+	title: string;
+	/**
+	 * Currency pattern
+	 */
+	currency: string;
+	/**
+	 * Sides users can vote for
+	 */
+	sides: [BidWarSideData, BidWarSideData];
+	/**
+	 * Tip platforms allowed to update the bid war
+	 */
+	platforms: Record<Exclude<TipPlatform, 'patreon' | 'twitch_charity'>, boolean>;
+	/**
+	 * Automatically disable the bid war after some time?
+	 */
+	autoDisable: boolean;
+	/**
+	 * Duration in seconds after which the bid war is disabled.
+	 * Countdown starts when the bid war is enabled.
+	 */
+	autoDisableDuration_s: number;
+	/**
+	 * Date at which bid war will be disabled
+	 * 0 if no countdown is running.
+	 */
+	autoDisable_at: number;
+	/**
+	 * Post the result on chat when the bid war is disabled?
+	 */
+	postResultOnChat: boolean;
+	/**
+	 * Message to post on chat wehn bid war is disabled
+	 */
+	postResultChatMessage: string;
+	/**
+	 * Message to post on chat when bid war is disabled but no side won
+	 */
+	postTieChatMessage: string;
+}
+
+/**
+ * Represents one side of a Bid War
+ */
+interface BidWarSideData {
+	/**
+	 * Keyword viewers must put in their tip message to tip for this side
+	 */
+	keyword: string;
+	/**
+	 * Amount raised so far
+	 */
+	amount: number;
+	/**
+	 * Side's color
+	 */
+	color: string;
+}
+type TipPlatform =
+	| 'kofi'
+	| 'streamelements'
+	| 'patreon'
+	| 'streamlabs'
+	| 'tipeee'
+	| 'tiltify'
+	| 'streamlabs_charity'
+	| 'twitch_charity';

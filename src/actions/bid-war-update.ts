@@ -31,7 +31,7 @@ export class BidWarUpdate extends AbstractAction<Settings> {
 			return;
 		}
 
-		TwitchatSocket.instance.broadcast('BID_WAR_UPDATE', { id: bidwarId, action: bidwarAction, value });
+		TwitchatSocket.instance.broadcast('ON_BID_WAR_UPDATE', { id: bidwarId, action: bidwarAction, value });
 	}
 
 	/**
@@ -65,6 +65,22 @@ export class BidWarUpdate extends AbstractAction<Settings> {
 
 		const bidwar = data?.bidwars.find((b) => b.id === settings.bidwarId);
 		this.setText(action, bidwar?.title ?? '???');
+
+		let label = '';
+		if (settings.bidwarAction === 'add1' || settings.bidwarAction === 'add2') {
+			label = settings.bidwarValue;
+			if (parseFloat(settings.bidwarValue) >= 0) {
+				label = `+${label}`;
+			}
+		} else if (settings.bidwarAction === 'set1' || settings.bidwarAction === 'set2') {
+			label = settings.bidwarValue;
+		}
+		if (settings.bidwarAction === 'enable' || settings.bidwarAction === 'disable' || settings.bidwarAction === 'toggle') {
+			this.setToggleState(action, bidwar?.enabled ?? null);
+		} else {
+			this.setToggleState(action, null);
+		}
+		action.setTitle(label);
 
 		if (bidwar && !bidwar.enabled) {
 			this.setDisabledState(action);
