@@ -40,7 +40,7 @@ export class SetAnimatedText extends AbstractAction<Settings> {
 			this.setDisabledState(action);
 			return;
 		}
-		this.setText(action, '');
+		this.setText(action, overlay?.name || '');
 		if (!overlay) {
 			this.setText(action, streamDeck.i18n.translate('missing-overlay'));
 			this.setErrorState(action);
