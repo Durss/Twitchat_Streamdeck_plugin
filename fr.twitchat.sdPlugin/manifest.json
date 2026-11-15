@@ -682,7 +682,7 @@
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/chat-feed-scroll-down/icon",
+					"Image": "imgs/actions/chat-feed-scroll-up/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
@@ -831,6 +831,7 @@
 	"CodePath": "bin/plugin.js",
 	"Description": "Get the best out of Twitchat",
 	"Icon": "imgs/plugin/marketplace",
+	"URL": "https://twitchat.fr",
 	"SDKVersion": 3,
 	"Software": {
 		"MinimumVersion": "7.1"
