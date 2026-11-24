@@ -19,6 +19,11 @@ mark {
 	display: none !important;
 }
 
+/* Used by data-controller (see common.js). */
+.controller-hidden {
+	display: none !important;
+}
+
 body.hide sdpi-item:not(.loader) {
 	display: none;
 }

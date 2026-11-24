@@ -194,3 +194,25 @@ document.querySelectorAll('[data-show-if]').forEach((element) => {
 	source.addEventListener('valuechange', update);
 	update();
 });
+
+/**
+ * Controller specific fields, for actions available on both keys and dials.
+ * Add this attribute on an element, typically an <sdpi-item>, or an <option> of an <sdpi-select>:
+ *   data-controller="Keypad"  → shown only when configuring a key
+ *   data-controller="Encoder" → shown only when configuring a dial
+ * If the controller can't be determined, everything stays visible.
+ */
+SDPIComponents.streamDeckClient.getConnectionInfo().then((info) => {
+	const controller = info?.actionInfo?.payload?.controller;
+	if (!controller) return;
+	document.querySelectorAll('[data-controller]').forEach((element) => {
+		const visible = element.dataset.controller === controller;
+		if (element instanceof HTMLOptionElement) {
+			// <sdpi-select> renders its options in its own shadow DOM, a CSS class wouldn't hide them.
+			// It watches its children though, so removing the <option> updates the list.
+			if (!visible) element.remove();
+		} else {
+			element.classList.toggle('controller-hidden', !visible);
+		}
+	});
+});

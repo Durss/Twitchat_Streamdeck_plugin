@@ -8,6 +8,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.toggle-trigger' })
 export class ToggleTrigger extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		let enabled = undefined;
 		switch (ev.payload.settings.triggerAction) {

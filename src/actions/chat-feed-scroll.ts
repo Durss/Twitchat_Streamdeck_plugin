@@ -17,6 +17,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.chat-feed-scroll' })
 export class ChatFeedScroll extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override onWillAppear(ev: WillAppearEvent<Settings>): Promise<void> | void {
 		if (ev.action.isDial()) {
 			let colIndex = ev.payload.settings.colIndex || 0;

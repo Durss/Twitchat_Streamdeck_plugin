@@ -17,7 +17,15 @@ import TwitchatSocket from '../TwitchatSocket';
  * Abstract action class.
  */
 export class AbstractAction<Settings extends JsonObject = JsonObject> extends SingletonAction<Settings> {
-	private _actionStateCache: Map<string, 'default' | 'disabled' | 'deprecated' | 'error'> = new Map();
+	/**
+	 * Set to true on deprecated actions.
+	 * Deprecated actions are hidden from the actions list (VisibleInActionsList: false)
+	 * but kept so existing buttons keep working.
+	 * A red hatched overlay is drawn on top of the button, whatever its current state.
+	 */
+	protected readonly deprecated: boolean = false;
+
+	private _actionStateCache: Map<string, 'default' | 'disabled' | 'error'> = new Map();
 	private _actionStateTitleCache: Map<string, string> = new Map();
 	private _actionStateImageCache: Map<string, string> = new Map();
 	private _actionStateImageURLCache: Map<string, string> = new Map();
@@ -78,11 +86,6 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 
 	protected setDisabledState(action: DialAction<{}> | KeyAction<{}>): void {
 		this._actionStateCache.set(action.id, 'disabled');
-		this.applyState(action);
-	}
-
-	protected setDeprecatedState(action: DialAction<{}> | KeyAction<{}>): void {
-		this._actionStateCache.set(action.id, 'deprecated');
 		this.applyState(action);
 	}
 
@@ -173,8 +176,15 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 </svg>`;
 		}
 
+		const DEPRECATED_LABEL = streamDeck.i18n.translate('deprecated-label');
 		if (this._forceOfflineState) {
-			svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .35;`).replace(
+			svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .35;`);
+			if (this.deprecated) {
+				// Icon is already dimmed by the offline state, just add the red overlay below the cloud
+				svg = this.injectDeprecated(svg, false);
+				svg = this.injectText(svg, DEPRECATED_LABEL, true);
+			}
+			svg = svg.replace(
 				'</svg>',
 				`
 			<path style="fill: white; stroke: #000; stroke-miterlimit: 10; stroke-width: 5px;" d="M68.61,91.79c-.55.34-4.49,10.06-5.61,11.71-2.7,4-7.81,1.13-6.78-2.72l27.88-58.58c2.43-3.28,7.24-1.35,6.6,2.85l-5.56,12.13,3.91,5.18c19.7-3.2,25.2,24.74,5.74,29.23l-26.18.19Z"/>
@@ -183,25 +193,6 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 			);
 		} else {
 			switch (state) {
-				case 'deprecated': {
-					svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .85;`);
-					svg = svg.replace(/(stroke: ?#.*;)/gi, `$1 stroke-opacity: .85;`);
-					svg = svg.replace(/<image/gi, `<image style="opacity: .85;"`);
-					svg = svg.replace(
-						'</svg>',
-						`
-						<path style="fill:#cc0000; fill-opacity:.45" d="M132.66,11.34v121.32H11.34V11.34h121.32M144,0H0v144h144V0h0Z"/>
-						<polygon style="fill:#cc0000; fill-opacity:.45" points="11.34 11.34 11.34 15.99 15.99 11.34 11.34 11.34"/>
-						<polygon style="fill:#cc0000; fill-opacity:.45" points="37.2 11.34 11.34 37.2 11.34 58.42 58.42 11.34 37.2 11.34"/>
-						<polygon style="fill:#cc0000; fill-opacity:.45" points="79.63 11.34 11.34 79.63 11.34 100.84 100.84 11.34 79.63 11.34"/>
-						<polygon style="fill:#cc0000; fill-opacity:.45" points="132.66 11.34 122.05 11.34 11.34 122.05 11.34 132.66 21.95 132.66 132.66 21.95 132.66 11.34"/>
-						<polygon style="fill:#cc0000; fill-opacity:.45" points="132.66 43.16 43.16 132.66 64.37 132.66 132.66 64.37 132.66 43.16"/>
-						<polygon style="fill:#cc0000; fill-opacity:.45" points="132.66 85.58 85.58 132.66 106.8 132.66 132.66 106.8 132.66 85.58"/>
-						<polygon style="fill:#cc0000; fill-opacity:.45" points="132.66 132.66 132.66 128.01 128.01 132.66 132.66 132.66"/>
-						</svg>`,
-					);
-					break;
-				}
 				case 'disabled': {
 					svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .35;`);
 					svg = svg.replace(/(stroke: ?#.*;)/gi, `$1 stroke-opacity: .35;`);
@@ -215,9 +206,16 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 					break;
 				}
 			}
-			const label = this._actionStateTitleCache.get(action.id);
+			let label = this._actionStateTitleCache.get(action.id);
+			let errorLabel = state === 'error';
+			if (this.deprecated) {
+				// Only dim the icon if no other state already changed its opacity/colors
+				svg = this.injectDeprecated(svg, !state || state === 'default');
+				label = DEPRECATED_LABEL;
+				errorLabel = true;
+			}
 			if (label) {
-				svg = this.injectText(svg, label, state === 'error');
+				svg = this.injectText(svg, label, errorLabel);
 			}
 		}
 
@@ -243,6 +241,27 @@ export class AbstractAction<Settings extends JsonObject = JsonObject> extends Si
 			`
 				<path style="fill: white; fill-opacity: .5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M123.48,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
 				<path style="fill: white; fill-opacity: .5; stroke: #000; stroke-miterlimit: 10; stroke-width: 2px;" d="M138.33,123.91c-.01,1.9-.01,3.79,0,5.69,0,.39-.15.49-.52.49-1.61-.02-3.21,0-4.82-.03-.43-.01-.6.09-.59.56.03,1.05,0,1.05,1.07,1.05,1.44,0,2.87.01,4.31-.01.42-.01.56.13.55.56-.02,1.85-.02,3.69,0,5.54.01.47-.17.58-.6.57-2.74-.01-5.46.01-8.2-.02-.3,0-.66-.17-.88-.38-.84-.77-1.63-1.61-2.47-2.39-.39-.37-.55-.75-.55-1.29.04-2.6.03-5.23.03-7.86s.01-4.71-.01-7.4c0-.47.11-.67.63-.66,1.86.03,3.72.02,5.59,0,.44,0,.58.13.58.58-.03,1.56,0,2.41-.02,3.97-.01.42.11.56.55.55,1.62-.02,3.25,0,4.87-.02.38,0,.51.11.5.49Z"/>
+			</svg>`,
+		);
+	}
+
+	private injectDeprecated(svg: string, dim: boolean): string {
+		if (dim) {
+			svg = svg.replace(/(fill: ?#.*;)/gi, `$1 fill-opacity: .85;`);
+			svg = svg.replace(/(stroke: ?#.*;)/gi, `$1 stroke-opacity: .85;`);
+			svg = svg.replace(/<image/gi, `<image style="opacity: .85;"`);
+		}
+		return svg.replace(
+			'</svg>',
+			`
+				<path style="fill:#cc0000; fill-opacity:.45" d="M132.66,11.34v121.32H11.34V11.34h121.32M144,0H0v144h144V0h0Z"/>
+				<polygon style="fill:#cc0000; fill-opacity:.45" points="11.34 11.34 11.34 15.99 15.99 11.34 11.34 11.34"/>
+				<polygon style="fill:#cc0000; fill-opacity:.45" points="37.2 11.34 11.34 37.2 11.34 58.42 58.42 11.34 37.2 11.34"/>
+				<polygon style="fill:#cc0000; fill-opacity:.45" points="79.63 11.34 11.34 79.63 11.34 100.84 100.84 11.34 79.63 11.34"/>
+				<polygon style="fill:#cc0000; fill-opacity:.45" points="132.66 11.34 122.05 11.34 11.34 122.05 11.34 132.66 21.95 132.66 132.66 21.95 132.66 11.34"/>
+				<polygon style="fill:#cc0000; fill-opacity:.45" points="132.66 43.16 43.16 132.66 64.37 132.66 132.66 64.37 132.66 43.16"/>
+				<polygon style="fill:#cc0000; fill-opacity:.45" points="132.66 85.58 85.58 132.66 106.8 132.66 132.66 106.8 132.66 85.58"/>
+				<polygon style="fill:#cc0000; fill-opacity:.45" points="132.66 132.66 132.66 128.01 128.01 132.66 132.66 132.66"/>
 			</svg>`,
 		);
 	}

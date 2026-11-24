@@ -1,4 +1,16 @@
 import streamDeck, { SendToPluginEvent } from '@elgato/streamdeck';
+import { Automod } from './actions/automod';
+import { BingoGrid } from './actions/bingo-grid';
+import { ChatFeedControl } from './actions/chat-feed-control';
+import { Dismiss } from './actions/dismiss';
+import { GreetFeedMarkRead } from './actions/greet-feed-mark-read';
+import { Prompt } from './actions/prompt';
+import { Qna } from './actions/qna';
+import { Raffle } from './actions/raffle';
+import { Timer } from './actions/timer';
+import { ToggleActivity } from './actions/toggle-activity';
+import { ToggleChatOption } from './actions/toggle-chat-option';
+import { Trigger } from './actions/trigger';
 import { PromptAccept } from './actions/prompt-accept';
 import { PromptReject } from './actions/prompt-reject';
 import { BidWarUpdate } from './actions/bid-war-update';
@@ -100,6 +112,18 @@ streamDeck.actions.registerAction(new ToggleBingoGrid());
 streamDeck.actions.registerAction(new PromptAccept());
 streamDeck.actions.registerAction(new PromptReject());
 streamDeck.actions.registerAction(new BidWarUpdate());
+streamDeck.actions.registerAction(new Automod());
+streamDeck.actions.registerAction(new BingoGrid());
+streamDeck.actions.registerAction(new ChatFeedControl());
+streamDeck.actions.registerAction(new Dismiss());
+streamDeck.actions.registerAction(new GreetFeedMarkRead());
+streamDeck.actions.registerAction(new Prompt());
+streamDeck.actions.registerAction(new Qna());
+streamDeck.actions.registerAction(new Raffle());
+streamDeck.actions.registerAction(new Timer());
+streamDeck.actions.registerAction(new ToggleActivity());
+streamDeck.actions.registerAction(new ToggleChatOption());
+streamDeck.actions.registerAction(new Trigger());
 
 // Finally, connect to the Stream Deck.
 streamDeck.settings.useExperimentalMessageIdentifiers = true;

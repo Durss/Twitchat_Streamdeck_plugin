@@ -35,6 +35,10 @@
 		"bid-war-toggle": "Toggle",
 		"bid-war-reset": "Reset",
 		"bid-war-add": "Add to side \"{NAME}\"",
-		"bid-war-set": "Set side \"{NAME}\" value"
+		"bid-war-set": "Set side \"{NAME}\" value",
+		"timers": "Timers",
+		"countdowns": "Countdowns",
+		"chat-feed-pause": "Pause chat",
+		"deprecated-label": "REPLACE ME"
 	}
 }

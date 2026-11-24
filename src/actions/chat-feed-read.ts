@@ -7,6 +7,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.chat-feed-read' })
 export class ChatFeedRead extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	/**
 	 * Init action
 	 */

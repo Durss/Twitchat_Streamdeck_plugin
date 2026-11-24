@@ -7,6 +7,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.chat-feed-read-encoder' })
 export class ChatFeedReadEncoder extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
 		if (!ev.action.isDial()) return;
 		if (!ev.payload.settings.colIndex) {

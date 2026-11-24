@@ -10,6 +10,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.countdown-add' })
 export class CountdownAdd extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
 		super.onWillAppear(ev);
 		if (!ev.action.isKey()) return;

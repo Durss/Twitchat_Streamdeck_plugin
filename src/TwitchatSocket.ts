@@ -308,6 +308,10 @@ export default class TwitchatSocket {
 			items: this.reduceCountdownList(),
 		});
 		streamDeck.ui.sendToPropertyInspector({
+			event: 'getTimersAndCountdowns',
+			items: this.reduceTimerAndCountdownList(),
+		});
+		streamDeck.ui.sendToPropertyInspector({
 			event: 'getAnimatedTexts',
 			items: this.reduceAnimatedTextList(),
 		});
@@ -431,6 +435,29 @@ export default class TwitchatSocket {
 			value: '',
 			label: streamDeck.i18n.translate('select-placeholder'),
 		});
+		return items;
+	}
+
+	/**
+	 * Timers and countdowns in a single list, grouped by type
+	 */
+	private reduceTimerAndCountdownList() {
+		const states = this._lastEventDataCache['ON_GLOBAL_STATES'];
+		const toItem = (timer: { id: string; title: string; enabled: boolean }): SelectItem => ({
+			value: timer.id,
+			label: !timer.enabled ? `🔴 ${timer.title}` : `🟢 ${timer.title}`,
+		});
+		const groups: SelectGroup[] = [
+			{ label: streamDeck.i18n.translate('timers'), children: states?.timers.map(toItem) ?? [] },
+			{ label: streamDeck.i18n.translate('countdowns'), children: states?.countdowns.map(toItem) ?? [] },
+		].filter((group) => group.children.length > 0);
+
+		const items: (SelectItem | SelectGroup)[] = [{ value: '', label: streamDeck.i18n.translate('select-placeholder') }];
+		if (groups.length === 0) {
+			items.push({ value: '', label: streamDeck.i18n.translate('no-timer'), disabled: true });
+		} else {
+			items.push(...groups);
+		}
 		return items;
 	}
 

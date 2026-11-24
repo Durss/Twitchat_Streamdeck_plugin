@@ -35,7 +35,15 @@
 		"bid-war-toggle": "Basculer",
 		"bid-war-reset": "Réinitialiser",
 		"bid-war-add": "Ajouter au côté \"{NAME}\"",
-		"bid-war-set": "Changer la valeur du côté \"{NAME}\""
+		"bid-war-set": "Changer la valeur du côté \"{NAME}\"",
+		"timers": "Minuteurs",
+		"countdowns": "Comptes à rebours",
+		"chat-feed-pause": "Pause tchat",
+		"deprecated-label": "A REMPLACER"
+	},
+	"fr.twitchat.action.automod": {
+		"Name": "Accepter/Rejeter le dernier message retenu par l'automod",
+		"Tooltip": ""
 	},
 	"fr.twitchat.action.automod-accept": {
 		"Name": "Accepter le dernier message retenu par l'automod",
@@ -49,6 +57,10 @@
 		"Name": "Bid War",
 		"Tooltip": ""
 	},
+	"fr.twitchat.action.bingo-grid": {
+		"Name": "Activer/Désactiver une grille de bingo ou l'afficher/masquer",
+		"Tooltip": ""
+	},
 	"fr.twitchat.action.bingo-toggle": {
 		"Name": "Afficher/Masquer le bingo en cours",
 		"Tooltip": ""
@@ -56,6 +68,17 @@
 	"fr.twitchat.action.censor-deleted-messages-toggle": {
 		"Name": "Activer/Désactiver la censure des messages supprimés",
 		"Tooltip": ""
+	},
+	"fr.twitchat.action.chat-feed-control": {
+		"Name": "Contrôler une colonne de tchat",
+		"Tooltip": "Arrêter/reprendre le défilement, faire défiler ou marquer des messages comme lus",
+		"Encoder": {
+			"TriggerDescription": {
+				"Rotate": "Défiler / Déplacer le marqueur de lecture",
+				"Push": "Revenir en bas / Tout marquer comme lu",
+				"Touch": "Revenir en bas / Tout marquer comme lu"
+			}
+		}
 	},
 	"fr.twitchat.action.chat-feed-pause": {
 		"Name": "Arrêter/Reprendre le défilement auto du tchat",
@@ -115,12 +138,20 @@
 		"Name": "Désactiver le contrôle vocal",
 		"Tooltip": ""
 	},
+	"fr.twitchat.action.dismiss": {
+		"Name": "Fermer mise en avant, alerte, TTS ou message épinglé",
+		"Tooltip": ""
+	},
 	"fr.twitchat.action.enable-stt": {
 		"Name": "Activer le contrôle vocal",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.execute-trigger": {
 		"Name": "Exécuter un trigger",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.greet-feed-mark-read": {
+		"Name": "Retirer des messages de la section \"Dîtes bonjour\"",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.greet-feed-read": {
@@ -151,12 +182,20 @@
 		"Name": "Afficher/Masquer la prédiction en cours",
 		"Tooltip": ""
 	},
+	"fr.twitchat.action.prompt": {
+		"Name": "Valider/Refuser une demande de paramètres",
+		"Tooltip": ""
+	},
 	"fr.twitchat.action.prompt-accept": {
 		"Name": "Valider une demande de paramètres",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.prompt-reject": {
 		"Name": "Refuser une demande de paramètres",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.qna": {
+		"Name": "Mettre en avant ou retirer la 1ère question d'une session de Q&R",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.qna-highlight": {
@@ -169,6 +208,10 @@
 	},
 	"fr.twitchat.action.quiz": {
 		"Name": "Contrôler le quiz courrant",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.raffle": {
+		"Name": "Afficher/Masquer le tirage au sort en cours ou tirer un·e gagnant·e",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.raffle-pick-winner": {
@@ -203,8 +246,16 @@
 		"Name": "Arrêter toute synthèse vocale en cours",
 		"Tooltip": ""
 	},
+	"fr.twitchat.action.timer": {
+		"Name": "Ajouter ou retirer du temps à un minuteur ou compte à rebours",
+		"Tooltip": ""
+	},
 	"fr.twitchat.action.timer-add": {
 		"Name": "Ajouter ou retirer du temps à un minuteur",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.toggle-activity": {
+		"Name": "Afficher/Masquer le sondage, la prédiction ou le bingo en cours",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.toggle-area": {
@@ -215,8 +266,16 @@
 		"Name": "Activer/Désactiver une grille de bingo",
 		"Tooltip": ""
 	},
+	"fr.twitchat.action.toggle-chat-option": {
+		"Name": "Activer/Désactiver une option du tchat",
+		"Tooltip": ""
+	},
 	"fr.twitchat.action.toggle-trigger": {
 		"Name": "Activer/Désactiver un trigger",
+		"Tooltip": ""
+	},
+	"fr.twitchat.action.trigger": {
+		"Name": "Exécuter, activer ou désactiver un trigger",
 		"Tooltip": ""
 	},
 	"fr.twitchat.action.unpin-twitch-message": {

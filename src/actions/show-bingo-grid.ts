@@ -12,6 +12,8 @@ import { setTimeout, setInterval, clearInterval } from 'timers';
  */
 @action({ UUID: 'fr.twitchat.action.show-bingo-grid' })
 export class ShowBingoGrid extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	private _disabledMap: Map<string, boolean> = new Map();
 	private _pressedAtMap: Map<string, number> = new Map();
 	private _forceShowIntervaltMap: Map<string, ReturnType<typeof setInterval>> = new Map();

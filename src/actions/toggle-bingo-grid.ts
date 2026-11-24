@@ -8,6 +8,8 @@ import { TwitchatEventMap } from '../TwitchatEventMap';
  */
 @action({ UUID: 'fr.twitchat.action.toggle-bingo-grid' })
 export class ToggleBingoGrid extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		let enabled = undefined;
 		switch (ev.payload.settings.gridAction) {

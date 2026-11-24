@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Remove messages from "Greet them" section</title>
+		<meta charset="utf-8" />
+		<script src="./sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<script src="./dynamicRange.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<sdpi-item label="__MSG_greet-feed-mark-read.fields.readMode__">
+			<sdpi-select setting="readMode" default="count">
+				<option value="count">__MSG_greet-feed-mark-read.mode.count__</option>
+				<option value="all">__MSG_greet-feed-mark-read.mode.all__</option>
+			</sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item class="rangeWithValue" label="__MSG_greet-feed-mark-read.fields.readCount__" data-show-if="readMode=count">
+			<sdpi-range setting="readCount" min="1" max="100" step="1" default="1"></sdpi-range>
+			<span class="rangeValue">0</span>
+		</sdpi-item>
+	</body>
+</html>

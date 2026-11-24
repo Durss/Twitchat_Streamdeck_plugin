@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" version="1.1" viewBox="0 0 144 144">
+  <defs>
+    <style>
+      .st0, .st1 {
+        fill: #c7c7c7;
+      }
+
+      .st1 {
+        opacity: .25;
+      }
+    </style>
+  </defs>
+  <rect class="st1" x="22.26" y="21.72" width="71.3" height="11.16"/>
+  <rect class="st1" x="22.26" y="44.05" width="78.79" height="11.16"/>
+  <rect class="st1" x="22.26" y="66.47" width="55.3" height="11.16"/>
+  <rect class="st1" x="65.87" y="66.42" width="100.57" height="11.16" transform="translate(44.16 188.16) rotate(-90)"/>
+  <rect class="st1" x="22.26" y="88.8" width="69.6" height="11.16"/>
+  <rect class="st1" x="22.26" y="111.12" width="55.3" height="11.16"/>
+  <rect class="st0" x="88.51" y="89.05" width="55.3" height="11.16" rx="5.58" ry="5.58" transform="translate(21.52 210.79) rotate(-90)"/>
+  <polygon class="st0" points="96.44 66.09 68.19 36.11 39.95 66.09 58.46 66.09 58.46 107.89 77.92 107.89 77.92 66.09 96.44 66.09"/>
+</svg>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Toggle a chat option</title>
+		<meta charset="utf-8" />
+		<script src="./sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<sdpi-item label="__MSG_toggle-chat-option.fields.chatOption__">
+			<sdpi-select setting="chatOption" default="merge">
+				<option value="merge">__MSG_toggle-chat-option.option.merge__</option>
+				<option value="censor">__MSG_toggle-chat-option.option.censor__</option>
+				<option value="mod-tools">__MSG_toggle-chat-option.option.mod-tools__</option>
+				<option value="viewers-count">__MSG_toggle-chat-option.option.viewers-count__</option>
+			</sdpi-select>
+		</sdpi-item>
+	</body>
+</html>

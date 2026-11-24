@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Automod</title>
+		<meta charset="utf-8" />
+		<script src="./sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<sdpi-item label="__MSG_automod.fields.automodAction__">
+			<sdpi-select setting="automodAction" default="accept">
+				<option value="accept">__MSG_automod.action.accept__</option>
+				<option value="reject">__MSG_automod.action.reject__</option>
+			</sdpi-select>
+		</sdpi-item>
+	</body>
+</html>

@@ -7,6 +7,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.chat-feed-scroll-down' })
 export class ChatFeedScrollDown extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	/**
 	 * Init action
 	 */
@@ -18,7 +20,6 @@ export class ChatFeedScrollDown extends AbstractAction<Settings> {
 				scrollAmount: 50,
 			});
 		}
-		this.setDeprecatedState(ev.action);
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {

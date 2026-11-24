@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Timer</title>
+		<meta charset="utf-8" />
+		<script src="./sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<sdpi-item label="__MSG_timer.fields.timerId__">
+			<sdpi-select setting="timerId" datasource="getTimersAndCountdowns" loading="__MSG_timer.loading-timers__" hot-reload> </sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item label="__MSG_timer.fields.duration__">
+			<sdpi-textfield setting="timeAdd" pattern="[0-9\-]+" placeholder="0" required> </sdpi-textfield>
+		</sdpi-item>
+	</body>
+</html>

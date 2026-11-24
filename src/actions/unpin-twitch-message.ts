@@ -8,6 +8,8 @@ import { TwitchatEventMap } from '../TwitchatEventMap';
  */
 @action({ UUID: 'fr.twitchat.action.unpin-twitch-message' })
 export class UnpinTwitchMessage extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
 		if (this.getActionState(_ev.action) === 'disabled') {
 			_ev.action.showAlert();

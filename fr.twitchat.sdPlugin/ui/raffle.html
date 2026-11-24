@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Raffle</title>
+		<meta charset="utf-8" />
+		<script src="./sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<sdpi-item label="__MSG_raffle.fields.raffleAction__">
+			<sdpi-select setting="raffleAction" default="toggle">
+				<option value="toggle">__MSG_raffle.action.toggle__</option>
+				<option value="pick-winner">__MSG_raffle.action.pick-winner__</option>
+			</sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item data-show-if="raffleAction=pick-winner">
+			<sdpi-i18n key="raffle.pick-winner-info"></sdpi-i18n>
+		</sdpi-item>
+	</body>
+</html>

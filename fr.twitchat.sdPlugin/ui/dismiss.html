@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Dismiss</title>
+		<meta charset="utf-8" />
+		<script src="./sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<sdpi-item label="__MSG_dismiss.fields.dismissTarget__">
+			<sdpi-select setting="dismissTarget" default="highlight">
+				<option value="highlight">__MSG_dismiss.target.highlight__</option>
+				<option value="alert">__MSG_dismiss.target.alert__</option>
+				<option value="tts">__MSG_dismiss.target.tts__</option>
+				<option value="pinned">__MSG_dismiss.target.pinned__</option>
+			</sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item data-show-if="dismissTarget=alert">
+			<sdpi-i18n key="dismiss.alert-info"></sdpi-i18n>
+		</sdpi-item>
+	</body>
+</html>

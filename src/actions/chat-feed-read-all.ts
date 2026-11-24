@@ -7,6 +7,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.chat-feed-read-all' })
 export class ChatFeedReadAll extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		TwitchatSocket.instance.broadcast('SET_CHAT_FEED_READ_ALL', { colIndex: ev.payload.settings.colIndex || 0 });
 	}

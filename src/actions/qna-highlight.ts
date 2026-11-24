@@ -8,6 +8,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.qna-highlight' })
 export class QnaHighlight extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
 		super.onWillAppear(ev);
 		if (!ev.action.isKey()) return;

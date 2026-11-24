@@ -21,51 +21,17 @@
 			]
 		},
 		{
-			"Name": "Execute a trigger",
-			"UUID": "fr.twitchat.action.execute-trigger",
-			"Icon": "imgs/actions/execute-trigger/icon",
+			"Name": "Execute, enable or disable a trigger",
+			"UUID": "fr.twitchat.action.trigger",
+			"Icon": "imgs/actions/trigger/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/execute-trigger.html",
+			"PropertyInspectorPath": "ui/trigger.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/execute-trigger/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Enable or disable a trigger",
-			"UUID": "fr.twitchat.action.toggle-trigger",
-			"Icon": "imgs/actions/toggle-trigger/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/toggle-trigger.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/toggle-trigger/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Stop any text to speech currently playing",
-			"UUID": "fr.twitchat.action.stop-tts",
-			"Icon": "imgs/actions/stop-tts/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/stop-tts.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/stop-tts/icon",
+					"Image": "imgs/actions/trigger/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
@@ -106,143 +72,52 @@
 			]
 		},
 		{
-			"Name": "Accept last automoded message",
-			"UUID": "fr.twitchat.action.automod-accept",
-			"Icon": "imgs/actions/automod-accept/icon",
+			"Name": "Accept or reject last automoded message",
+			"UUID": "fr.twitchat.action.automod",
+			"Icon": "imgs/actions/automod/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/automod-accept.html",
+			"PropertyInspectorPath": "ui/automod.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/automod-accept/icon",
+					"Image": "imgs/actions/automod/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
 			]
 		},
 		{
-			"Name": "Reject last automoded message",
-			"UUID": "fr.twitchat.action.automod-reject",
-			"Icon": "imgs/actions/automod-reject/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/automod-reject.html",
+			"Name": "Toggle a chat option",
+			"UUID": "fr.twitchat.action.toggle-chat-option",
+			"Icon": "imgs/actions/toggle-chat-option/icon",
+			"Tooltip": "Messages merging, deleted messages censorship, moderation tools or viewers count",
+			"PropertyInspectorPath": "ui/toggle-chat-option.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/automod-reject/icon",
+					"Image": "imgs/actions/toggle-chat-option/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
 			]
 		},
 		{
-			"Name": "Toggle the censorship of deleted messages",
-			"UUID": "fr.twitchat.action.censor-deleted-messages-toggle",
-			"Icon": "imgs/actions/censor-deleted-messages-toggle/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/censor-deleted-messages-toggle.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/censor-deleted-messages-toggle/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Pause/Unpause chat feed",
-			"UUID": "fr.twitchat.action.chat-feed-pause",
-			"Icon": "imgs/actions/chat-feed-pause/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-pause.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/chat-feed-pause/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Mark some messages as read",
-			"UUID": "fr.twitchat.action.chat-feed-read",
-			"Icon": "imgs/actions/chat-feed-read/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-read.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/chat-feed-read/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Mark all messages as read",
-			"UUID": "fr.twitchat.action.chat-feed-read-all",
-			"Icon": "imgs/actions/chat-feed-read-all/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-read-all.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/chat-feed-read-all/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Move read marker",
-			"UUID": "fr.twitchat.action.chat-feed-read-encoder",
-			"Icon": "imgs/actions/chat-feed-read-encoder/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-read-encoder.html",
-			"Controllers": [
-				"Encoder"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/chat-feed-read-encoder/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			],
-			"Encoder": {
-				"layout": "$X1",
-				"TriggerDescription": {
-					"Rotate": "Move read marker"
-				}
-			}
-		},
-		{
-			"Name": "Scroll a chat column",
-			"UUID": "fr.twitchat.action.chat-feed-scroll",
-			"Icon": "imgs/actions/chat-feed-scroll/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/chat-feed-scroll.html",
+			"Name": "Control a chat column",
+			"UUID": "fr.twitchat.action.chat-feed-control",
+			"Icon": "imgs/actions/chat-feed-control/icon",
+			"Tooltip": "Pause/unpause, scroll or mark messages as read",
+			"PropertyInspectorPath": "ui/chat-feed-control.html",
 			"Controllers": [
 				"Encoder",
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/chat-feed-scroll/icon",
+					"Image": "imgs/actions/chat-feed-control/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
@@ -250,7 +125,9 @@
 			"Encoder": {
 				"layout": "$X1",
 				"TriggerDescription": {
-					"Rotate": "Scroll chat"
+					"Rotate": "Scroll / Move read marker",
+					"Push": "Scroll to bottom / Mark all as read",
+					"Touch": "Scroll to bottom / Mark all as read"
 				}
 			}
 		},
@@ -278,17 +155,17 @@
 			}
 		},
 		{
-			"Name": "Close currently highlighted message",
-			"UUID": "fr.twitchat.action.clear-chat-highlight",
-			"Icon": "imgs/actions/clear-chat-highlight/icon",
+			"Name": "Dismiss highlight, alert, TTS or pinned message",
+			"UUID": "fr.twitchat.action.dismiss",
+			"Icon": "imgs/actions/dismiss/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/clear-chat-highlight.html",
+			"PropertyInspectorPath": "ui/dismiss.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/clear-chat-highlight/icon",
+					"Image": "imgs/actions/dismiss/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
@@ -312,34 +189,17 @@
 			]
 		},
 		{
-			"Name": "Add or remove time on a countdown",
-			"UUID": "fr.twitchat.action.countdown-add",
-			"Icon": "imgs/actions/countdown-add/icon",
+			"Name": "Add or remove time on a timer or countdown",
+			"UUID": "fr.twitchat.action.timer",
+			"Icon": "imgs/actions/timer/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/countdown-add.html",
+			"PropertyInspectorPath": "ui/timer.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/countdown-add/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Add or remove time on a timer",
-			"UUID": "fr.twitchat.action.timer-add",
-			"Icon": "imgs/actions/timer-add/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/timer-add.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/timer-add/icon",
+					"Image": "imgs/actions/timer/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
@@ -363,221 +223,68 @@
 			]
 		},
 		{
-			"Name": "Remove some messages from \"Greet Them\" section",
-			"UUID": "fr.twitchat.action.greet-feed-read",
-			"Icon": "imgs/actions/greet-feed-read/icon",
+			"Name": "Remove messages from \"Greet them\" section",
+			"UUID": "fr.twitchat.action.greet-feed-mark-read",
+			"Icon": "imgs/actions/greet-feed-mark-read/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/greet-feed-read.html",
+			"PropertyInspectorPath": "ui/greet-feed-mark-read.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/greet-feed-read/icon",
+					"Image": "imgs/actions/greet-feed-mark-read/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
 			]
 		},
 		{
-			"Name": "Clear 'Greet them' section",
-			"UUID": "fr.twitchat.action.greet-feed-read-all",
-			"Icon": "imgs/actions/greet-feed-read-all/icon",
+			"Name": "Show/Hide current poll, prediction or bingo",
+			"UUID": "fr.twitchat.action.toggle-activity",
+			"Icon": "imgs/actions/toggle-activity/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/greet-feed-read-all.html",
+			"PropertyInspectorPath": "ui/toggle-activity.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/greet-feed-read-all/icon",
+					"Image": "imgs/actions/toggle-activity/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
 			]
 		},
 		{
-			"Name": "Hide current !alert message",
-			"UUID": "fr.twitchat.action.hide-alert",
-			"Icon": "imgs/actions/hide-alert/icon",
+			"Name": "Highlight or skip top-most Q&A entry",
+			"UUID": "fr.twitchat.action.qna",
+			"Icon": "imgs/actions/qna/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/hide-alert.html",
+			"PropertyInspectorPath": "ui/qna.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/hide-alert/icon",
+					"Image": "imgs/actions/qna/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
 			]
 		},
 		{
-			"Name": "Toggle merging of consecutive messages",
-			"UUID": "fr.twitchat.action.merge-toggle",
-			"Icon": "imgs/actions/merge-toggle/icon",
+			"Name": "Show/Hide current raffle or pick a winner",
+			"UUID": "fr.twitchat.action.raffle",
+			"Icon": "imgs/actions/raffle/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/merge-toggle.html",
+			"PropertyInspectorPath": "ui/raffle.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/merge-toggle/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Toggle moderation tools display",
-			"UUID": "fr.twitchat.action.mod-tools-toggle",
-			"Icon": "imgs/actions/mod-tools-toggle/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/mod-tools-toggle.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/mod-tools-toggle/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Toggle current poll state",
-			"UUID": "fr.twitchat.action.poll-toggle",
-			"Icon": "imgs/actions/poll-toggle/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/poll-toggle.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/poll-toggle/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Toggle current prediction state",
-			"UUID": "fr.twitchat.action.prediction-toggle",
-			"Icon": "imgs/actions/prediction-toggle/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/prediction-toggle.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/prediction-toggle/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Toggle current bingo state",
-			"UUID": "fr.twitchat.action.bingo-toggle",
-			"Icon": "imgs/actions/bingo-toggle/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/bingo-toggle.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/bingo-toggle/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Highlight top-most Q&A entry",
-			"UUID": "fr.twitchat.action.qna-highlight",
-			"Icon": "imgs/actions/qna-highlight/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/qna-highlight.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/qna-highlight/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Skip top-most Q&A entry",
-			"UUID": "fr.twitchat.action.qna-skip",
-			"Icon": "imgs/actions/qna-skip/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/qna-skip.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/qna-skip/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Pick a raffle winner",
-			"UUID": "fr.twitchat.action.raffle-pick-winner",
-			"Icon": "imgs/actions/raffle-pick-winner/icon",
-			"Tooltip": "Acts on the first raffle started currently running",
-			"PropertyInspectorPath": "ui/raffle-pick-winner.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/raffle-pick-winner/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Toggle current raffle state",
-			"UUID": "fr.twitchat.action.raffle-toggle",
-			"Icon": "imgs/actions/raffle-toggle/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/raffle-toggle.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/raffle-toggle/icon",
-					"TitleAlignment": "bottom",
-					"FontSize": 10
-				}
-			]
-		},
-		{
-			"Name": "Toggle viewers count display",
-			"UUID": "fr.twitchat.action.viewers-count-toggle",
-			"Icon": "imgs/actions/viewers-count-toggle/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/viewers-count-toggle.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/viewers-count-toggle/icon",
+					"Image": "imgs/actions/raffle/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
@@ -601,33 +308,17 @@
 			]
 		},
 		{
-			"Name": "Enable/Disable a bingo grid",
-			"UUID": "fr.twitchat.action.toggle-bingo-grid",
-			"Icon": "imgs/actions/toggle-bingo-grid/icon",
+			"Name": "Enable/Disable a bingo grid or show/hide it",
+			"UUID": "fr.twitchat.action.bingo-grid",
+			"Icon": "imgs/actions/bingo-grid/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/toggle-bingo-grid.html",
+			"PropertyInspectorPath": "ui/bingo-grid.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/toggle-bingo-grid/icon",
-					"TitleAlignment": "bottom"
-				}
-			]
-		},
-		{
-			"Name": "Show/Hide the bingo grid overlay",
-			"UUID": "fr.twitchat.action.show-bingo-grid",
-			"Icon": "imgs/actions/show-bingo-grid/icon",
-			"Tooltip": "",
-			"PropertyInspectorPath": "ui/show-bingo-grid.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/show-bingo-grid/icon",
+					"Image": "imgs/actions/bingo-grid/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
 				}
@@ -647,6 +338,55 @@
 					"Image": "imgs/actions/quiz/icon",
 					"TitleAlignment": "bottom",
 					"FontSize": 10
+				}
+			]
+		},
+		{
+			"Name": "Toggle Clickable Area",
+			"UUID": "fr.twitchat.action.toggle-area",
+			"Icon": "imgs/actions/toggle-area/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/toggle-area.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/toggle-area/icon",
+					"TitleAlignment": "bottom"
+				}
+			]
+		},
+		{
+			"Name": "Validate or reject a prompt window",
+			"UUID": "fr.twitchat.action.prompt",
+			"Icon": "imgs/actions/prompt/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/prompt.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/prompt/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"Name": "Bid War update",
+			"UUID": "fr.twitchat.action.bid-war-update",
+			"Icon": "imgs/actions/bid-war-update/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/bid-war-update.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/bid-war-update/icon",
+					"TitleAlignment": "bottom"
 				}
 			]
 		},
@@ -746,6 +486,265 @@
 			]
 		},
 		{
+			"VisibleInActionsList": false,
+			"Name": "Execute a trigger",
+			"UUID": "fr.twitchat.action.execute-trigger",
+			"Icon": "imgs/actions/execute-trigger/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/execute-trigger.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/execute-trigger/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Enable or disable a trigger",
+			"UUID": "fr.twitchat.action.toggle-trigger",
+			"Icon": "imgs/actions/toggle-trigger/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/toggle-trigger.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/toggle-trigger/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Accept last automoded message",
+			"UUID": "fr.twitchat.action.automod-accept",
+			"Icon": "imgs/actions/automod-accept/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/automod-accept.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/automod-accept/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Reject last automoded message",
+			"UUID": "fr.twitchat.action.automod-reject",
+			"Icon": "imgs/actions/automod-reject/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/automod-reject.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/automod-reject/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Toggle merging of consecutive messages",
+			"UUID": "fr.twitchat.action.merge-toggle",
+			"Icon": "imgs/actions/merge-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/merge-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/merge-toggle/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Toggle the censorship of deleted messages",
+			"UUID": "fr.twitchat.action.censor-deleted-messages-toggle",
+			"Icon": "imgs/actions/censor-deleted-messages-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/censor-deleted-messages-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/censor-deleted-messages-toggle/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Toggle moderation tools display",
+			"UUID": "fr.twitchat.action.mod-tools-toggle",
+			"Icon": "imgs/actions/mod-tools-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/mod-tools-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/mod-tools-toggle/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Toggle viewers count display",
+			"UUID": "fr.twitchat.action.viewers-count-toggle",
+			"Icon": "imgs/actions/viewers-count-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/viewers-count-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/viewers-count-toggle/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Mark some messages as read",
+			"UUID": "fr.twitchat.action.chat-feed-read",
+			"Icon": "imgs/actions/chat-feed-read/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-read.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-read/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Mark all messages as read",
+			"UUID": "fr.twitchat.action.chat-feed-read-all",
+			"Icon": "imgs/actions/chat-feed-read-all/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-read-all.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-read-all/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Move read marker",
+			"UUID": "fr.twitchat.action.chat-feed-read-encoder",
+			"Icon": "imgs/actions/chat-feed-read-encoder/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-read-encoder.html",
+			"Controllers": [
+				"Encoder"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-read-encoder/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			],
+			"Encoder": {
+				"layout": "$X1",
+				"TriggerDescription": {
+					"Rotate": "Move read marker"
+				}
+			}
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Close currently highlighted message",
+			"UUID": "fr.twitchat.action.clear-chat-highlight",
+			"Icon": "imgs/actions/clear-chat-highlight/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/clear-chat-highlight.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/clear-chat-highlight/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Hide current !alert message",
+			"UUID": "fr.twitchat.action.hide-alert",
+			"Icon": "imgs/actions/hide-alert/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/hide-alert.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/hide-alert/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Stop any text to speech currently playing",
+			"UUID": "fr.twitchat.action.stop-tts",
+			"Icon": "imgs/actions/stop-tts/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/stop-tts.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/stop-tts/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
 			"Name": "Unpin Twitch message",
 			"UUID": "fr.twitchat.action.unpin-twitch-message",
 			"Icon": "imgs/actions/unpin-twitch-message/icon",
@@ -762,22 +761,240 @@
 			]
 		},
 		{
-			"Name": "Toggle Clickable Area",
-			"UUID": "fr.twitchat.action.toggle-area",
-			"Icon": "imgs/actions/toggle-area/icon",
+			"VisibleInActionsList": false,
+			"Name": "Add or remove time on a timer",
+			"UUID": "fr.twitchat.action.timer-add",
+			"Icon": "imgs/actions/timer-add/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/toggle-area.html",
+			"PropertyInspectorPath": "ui/timer-add.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/toggle-area/icon",
+					"Image": "imgs/actions/timer-add/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Add or remove time on a countdown",
+			"UUID": "fr.twitchat.action.countdown-add",
+			"Icon": "imgs/actions/countdown-add/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/countdown-add.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/countdown-add/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Remove some messages from \"Greet Them\" section",
+			"UUID": "fr.twitchat.action.greet-feed-read",
+			"Icon": "imgs/actions/greet-feed-read/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/greet-feed-read.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/greet-feed-read/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Clear 'Greet them' section",
+			"UUID": "fr.twitchat.action.greet-feed-read-all",
+			"Icon": "imgs/actions/greet-feed-read-all/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/greet-feed-read-all.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/greet-feed-read-all/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Toggle current poll state",
+			"UUID": "fr.twitchat.action.poll-toggle",
+			"Icon": "imgs/actions/poll-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/poll-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/poll-toggle/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Toggle current prediction state",
+			"UUID": "fr.twitchat.action.prediction-toggle",
+			"Icon": "imgs/actions/prediction-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/prediction-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/prediction-toggle/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Toggle current bingo state",
+			"UUID": "fr.twitchat.action.bingo-toggle",
+			"Icon": "imgs/actions/bingo-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/bingo-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/bingo-toggle/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Highlight top-most Q&A entry",
+			"UUID": "fr.twitchat.action.qna-highlight",
+			"Icon": "imgs/actions/qna-highlight/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/qna-highlight.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/qna-highlight/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Skip top-most Q&A entry",
+			"UUID": "fr.twitchat.action.qna-skip",
+			"Icon": "imgs/actions/qna-skip/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/qna-skip.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/qna-skip/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Toggle current raffle state",
+			"UUID": "fr.twitchat.action.raffle-toggle",
+			"Icon": "imgs/actions/raffle-toggle/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/raffle-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/raffle-toggle/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Pick a raffle winner",
+			"UUID": "fr.twitchat.action.raffle-pick-winner",
+			"Icon": "imgs/actions/raffle-pick-winner/icon",
+			"Tooltip": "Acts on the first raffle started currently running",
+			"PropertyInspectorPath": "ui/raffle-pick-winner.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/raffle-pick-winner/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Enable/Disable a bingo grid",
+			"UUID": "fr.twitchat.action.toggle-bingo-grid",
+			"Icon": "imgs/actions/toggle-bingo-grid/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/toggle-bingo-grid.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/toggle-bingo-grid/icon",
 					"TitleAlignment": "bottom"
 				}
 			]
 		},
 		{
+			"VisibleInActionsList": false,
+			"Name": "Show/Hide the bingo grid overlay",
+			"UUID": "fr.twitchat.action.show-bingo-grid",
+			"Icon": "imgs/actions/show-bingo-grid/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/show-bingo-grid.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/show-bingo-grid/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			]
+		},
+		{
+			"VisibleInActionsList": false,
 			"Name": "Validate a prompt window",
 			"UUID": "fr.twitchat.action.prompt-accept",
 			"Icon": "imgs/actions/prompt-accept/icon",
@@ -794,6 +1011,7 @@
 			]
 		},
 		{
+			"VisibleInActionsList": false,
 			"Name": "Reject a prompt window",
 			"UUID": "fr.twitchat.action.prompt-reject",
 			"Icon": "imgs/actions/prompt-reject/icon",
@@ -810,20 +1028,47 @@
 			]
 		},
 		{
-			"Name": "Bid War update",
-			"UUID": "fr.twitchat.action.bid-war-update",
-			"Icon": "imgs/actions/bid-war-update/icon",
+			"VisibleInActionsList": false,
+			"Name": "Pause/Unpause chat feed",
+			"UUID": "fr.twitchat.action.chat-feed-pause",
+			"Icon": "imgs/actions/chat-feed-pause/icon",
 			"Tooltip": "",
-			"PropertyInspectorPath": "ui/bid-war-update.html",
+			"PropertyInspectorPath": "ui/chat-feed-pause.html",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/bid-war-update/icon",
-					"TitleAlignment": "bottom"
+					"Image": "imgs/actions/chat-feed-pause/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
 				}
 			]
+		},
+		{
+			"VisibleInActionsList": false,
+			"Name": "Scroll a chat column",
+			"UUID": "fr.twitchat.action.chat-feed-scroll",
+			"Icon": "imgs/actions/chat-feed-scroll/icon",
+			"Tooltip": "",
+			"PropertyInspectorPath": "ui/chat-feed-scroll.html",
+			"Controllers": [
+				"Encoder",
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/chat-feed-scroll/icon",
+					"TitleAlignment": "bottom",
+					"FontSize": 10
+				}
+			],
+			"Encoder": {
+				"layout": "$X1",
+				"TriggerDescription": {
+					"Rotate": "Scroll chat"
+				}
+			}
 		}
 	],
 	"Category": "Twitchat",

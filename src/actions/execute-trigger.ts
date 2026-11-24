@@ -8,6 +8,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.execute-trigger' })
 export class ExecuteTrigger extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override async onKeyDown(ev: KeyDownEvent<Settings>): Promise<void> {
 		if (this.getActionState(ev.action) === 'error' || this.getActionState(ev.action) === 'disabled') {
 			ev.action.showAlert();

@@ -8,6 +8,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.raffle-toggle' })
 export class RaffleToggle extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
 		if (this.getActionState(_ev.action) === 'disabled') {
 			_ev.action.showAlert();

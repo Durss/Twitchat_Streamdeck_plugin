@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Control a chat column</title>
+		<meta charset="utf-8" />
+		<script src="./sdpi-components.js"></script>
+		<script type="module" src="./common.js"></script>
+		<script src="./locale.js"></script>
+		<script src="./dynamicRange.js"></script>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<sdpi-item label="__MSG_global.col-index__">
+			<sdpi-select setting="colIndex" datasource="getColumns" loading="__MSG_global.loading-columns__" hot-reload> </sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item label="__MSG_chat-feed-control.fields.chatAction__">
+			<sdpi-select setting="chatAction">
+				<option value="pause" data-controller="Keypad">__MSG_chat-feed-control.action.pause__</option>
+				<option value="scroll">__MSG_chat-feed-control.action.scroll__</option>
+				<option value="read">__MSG_chat-feed-control.action.read__</option>
+			</sdpi-select>
+		</sdpi-item>
+
+		<div data-controller="Keypad">
+			<sdpi-item class="rangeWithValue" label="__MSG_chat-feed-control.fields.scrollAmount__" data-show-if="chatAction=scroll">
+				<sdpi-range setting="scrollAmount" min="-1000" max="1000" step="50" default="-150" showlabels>
+					<span slot="min">🡹</span>
+					<span slot="max">🡻</span>
+				</sdpi-range>
+				<span class="rangeValue" data-suffix="px">0</span>
+			</sdpi-item>
+
+			<div data-show-if="chatAction=read">
+				<sdpi-item label="__MSG_chat-feed-control.fields.readMode__">
+					<sdpi-select setting="readMode" default="count">
+						<option value="count">__MSG_chat-feed-control.mode.count__</option>
+						<option value="all">__MSG_chat-feed-control.mode.all__</option>
+					</sdpi-select>
+				</sdpi-item>
+
+				<sdpi-item class="rangeWithValue" label="__MSG_chat-feed-control.fields.readCount__" data-show-if="readMode=count">
+					<sdpi-range setting="readCount" min="-20" max="20" step="1" default="1"></sdpi-range>
+					<span class="rangeValue">0</span>
+				</sdpi-item>
+			</div>
+		</div>
+
+		<div data-controller="Encoder">
+			<sdpi-item data-show-if="chatAction=scroll">
+				<sdpi-i18n key="chat-feed-control.encoder.scroll"></sdpi-i18n>
+			</sdpi-item>
+			<sdpi-item data-show-if="chatAction=read">
+				<sdpi-i18n key="chat-feed-control.encoder.read"></sdpi-i18n>
+			</sdpi-item>
+		</div>
+	</body>
+</html>

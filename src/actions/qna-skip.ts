@@ -8,6 +8,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.qna-skip' })
 export class QnaSkip extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override onWillAppear(ev: WillAppearEvent<Settings>): void {
 		super.onWillAppear(ev);
 		if (!ev.action.isKey()) return;

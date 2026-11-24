@@ -7,6 +7,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.greet-feed-read-all' })
 export class GreetFeedReadAll extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	override async onKeyDown(_ev: KeyDownEvent<Settings>): Promise<void> {
 		TwitchatSocket.instance.broadcast('SET_GREET_FEED_READ_ALL');
 	}

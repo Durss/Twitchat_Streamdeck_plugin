@@ -7,6 +7,8 @@ import { AbstractAction } from './AbstractActions';
  */
 @action({ UUID: 'fr.twitchat.action.greet-feed-read' })
 export class GreetFeedRead extends AbstractAction<Settings> {
+	protected override readonly deprecated = true;
+
 	/**
 	 * Init action
 	 */
